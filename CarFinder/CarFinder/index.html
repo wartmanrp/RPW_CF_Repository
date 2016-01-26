@@ -1,0 +1,600 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <title>CarFinder | Powers Wartman</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Powers Wartman">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="assets/plugins/line-icons/line-icons.css">
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/plugins/flexslider/flexslider.css">
+    <link rel="stylesheet" href="assets/plugins/layer_slider/css/layerslider.css">
+
+    <!-- CSS Page Style -->
+    <link rel="stylesheet" href="assets/css/pages/page_job.css">
+
+    <!-- CSS Theme -->
+    <link rel="stylesheet" href="assets/css/themes/default.css" id="style_color">
+
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="assets/css/custom.css">
+</head>
+
+<body class="boxed-layout container">
+    <div id="start" ng-class="container" ng-app="CarFinderApp">
+        <div ng-controller="CarFinderAppController">
+            <div class="wrapper">
+
+                <!--=== Header ===-->
+                <div class="header">
+                    <!-- Topbar -->
+                    <div class="topbar">
+                        <div class="container">
+                            <!-- Topbar Navigation -->
+                            <ul class="loginbar pull-right">
+
+                                <!--<li><a href="https://support.google.com/chrome/?hl=en#topic=3227046">Help</a></li> -->
+
+                            </ul>
+                            <!-- End Topbar Navigation -->
+                        </div>
+                    </div>
+                    <!-- End Topbar -->
+                    <!-- Navbar -->
+                    <div class="navbar navbar-default" role="navigation">
+                        <div class="container">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="fa fa-bars"></span>
+                                </button>
+                                <a class="navbar-brand" href="http://rpwartman.azurewebsites.net/index.html">
+                                    <img id="logo-header" src="assets/img/site logo-sm.png" alt="Logo">
+                                </a>
+                            </div>
+
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="navbar-collapse navbar-responsive-collapse">
+                                <ul class="nav navbar-nav">
+                                    <!-- Home -->
+                                    <li class="">
+                                        <a href="http://rpwartman.azurewebsites.net/index.html" class="">Home</a>
+                                    </li>
+                                    <!-- End Home -->
+                                    <!-- About -->
+                                    <li class="">
+                                        <a href="http://rpwartman.azurewebsites.net/about.html" class="">About</a>
+                                    </li>
+                                    <!-- End About-->
+                                    <!-- Resume -->
+                                    <li class="">
+                                        <a href="http://rpwartman.azurewebsites.net/Resume.html" class="">Resume</a>
+                                    </li>
+                                    <!-- End Resume -->
+                                    <!-- Portfolio -->
+                                    <li class="">
+                                        <a href="http://rpwartman.azurewebsites.net/portfolio.html" class="">Portfolio</a>
+                                    </li>
+                                    <!-- End Portfolio -->
+                                    <!-- Blog -->
+                                    <!--               <li class="">
+                                               <a href="blog.html" class="">Blog</a>
+                                           </li>
+                                           <!-- End Blog -->
+                                    <!-- Contact -->
+                                    <li class="">
+                                        <a href="http://rpwartman.azurewebsites.net/contact.html" class="">Contact</a>
+                                    </li>
+                                    <!-- End Contacts -->
+                                    <!-- Search Block -->
+                                    <!--   <li>
+                                        <i class="search fa fa-search search-btn"></i>
+                                        <div class="search-open">
+                                            <div class="input-group animated fadeInDown">
+                                                <input type="text" class="form-control" placeholder="Search">
+                                                <span class="input-group-btn">
+                                                    <button class="btn-u" type="button">Go</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- End Search Block -->
+                                </ul>
+                            </div><!--/navbar-collapse-->
+                        </div>
+                    </div>
+                    <!-- End Navbar -->
+                </div>
+                <!--=== End Header ===-->
+
+                <!--=== Breadcrumbs ===-->
+                <div class="breadcrumbs">
+                    <div class="container">
+                        <h1 class="pull-left">Car Search</h1>
+                        <ul class="pull-right breadcrumb">
+                            <li><a href="http://rpwartman.azurewebsites.net/index.html">Home</a></li>
+                            <li><a href="http://rpwartman.azurewebsites.net/portfolio.html">Portfolio</a></li>
+                            <li class="active">Car Search</li>
+                        </ul>
+                    </div>
+                </div><!--/breadcrumbs-->
+                <!--=== End Breadcrumbs ===-->
+
+                <!--=== Slider ===-->
+                <div class="layer_slider">
+                    <div id="layerslider-container-fw">
+                        <div id="layerslider" style="width: 100%; height: 500px; margin: 0px auto; ">
+                            <!--First Slide-->
+                            <div class="ls-layer" style="slidedirection: right; transition2d: 24,25,27,28; ">
+                                <img src="assets/img/carfinder slider/slide1.jpg" class="ls-bg" alt="Slide background">
+                                <span class="ls-s-1" text-responsive style=" text-transform: uppercase; line-height: 45px; font-size:35px; color:#fff; background:#e74c3c; top:200px; right: 500px; slidedirection : top; slideoutdirection : top; durationin : 3500; durationout : 3500; ">
+                                    Hunting for a car? <br> You're in the right place.
+                                </span>
+                                <a class="btn-u btn-u-red ls-s1" href="#yearSelection" style=" padding: 9px 20px; font-size:25px; top:340px; left: 210px; slidedirection : bottom; slideoutdirection : top; durationin : 3500; durationout : 3550; ">
+                                    Get Started
+                                </a>
+                            </div>
+                            <!--End First Slide-->
+                            <!--Second Slide-->
+                            <div class="ls-layer" style="slidedirection: top; ">
+                                <img src="assets/img/carfinder slider/slide2.jpg" class="ls-bg" alt="Slide background">
+                                <i class="fa fa-chevron-circle-right ls-s-1" style=" color: #e74c3c; font-size: 24px; top:70px; left: 40px; slidedirection : left; slideoutdirection : top; durationin : 1500; durationout : 500; "></i>
+                                <span class="ls-s-2" style=" color: #fff; background:#e74c3c; font-weight: 200; font-size: 22px; top:70px; left: 70px; slidedirection : top; slideoutdirection : bottom; durationin : 1500; durationout : 500; ">
+                                    Explore thousands of cars
+                                </span>
+                                <i class="fa fa-chevron-circle-right ls-s-1" style=" color: #e32f1c; font-size: 24px; top:120px; left: 40px; slidedirection : left; slideoutdirection : top; durationin : 2500; durationout : 1500; "></i>
+                                <span class="ls-s-2" style=" color: #fff; background:#e32f1c; font-weight: 200; font-size: 22px; top:120px; left: 70px; slidedirection : top; slideoutdirection : bottom; durationin : 2500; durationout : 1500; ">
+                                    Search by year, make or model
+                                </span>
+                                <i class="fa fa-chevron-circle-right ls-s-1" style=" color: #b62616; font-size: 24px; top:170px; left: 40px; slidedirection : left; slideoutdirection : top; durationin : 3500; durationout : 3500; "></i>
+                                <span class="ls-s-2" style=" color: #fff; background:#b62616; font-weight: 200; font-size: 22px; top:170px; left: 70px; slidedirection : top; slideoutdirection : bottom; durationin : 3500; durationout : 2500; ">
+                                    60000+ to choose from
+                                </span>
+                                <i class="fa fa-chevron-circle-right ls-s-1" style=" color: #881d11; font-size: 24px; top:220px; left: 40px; slidedirection : left; slideoutdirection : top; durationin : 4500; durationout : 3500; "></i>
+                                <span class="ls-s-2" style=" color: #fff; background:#881d11; font-weight: 200; font-size: 22px; top:220px; left: 70px; slidedirection : top; slideoutdirection : bottom; durationin : 4500; durationout : 3500; ">
+                                    View pictures and info about your favorites
+                                </span>
+                                <i class="fa fa-chevron-circle-right ls-s-1" style=" color: #5b130b; font-size: 24px; top:270px; left: 40px; slidedirection : left; slideoutdirection : top; durationin : 5500; durationout : 4500; "></i>
+                                <span class="ls-s-2" style=" color: #fff; background:#5b130b; font-weight: 200; font-size: 22px; top:270px; left: 70px; slidedirection : top; slideoutdirection : bottom; durationin : 5500; durationout : 4500; ">
+                                    Get valuable recall information from NHTSA database
+                                </span>
+                                <a class="btn-u btn-u-red ls-s1" href="#yearSelection" style=" padding: 9px 20px; font-size:25px; top:340px; left: 40px; slidedirection : bottom; slideoutdirection : bottom; durationin : 6500; durationout : 3500; ">
+                                    Start Exploring
+                                </a>
+                            </div>
+                            <!--End Second Slide-->
+                            <!--Third Slide-->
+                            <div class="ls-layer" style="slidedirection: right; transition2d: 92,93,105; ">
+                                <img src="assets/img/carfinder slider/slide3.jpg" class="ls-bg" alt="Slide background">
+                                <span class="ls-s-1" style=" color: #777; line-height:45px; font-weight: 200; font-size: 35px; top:100px; left: 50px; slidedirection : top; slideoutdirection : bottom; durationin : 1000; durationout : 1000; ">
+                                   From old classics <br> To modern super cars
+                                </span>
+                                <a class="btn-u btn-u-red ls-s-1" href="#yearSelection" style=" padding: 9px 20px; font-size:25px; top:220px; left: 50px; slidedirection : bottom; slideoutdirection : bottom; durationin : 2000; durationout : 2000; ">
+                                    Jump right in
+                                </a>
+                            </div>
+                            <!--End Third Slide-->
+                        </div>
+                    </div>
+                </div><!--/layer_slider-->
+                <!--=== End Slider ===-->
+
+                <!--=== Car Parameters Block ===-->
+                <div class="purchase">
+                    <div class="container">
+                        <div class="row">
+                            <div class="row" style="margin: 19px">
+
+                                <div class="col-md-3">
+                                    <select id="yearSelection" class="form-control" ng-model="selectedYear" ng-options="year for year in years" ng-change="getMakes()">
+                                    <option value="">Select Year</option>
+                                    </select>
+                                    
+                                </div>
+
+                                <div class="col-md-3">
+                                    <select id="makeSelection" class="form-control" ng-model="selectedMake" ng-disabled="makes == null" ng-options="make for make in makes" ng-change="getModels()">
+                                        <option value="">Select Make</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <select id="modelSelection" class="form-control" ng-model="selectedModel" ng-disabled="models == null" ng-options="model for model in models" ng-change="getTrims()">
+                                        <option value="">Select Model</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <select id="trimSelection" class="form-control" ng-model="selectedTrim" ng-disabled="trims == null" ng-options="trim for trim in trims" ng-change="getCar()">
+                                        <option value="">Select Trim</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!--/row-->
+                <!-- End Car Parameters Block -->
+
+                <!--DIV for CarData -->
+                <div id="carInfo" ng-show="carData != null" class="container content">
+                    <div class="funny-boxes funny-boxes-colored funny-boxes-grey">
+                        <div class="row text-center">
+                            <h2><a href="#">{{carData.car.model_year}} | {{carData.car.make | uppercase}} | {{carData.car.model_name}}</a></h2>
+                        </div>
+                        <div class="row">                            
+                                <div class="col-md-6 margin-bottom-10 container content" ng-hide="carData.imageURLs == null">
+                                    <uib-carousel interval="slideInterval" no-wrap="wrapSlides">
+                                        <uib-slide ng-repeat="url in carData.imageURLs">
+                                            <img class="img-responsive" ng-src="{{url}}" style="max-height:400px; min-height:300px; margin:0 auto;    "/>
+                                        </uib-slide>
+                                    </uib-carousel>
+                           
+                                    <ul class="list-unstyled text-highlights-red rounded text-center">
+                                        <li><i class="fa fa-road"></i> {{carData.car.make | uppercase}}</li>
+                                        <li><i class="fa fa-trophy"></i> {{carData.car.model_name}}</li>
+                                    </ul>
+                            </div>
+                            <div class="col-md-6">                                
+                                <h4>
+                                    <br />
+                                    <div class="row" ng-show="carData.car.model_trim != '' || null">
+                                        <div class="col-sm-3 text-primary">Trim:</div>
+                                        <div class="col-sm-9">{{carData.car.model_trim}}</div><br />
+                                        <br />
+                                    </div>
+
+                                    <div class="row" ng-show="carData.car.body_style != '' || null">
+                                        <div class="col-sm-3 text-primary">Body Style:</div>
+                                        <div class="col-sm-9">{{carData.car.body_style}}</div><br />
+                                        <br />
+                                    </div>
+
+                                    <div class="row" ng-show="carData.car.seats != '' || null">
+                                        <div class="col-sm-3 text-primary">Seats:</div>
+                                        <div class="col-sm-9">{{carData.car.seats}}</div><br />
+                                        <br />
+                                    </div>
+
+                                    <div class="row" ng-show="carData.car.doors != '' || null">
+                                        <div class="col-sm-3 text-primary">Doors:</div>
+                                        <div class="col-sm-9">{{carData.car.doors}}</div><br />
+                                        <br />
+                                    </div>
+
+                                    <div class="row" ng-show="carData.car.engine_cc != '' || null">
+                                        <div class="col-sm-3 text-primary">Engine CC:</div>
+                                        <div class="col-sm-9">{{carData.car.engine_cc}}</div><br />
+                                        <br />
+                                    </div>
+
+                                    <div class="row" ng-show="carData.car.Horsepower != '' || null">
+                                        <div class="col-sm-3 text-primary">Horsepower:</div>
+                                        <div class="col-sm-9">{{carData.car.engine_power_ps}}</div><br />
+                                        <br />
+                                    </div>
+
+                                    <div class="row" ng-show="carData.car.drive_type != '' || null">
+                                        <div class="col-sm-3 text-primary">Drive:</div>
+                                        <div class="col-sm-9">{{carData.car.drive_type}}</div><br />
+                                        <br />
+                                    </div>
+
+                                    <div class="row" ng-show="carData.car.transmission_type != '' || null">
+                                        <div class="col-sm-3 text-primary">Transmission:</div>
+                                        <div class="col-sm-9">{{carData.car.transmission_type}}</div><br />
+                                        <br />
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 text-right">
+                                            <br />
+                                            <a href="https://en.wikipedia.org/wiki/?search={{carData.car.make}}+{{carData.car.model_name}}" target="_blank" class="btn-u btn-u-dark">Learn more</a><br />
+                                        </div>
+                                        <div class="col-sm-9">
+
+                                        </div>
+                                    </div> 
+                                </h4>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+                <!--End CarData-->
+
+                <!--Recalls Information-->
+                <div class="panel panel-default" ng-show="carData.recalls.Count> 0">
+                    <div class="panel-heading bg-red">
+                        <h3 class="panel-title">
+                            <a href="" ng-click="isCollapsed = !isCollapsed">
+                                <span class="white bold">"View Recalls&nbsp;&nbsp;({{carData.recalls.Count}})</span>
+                            </a>
+                        </h3>
+                    </div>
+                    <div uib-collapse="isCollapsed">
+                        <div class="panel-body">
+                            <div class="row container content" ng-show="true">
+                                <div class="col-md-3">
+                                    <div class="bg-light">
+                                        <div class="alert alert-warning fade in text-center">
+                                            <h4>Recall Alert!</h4>
+                                            <p>There appears to be federal recalls on one or many of your selected cars components. 
+                                            Please click the following links to get more information from the NHTSA website or find 
+                                            a repair shop near you.</p>
+                                            <p>
+                                                <a class="btn-u btn-u btn-u-red" href="http://www-odi.nhtsa.dot.gov/recalls/RecallSearch.cfm" target="_blank">NHTSA Lookup</a><br />
+                                                <br /> 
+                                                <a class="btn-u btn-u btn-u-sea" href="http://maps.google.com/?q={{carData.car.make}}+dealer+repair+near+me" target="_blank">Find a Repair Shop</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-9" ng-show="true">
+                                    <div class="bg-light" ng-repeat="recall in carData.recalls.Results">
+                                        <div class="row" ng-show="recall.Manufacturer != '' || null">
+                                            <div class="col-sm-3 text-primary">Manufacturer:</div>
+                                            <div class="col-sm-9 text-left">{{recall.Manufacturer}}</div><br />
+                                            <br />
+                                        </div>
+                                        <div class="row" ng-show="recall.NHTSACampaignNumber != '' || null">
+                                            <div class="col-sm-3 text-primary">NHTSA Campaign Number:</div>
+                                            <div class="col-sm-9 text-left">{{recall.NHTSACampaignNumber}}</div><br />
+                                            <br />
+                                        </div>
+                                        <div class="row" ng-show="recall.Component != '' || null">
+                                            <div class="col-sm-3 text-primary">Component:</div>
+                                            <div class="col-sm-9 text-left">{{recall.Component}}</div><br />
+                                            <br />
+                                        </div>
+                                        <div class="row" ng-show="recall.Summary != '' || null">
+                                            <div class="col-sm-3 text-primary">Summary:</div>
+                                            <div class="col-sm-9 text-left">{{recall.Summary}}</div><br />
+                                            <br />
+                                        </div>
+                                        <div class="row" ng-show="recall.Conequence != '' || null">
+                                            <div class="col-sm-3 text-primary">Consequence:</div>
+                                            <div class="col-sm-9 text-left">{{recall.Conequence}}</div><br />
+                                            <br />
+                                        </div>
+                                        <div class="row" ng-show="recall.Remedy != '' || null">
+                                            <div class="col-sm-3 text-primary">Remedy:</div>
+                                            <div class="col-sm-9 text-left">{{recall.Remedy}}</div><br />
+                                            <br />
+                                        </div>
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Recalls Information-->
+
+                <!-- Begin Info Block -->
+                <div class="container content">
+                    <div class="row margin-bottom-40">   
+                        
+                        <!--First Block-->                     
+                        <div class="col-md-6 col-sm-12">
+                            <a href="" data-toggle="modal" data-target="#ngModal">
+                               <div class="servive-block servive-block-red service-or">
+                                <div class="service-bg"></div>
+                                <i class="icon-custom icon-color-light rounded-x icon-line icon-fire"></i>
+                                <h2 class="heading-md"></h2>
+                                <p></p>
+                            </div>
+                            </a>
+                        </div>
+                        <!--End First Block-->
+
+                        <!--First Block Modal-->
+                        <div class="modal fade" id="ngModal" tabindex="-1" role="dialog"
+                             aria=labelledby aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">X</button>
+                                        <h1 class="modal-title" id="ngModal">Max of Five</h1>
+                                    </div>
+                                    <div class="modal-body col-sm-12">
+                                    </div>
+                                    <div class="modal-footer  no-margin">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End First Block Modal-->
+
+                        <!--Second Block-->
+                        <div class="col-md-6 col-sm-12">
+                            <div class="servive-block servive-block-blue service-or">
+                                <div class="service-bg"></div>
+                                <i class="icon-custom icon-color-light rounded-x icon-line icon-rocket"></i>
+                                <h2 class="heading-md"></h2>
+                                <p></p>
+                            </div>
+                        </div>
+                        <!--End Second Block-->
+
+                        <!--Second Block Modal-->
+                        <a href="" data-toggle="modal" data= target="#max">Max of Five</a>
+
+                        <div class="modal fade" id="max tabindex=" 01" role="dialog"
+                             aria=labelledby ="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">
+                                            x
+                                        </button>
+                                        <h1 class="modal-title" id="myModalLabel">Max of Five</h1>
+                                    </div>
+                                    <div class="modal-body col-sm-12">
+                                    </div>
+                                    <div class="modal-footer  no-margin">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End Second Block Modal-->
+                        </div>
+
+                        <!--Third Block-->
+                        <div class="row margin-bottom-40">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="servive-block servive-block-red service-or">
+                                    <div class="service-bg"></div>
+                                    <i class="icon-custom icon-color-light rounded-x fa fa-lightbulb-o"></i>
+                                    <h2 class="heading-md"><a href="http://rpwartman-carfinder.azurewebsites.net/Help">API Menu</a></h2>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End Third Block--> 
+                </div>
+                <!-- End Info Block -->
+
+                <!--=== Footer ===-->
+                <div class="footer">
+                    <div class="container">
+                        <div class="row">
+                            <!--<div class="col-md-4 md-margin-bottom-20">
+                            <!-- About -->
+                            <!-- <div class="headline"><h2>About</h2></div>
+                            <p class="margin-bottom-15 md-margin-bottom-20">Unify is an incredibly beautiful responsive Bootstrap Template for corporate and creative professionals.</p>
+                            <!-- End About -->
+
+                        </div><!--/col-md-4-->
+
+                        <div class="col-md-4">
+                            <!--^md-margin-bottom-40 add to class-->
+                            <!-- Recent Blogs -->
+                            <!-- <div class="posts">
+                                <div class="headline"><h2>Recent Blog Entries</h2></div>
+                                <dl class="dl-horizontal">
+                                    <dt><a href="#"><img src="assets/img/sliders/elastislide/6.jpg" alt="" /></a></dt>
+                                    <dd>
+                                        <p><a href="#">Anim moon officia Unify is an incredibly beautiful responsive Bootstrap Template</a></p>
+                                    </dd>
+                                </dl>
+                                <dl class="dl-horizontal">
+                                <dt><a href="#"><img src="assets/img/sliders/elastislide/10.jpg" alt="" /></a></dt>
+                                    <dd>
+                                        <p><a href="#">Anim moon officia Unify is an incredibly beautiful responsive Bootstrap Template</a></p>
+                                    </dd>
+                                </dl>
+                                <dl class="dl-horizontal">
+                                <dt><a href="#"><img src="assets/img/sliders/elastislide/11.jpg" alt="" /></a></dt>
+                                    <dd>
+                                        <p><a href="#">Anim moon officia Unify is an incredibly beautiful responsive Bootstrap Template</a></p>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <!-- End Recent Blogs -->
+                        </div><!--/col-md-4-->
+
+                        <div class="col-md-12">
+                            <!-- Contact Us -->
+                            <!--  <div class="headline"><h2>Contact Me</h2></div>
+                            <address class="md-margin-bottom-20">
+                                Phone: 828 713 7749 <br />
+                                <br />
+                                Email: <a href="mailto:powers.wartman@gmail.com" class="">powers.wartman@gmail.com</a>
+                            </address>
+                            <!-- End Contact Us -->
+                            <!-- Social Links -->
+                            <div class="headline"><h2>Stay Connected</h2></div>
+                            <ul class="social-icons">
+                                <li><a href="https://www.facebook.com/powers.wartman" data-original-title="Facebook" class="social_facebook"></a></li>
+                                <li><a href="https://twitter.com/powers_wartman" data-original-title="Twitter" class="social_twitter"></a></li>
+                                <li><a href="https://www.linkedin.com/in/robert-wartman-92ba64106" data-original-title="Linkedin" class="social_linkedin"></a></li>
+                            </ul>
+                            <!-- End Social Links -->
+                        </div><!--/col-md-4-->
+                    </div>
+                </div>    <!--/footer-->
+                <!--=== End Footer ===-->
+
+                <!--=== Copyright ===-->
+                <div class="copyright">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- <p>
+                                    2014 &copy; Unify. ALL Rights Reserved.
+                                    <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+                                </p>-->
+                            </div>
+                            <div class="col-md-6">
+                                <a href="http://rpwartman.azurewebsites.net/index.html">
+                                    <img class="pull-right" id="logo-footer" src="assets/img/site logo-sm.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/copyright-->
+                <!--=== End Copyright ===-->
+
+            </div>
+        </div>
+    </div>
+    <!-- JS Global Compulsory -->
+    <script type="text/javascript" src="assets/plugins/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- JS Implementing Plugins -->
+    <script type="text/javascript" src="assets/plugins/back-to-top.js"></script>
+    <script type="text/javascript" src="assets/plugins/flexslider/jquery.flexslider-min.js"></script>
+    <!-- Layer Slider -->
+    <script type="text/javascript" src="assets/plugins/layer_slider/jQuery/jquery-easing-1.3.js"></script>
+    <script type="text/javascript" src="assets/plugins/layer_slider/jQuery/jquery-transit-modified.js"></script>
+    <script type="text/javascript" src="assets/plugins/layer_slider/js/layerslider.transitions.js"></script>
+    <script type="text/javascript" src="assets/plugins/layer_slider/js/layerslider.kreaturamedia.jquery.js"></script>
+    <!-- End Layer Slider -->
+    <!-- JS Page Level -->
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    <script type="text/javascript" src="assets/js/pages/index.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            App.init();
+            App.initSliders();
+            Index.initLayerSlider();
+        });
+    </script>
+    <!-- For Background Image -->
+    <script type="text/javascript" src="assets/plugins/backstretch/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+        $.backstretch([
+          "assets/img/bg/13.jpg"
+        ])
+    </script>
+    <!-- End For Background Image -->
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-resource.min.js"></script>
+    <script src="Scripts/angular-animate.min.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="NgApp/app.js"></script>
+    <script src="NgApp/Controllers/CarFinderAppController.js"></script>
+
+</body>
+
+</html>

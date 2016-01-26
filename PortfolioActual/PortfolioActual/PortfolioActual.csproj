@@ -135,6 +135,7 @@
     <Content Include="assets\img\fizzbuzz.png" />
     <Content Include="assets\img\gou-fishing.png" />
     <Content Include="assets\img\hank halloween.jpg" />
+    <Content Include="assets\img\job\car.jpg" />
     <Content Include="assets\img\main\project1.jpg" />
     <Content Include="assets\img\main\project2.jpg" />
     <Content Include="assets\img\main\project4.jpg" />
