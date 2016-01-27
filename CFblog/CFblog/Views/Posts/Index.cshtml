@@ -3,32 +3,27 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
-
-        <!--=== Breadcrumbs ===-->
+<!--=== Breadcrumbs ===-->
 <div class="breadcrumbs">
     <div class="container">
-        <h1 class="pull-left">Blog</h1>
+        <h2 class="pull-left">Post Index</h2>
         <ul class="pull-right breadcrumb">
             <li><a href="http://rpwartman.azurewebsites.net/">Home</a></li>
-            <li>Blog</li>
+            <li>Blog....</li>
         </ul>
     </div>
 </div><!--/breadcrumbs-->
 <!--=== End Breadcrumbs ===-->
-
-@if (User.IsInRole("Admin"))
-{
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-}
-
-
     <!--=== Content Part ===-->
 <div class="container content blog-full-width">
 
+
+@if (User.IsInRole("Admin"))
+{
+    <h6>
+        @Html.ActionLink("Create New", "Create")
+    </h6>
+}
 
     @foreach (var post in Model)
     {
@@ -37,7 +32,9 @@
             <div class="blog-img">
                 <img class="img-responsive" src="@post.MediaUrl" alt="">
             </div>
-            <h2><a href="blog_item_option1.html">@post.Title</a></h2>
+            <h2>
+                @Html.ActionLink(post.Title, "Details", new { id = post.Id})
+            </h2>
             <div class="blog-post-tags">
                 <ul class="list-unstyled list-inline blog-info"> 
                     <li><i class="fa fa-calendar"></i> @post.Created </li>
@@ -52,29 +49,14 @@
                 </ul>
             </div>
             <p>@post.Body</p>
-            <p><a class="btn-u btn-u-small" href="blog_item_option2.html"><i class="fa fa-plus"></i> Read More</a></p>
+            <p>
+                @Html.ActionLink("Read More", "Details", new { id = post.Id }, new { @class= "btn-u btn-u-small" })
+            </p>
         </div>
     <!--End Blog Post-->
 
 
     }
 
-
-    <!--Pagination-->
-    <div class="text-center">
-        <ul class="pagination">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li class="active"><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">6</a></li>
-            <li><a href="#">7</a></li>
-            <li><a href="#">8</a></li>
-            <li><a href="#">»</a></li>
-        </ul>
-    </div>
-    <!--End Pagination-->
 </div><!--/container-->
 <!--=== End Content Part ===-->

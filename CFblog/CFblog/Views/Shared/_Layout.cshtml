@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="~/assets/plugins/layer_slider/css/layerslider.css">
 
     <!-- CSS Page Style -->
-    <link rel="stylesheet" href="~/assets/css/pages/portfolio-v2.css">
+    <link rel="stylesheet" href="~/assets/css/pages/blog.css" />
 
     <!-- CSS Theme -->
     <link rel="stylesheet" href="~/assets/css/themes/default.css" id="style_color">
@@ -38,8 +38,6 @@
 </head>
 
 <body>
-
-
     <div class="wrapper">
         <!--=== Header ===-->
         <div class="header">
@@ -47,10 +45,8 @@
             <div class="topbar">
                 <div class="container">
                     <!-- Topbar Navigation -->
-                    <ul class="loginbar pull-right">
-
-                        <!--<li><a href="https://support.google.com/chrome/?hl=en#topic=3227046">Help</a></li> -->
-
+                    <ul class ="loginbar pull-right">
+                        @Html.Partial("_LoginPartial")
                     </ul>
                     <!-- End Topbar Navigation -->
                 </div>
@@ -65,7 +61,7 @@
                             <span class="sr-only">Toggle navigation</span>
                             <span class="fa fa-bars"></span>
                         </button>
-                        <a class="navbar-brand" href="index.html">
+                        <a class="navbar-brand" href="http://rpwartman.azurewebsites.net/">
                             <img id="logo-header" src="~/assets/img/site logo-sm.png" alt="Logo">
                         </a>
                     </div>
@@ -95,7 +91,7 @@
                             <!-- End Portfolio -->
                             <!-- Blog -->
                             <li class="">
-                                <a href="#" class="">Blog</a>
+                                <a href="~/Posts/Index" class="">Blog</a>
                             </li>
                             <!-- End Blog -->
                             <!-- Contact -->
@@ -200,7 +196,7 @@
                          </p>-->
                     </div>
                     <div class="col-md-6">
-                        <a href="index.html">
+                        <a href="http://rpwartman.azurewebsites.net/">
                             <img class="pull-right" id="logo-footer" src="~/assets/img/site logo-sm.png" alt="">
                         </a>
                     </div>
