@@ -44,7 +44,7 @@ namespace CFblog.Models
             this.Comments = new HashSet<Comment>();
         }
 
-        public int CommentId { get; set; }
+        public int Id { get; set; }
         public int PostId { get; set; }
         public string AuthorId { get; set; }
         public string EditorId { get; set; }

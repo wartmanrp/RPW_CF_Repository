@@ -65,9 +65,12 @@
             @Html.DisplayFor(modelItem => item.MarkForDeletion)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CommentId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CommentId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CommentId })
+            @if (User.Identity.Name == item.Author.UserName || User.IsInRole("Moderator"))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id })
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            }
+
         </td>
     </tr>
 }

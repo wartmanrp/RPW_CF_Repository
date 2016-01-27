@@ -6,58 +6,75 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Created)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Updated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Body)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MediaUrl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Published)
-        </th>
-        <th></th>
-    </tr>
+        <!--=== Breadcrumbs ===-->
+<div class="breadcrumbs">
+    <div class="container">
+        <h1 class="pull-left">Blog</h1>
+        <ul class="pull-right breadcrumb">
+            <li><a href="http://rpwartman.azurewebsites.net/">Home</a></li>
+            <li>Blog</li>
+        </ul>
+    </div>
+</div><!--/breadcrumbs-->
+<!--=== End Breadcrumbs ===-->
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Created)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Updated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Body)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MediaUrl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Published)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
 }
 
-</table>
+
+    <!--=== Content Part ===-->
+<div class="container content blog-full-width">
+
+
+    @foreach (var post in Model)
+    {
+            <!--Blog Post-->
+        <div class="blog margin-bottom-40">
+            <div class="blog-img">
+                <img class="img-responsive" src="@post.MediaUrl" alt="">
+            </div>
+            <h2><a href="blog_item_option1.html">@post.Title</a></h2>
+            <div class="blog-post-tags">
+                <ul class="list-unstyled list-inline blog-info"> 
+                    <li><i class="fa fa-calendar"></i> @post.Created </li>
+                    <li><i class="fa fa-pencil"></i> Powers Wartman </li>
+                    <li><i class="fa fa-comments"></i> <a href="#"> @post.Comments.Count</a> Comments </li>
+                    <li><i class="fa fa-tags"></i> 
+                    @foreach (var item in post.Categories)
+                        { 
+                            @item.Name
+                        }
+                    </li>
+                </ul>
+            </div>
+            <p>@post.Body</p>
+            <p><a class="btn-u btn-u-small" href="blog_item_option2.html"><i class="fa fa-plus"></i> Read More</a></p>
+        </div>
+    <!--End Blog Post-->
+
+
+    }
+
+
+    <!--Pagination-->
+    <div class="text-center">
+        <ul class="pagination">
+            <li><a href="#">«</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li class="active"><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">6</a></li>
+            <li><a href="#">7</a></li>
+            <li><a href="#">8</a></li>
+            <li><a href="#">»</a></li>
+        </ul>
+    </div>
+    <!--End Pagination-->
+</div><!--/container-->
+<!--=== End Content Part ===-->

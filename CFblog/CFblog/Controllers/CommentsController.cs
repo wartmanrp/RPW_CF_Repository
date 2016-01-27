@@ -37,6 +37,7 @@ namespace CFblog.Controllers
         }
 
         // GET: Comments/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName");
@@ -50,6 +51,7 @@ namespace CFblog.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "CommentId,PostId,AuthorId,EditorId,ParentCommentId,Body,Created,Updated,MarkForDeletion")] Comment comment)
         {
             if (ModelState.IsValid)
@@ -66,6 +68,7 @@ namespace CFblog.Controllers
         }
 
         // GET: Comments/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -76,6 +79,10 @@ namespace CFblog.Controllers
             if (comment == null)
             {
                 return HttpNotFound();
+            }
+            if (User.Identity.Name != comment.Author.UserName)
+            {
+                return RedirectToAction("Index");
             }
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", comment.AuthorId);
             ViewBag.EditorId = new SelectList(db.Users, "Id", "FirstName", comment.EditorId);

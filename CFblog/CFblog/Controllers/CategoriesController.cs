@@ -10,6 +10,7 @@ using CFblog.Models;
 
 namespace CFblog.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
