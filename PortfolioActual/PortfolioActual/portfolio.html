@@ -21,6 +21,7 @@
     <!-- CSS Implementing Plugins -->
     <link rel="stylesheet" href="assets/plugins/line-icons/line-icons.css">
     <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/plugins/owl-carousel/owl-carousel/owl.carousel.css">
 
     <!-- CSS Page Style -->    
     <link rel="stylesheet" href="assets/css/pages/portfolio-v1.css">
@@ -125,8 +126,6 @@
         </div>
         <!--=== End Header ===--> 
 
-
-
         <!--=== Breadcrumbs ===-->
         <div class="breadcrumbs">
             <div class="container">
@@ -141,6 +140,26 @@
 
         <!--=== Content Part ===-->
         <div class="container content">
+
+
+
+            <div class="row">
+                <div class="heading heading-v1 margin-bottom-40" style="font-size:1.3em">
+                    <h2>Featured Projects</h2>
+                    <p>The applications highlighted here use a wide variety of .NET technologies to deliver responsive, interactive, and useful interfaces covering a gamut of needs and concerns. Please explore at your leisure and be sure to check out the featured technologies on each page.</p>
+                </div>
+
+                <div class="heading heading-v1 margin-bottom-40 job-img" style="font-size:1.3em">
+                    <div class="job-description">
+                        <a href="http://rpwartman-carfinder.azurewebsites.net/index.html">
+                            <h1>Car Finder</h1>
+                            <p>This single page application is built using a foundation of C# classes and multiple API's on the backend. The front end is designed using AngularJS and UI-Bootstrap to provide a responsive, interactive experience.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="row">
                 <div class="heading heading-v1 margin-bottom-40" style="font-size:1.3em">
                     <h2>JavaScript Demonstrations</h2>
@@ -236,6 +255,7 @@
                     </div>
                 </div>
                 <!--End First Project-->
+
                 <!--Second Project-->
                 <div class="col-md-3">
                     <div class="view view-tenth">
@@ -307,6 +327,7 @@ $("#closebtn2").click(function () {
                     </div>
                 </div>
                 <!--End Second Project-->
+
                 <!--Third Project-->
                 <div class="col-md-3">
                     <div class="view view-tenth">
@@ -395,6 +416,7 @@ $("#closebtn3").click(function () {
                     </div>
                 </div>
                 <!--End Third Project-->
+
                 <!--Fourth Project-->
                 <div class="col-md-3">
                     <div class="view view-tenth">
@@ -461,16 +483,6 @@ $("#closebtn4").click( function () {
                 <!--End Fourth Project-->
             </div><!--/row-->
 
-            <div class="row">
-                <div class="heading heading-v1 margin-bottom-40 job-img" style="font-size:1.3em">
-                    <div class="job-description">
-                        <a href="http://rpwartman-carfinder.azurewebsites.net/index.html">
-                            <h1>Car Finder</h1>
-                            <p>This single page application is built using a foundation of C# classes and multiple API's on the backend. The front end is designed using AngularJS and UI-Bootstrap to provide a responsive, interactive experience.</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
 
             <div class="row" hidden="hidden">
                 <!--Fifth-->
@@ -487,7 +499,60 @@ $("#closebtn4").click( function () {
                 </div>
             </div>
 
+            <!-- Tech Highlight -->
+        <div class="row">
+            <div class="heading heading-v1 margin-bottom-40" style="font-size:1.3em">
+                <h2>Featured Technologies</h2>
+                <p>All of the applications featured on my portfolio, and even this page itself, use a combination of many of the technologies found below. Further implementation details are provided on each applications page.</p>
+            </div>
 
+            <div class="owl-carousel-style-v2 margin-bottom-50">
+
+                <div class="owl-slider-v3">
+                    <div class="item">
+                        <img class="img-responsive" src="assets/img/Tech Slider Images/github.png" alt="">
+                    </div>
+                    <div class="item">
+                        <img class="img-responsive" src="assets/img/Tech Slider Images/csharp.png" alt="">
+                    </div>
+                    <div class="item">
+                        <img class="img-responsive" src="assets/img/Tech Slider Images/html5.png" alt="">
+                    </div>
+                    <div class="item">
+                        <img class="img-responsive" src="assets/img/Tech Slider Images/css3.png" alt="">
+                    </div>
+                    <div class="item">
+                        <img class="img-responsive" src="assets/img/Tech Slider Images/bootstrap.png" alt="">
+                    </div>
+                    <div class="item">
+                        <img class="img-responsive" src="assets/img/Tech Slider Images/javascript.png" alt="">
+                    </div>
+                    <div class="item">
+                        <img class="img-responsive" src="assets/img/Tech Slider Images/jquery.png" alt="">
+                    </div>
+                    <div class="item">
+                        <img class="img-responsive" src="assets/img/Tech Slider Images/angular.png" alt="">
+                    </div>
+                    <div class="item">
+                        <img class="img-responsive" src="assets/img/Tech Slider Images/mvc.png" alt="">
+                    </div>
+                    <div class="item">
+                        <img class="img-responsive" src="assets/img/Tech Slider Images/aspnet.png" alt="">
+                    </div>
+                    <div class="item">
+                        <img class="img-responsive" src="assets/img/Tech Slider Images/webapi.png" alt="">
+                    </div>
+                    <div class="item">
+                        <img class="img-responsive" src="assets/img/Tech Slider Images/sql.png" alt="">
+                    </div>
+                    <div class="item">
+                        <img class="img-responsive" src="assets/img/Tech Slider Images/linq.png" alt="">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+            <!-- End Tech Highlight -->
 
 
         </div><!--/container-->
@@ -553,6 +618,7 @@ $("#closebtn4").click( function () {
             </div>
         </div>    <!--/footer-->
         <!--=== End Footer ===-->
+
         <!--=== Copyright ===-->
         <div class="copyright">
             <div class="container">
@@ -580,12 +646,15 @@ $("#closebtn4").click( function () {
 <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
 <!-- JS Implementing Plugins -->           
 <script type="text/javascript" src="assets/plugins/back-to-top.js"></script>
+<script src="assets/plugins/owl-carousel/owl-carousel/owl.carousel.js"></script>
 <!-- JS Page Level -->           
 <script type="text/javascript" src="assets/js/app.js"></script>
+<script type="text/javascript" src="assets/js/plugins/owl-carousel.js"></script>
 <script type="text/javascript">
-    jQuery(document).ready(function() {
-        App.init();
-    });
+jQuery(document).ready(function () {
+    App.init();
+    OwlCarousel.initOwlCarousel();
+});
 </script>
 
     <!--JS Excercises Link-->
