@@ -41,17 +41,7 @@
     <div class="wrapper">
         <!--=== Header ===-->
         <div class="header">
-            <!-- Topbar -->
-            <div class="topbar">
-                <div class="container">
-                    <!-- Topbar Navigation -->
-                    <ul class ="loginbar pull-right">
-                        @Html.Partial("_LoginPartial")
-                    </ul>
-                    <!-- End Topbar Navigation -->
-                </div>
-            </div>
-            <!-- End Topbar -->
+
             <!-- Navbar -->
             <div class="navbar navbar-default" role="navigation">
                 <div class="container">
@@ -117,7 +107,26 @@
                 </div>
             </div>
             <!-- End Navbar -->
-        </div>
+
+            <!--=== Breadcrumbs ===-->
+            <div class="breadcrumbs">
+                <div class="container">
+                    <div class="row">
+                            <ul class="pull-left breadcrumb">
+                                <li><a href="http://rpwartman.azurewebsites.net/">Home</a></li>
+                                <li><a href="~/Posts/Index">Blog</a></li>
+                            </ul>
+
+                                @Html.Partial("_LoginPartial")
+   
+                    </div>
+                </div>
+            </div>
+        </div><!--/breadcrumbs-->
+            <!--=== End Breadcrumbs ===-->
+
+
+        
         <!--=== End Header ===-->
 
         <div class="container body-content">

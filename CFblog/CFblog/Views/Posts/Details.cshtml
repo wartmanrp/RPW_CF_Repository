@@ -4,17 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<!--=== Breadcrumbs ===-->
-<div class="breadcrumbs">
-    <div class="container">
-        <ul class="pull-right breadcrumb">
-            <li><a href="http://rpwartman.azurewebsites.net/">Home</a></li>
-            <li><a href="~/Posts/Index">Blog</a></li>
-            <li>@Model.Title ....</li>
-        </ul>
-    </div>
-</div><!--/breadcrumbs-->
-<!--=== End Breadcrumbs ===-->
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
@@ -23,43 +13,93 @@
 <div class="container content blog-page blog-item">
     <!--Blog Post-->
     <div class="blog margin-bottom-40">
-        <div class="blog-img">
-            <img class="img-responsive" src="@Model.MediaUrl" alt="">
-        </div>
-        <h2>
-        @Html.ActionLink(Model.Title, "Details", new { id = Model.Id })
-        </h2>
-        <div class="blog-post-tags">
-            <ul class="list-unstyled list-inline blog-info">
-                <li><i class="fa fa-calendar"></i> @Model.Created </li>
-                <li><i class="fa fa-pencil"></i> Powers Wartman </li>
-                <li><i class="fa fa-comments"></i> <a href="#"> @Model.Comments.Count</a> Comments </li>
-                <li>
-                    <i class="fa fa-tags"></i>
-                    @foreach (var item in Model.Categories)
-                    {
-                        @item.Name
-                    }
-                </li>
-            </ul>
-        </div>
-
-
-        <p>@Html.DisplayFor(model => model.Body)</p><br>
-
-        <!--Save some of this maybe?-->
-        <div class="tag-box tag-box-v2">
-            <p> </p>
-        </div>
-        <p> </p><br>
-        <blockquote>
-            <p>Aure Entuluva</p>
-            <small>Hurin</small>
-        </blockquote>
-        <p> This is some text about some stuff</p>
+    <div class="blog-img">
+        <img class="img-responsive" src="@Model.MediaUrl" alt="">
     </div>
-    <!--End Blog Post-->
+    <h2>
+        @Html.ActionLink(Model.Title, "Details", new { id = Model.Id })
+    </h2>
+    <div class="blog-post-tags">
+        <ul class="list-unstyled list-inline blog-info">
+            <li><i class="fa fa-calendar"></i> @Model.Created </li>
+            <li><i class="fa fa-pencil"></i> Powers Wartman </li>
+            <li><i class="fa fa-comments"></i> <a href="#"> @Model.Comments.Count</a> Comments </li>
+            <li>
+                <i class="fa fa-tags"></i>
+                @foreach (var item in Model.Categories)
+                    {
+                    @item.Name
+                    }
+            </li>
+        </ul>
+    </div>
 
-    <hr />
 
-</div>
+    <p>@Html.DisplayFor(model => model.Body)</p><br>
+
+    @foreach (var Comments in Model)
+        {
+            <!--Comments Display-->
+    <div class="media">
+        <h3>Comments</h3>
+
+        <!--main comment-->
+        <a class="pull-left" href="#">
+            <img class="media-object" src="assets/img/sliders/elastislide/2.jpg" alt="" />
+        </a>
+        <div class="media-body">
+            <h4 class="media-heading">Media heading <span>5 hours ago / <a href="#">Reply</a></span></h4>
+            <p>Donec id erum quidem rerumd facilis est et expedita distinctio lorem ipsum dolorlit non mi portas sats eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna..</p>
+
+            <hr>
+
+            <!--reply-->
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="assets/img/sliders/elastislide/5.jpg" alt="" />
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">Media heading <span>17 hours ago / <a href="#">Reply</a></span></h4>
+                    <p>Donec id erum quidem rerumd facilis est et expedita distinctio lorem ipsum dolorlit non mi portas sats eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna..</p>
+                </div>
+            </div>
+
+            <hr />
+        </div>
+    </div><!--/media-->
+
+
+
+                @*<div class="blog margin-bottom-40">
+
+                    <h2>
+                        @Html.ActionLink(post.Title, "Details", new { id = post.Id })
+                    </h2>
+                    <div class="blog-post-tags">
+                        <ul class="list-unstyled list-inline blog-info">
+                            <li><i class="fa fa-calendar"></i> @post.Created </li>
+                            <li><i class="fa fa-pencil"></i> Powers Wartman </li>
+                            <li><i class="fa fa-comments"></i> <a href="#"> @post.Comments.Count</a> Comments </li>
+                            <li>
+                                <i class="fa fa-tags"></i>
+                                @foreach (var item in post.Categories)
+                            {
+                                    @item.Name
+                            }
+                            </li>
+                        </ul>
+                    </div>
+                    <p>@post.Body</p>
+                    <p>
+                        @Html.ActionLink("Read More", "Details", new { id = post.Id }, new { @class = "btn-u btn-u-small" })
+                    </p>
+                </div>*@
+                <!--End Comments Display-->
+                @*}*@
+
+            </div>
+            <!--End Blog Post-->
+
+            <hr />
+
+        </div>
