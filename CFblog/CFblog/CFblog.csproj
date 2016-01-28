@@ -1367,12 +1367,9 @@
     <Content Include="assets\plugins\vector-map\tests\index.html" />
     <Content Include="assets\plugins\vector-map\tests\markers.html" />
     <Content Include="assets\plugins\vector-map\tests\reverse-projection.html" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\ai.0.21.5-build00175.js" />
     <Content Include="Scripts\ai.0.21.5-build00175.min.js" />
     <Content Include="Scripts\bootstrap.js" />

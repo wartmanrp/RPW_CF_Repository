@@ -4,63 +4,62 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Post</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Updated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Updated)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Body)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Body)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MediaUrl)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MediaUrl)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Published)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Published)
-        </dd>
-
-    </dl>
-</div>
+<!--=== Breadcrumbs ===-->
+<div class="breadcrumbs">
+    <div class="container">
+        <ul class="pull-right breadcrumb">
+            <li><a href="http://rpwartman.azurewebsites.net/">Home</a></li>
+            <li><a href="~/Posts/Index">Blog</a></li>
+            <li>@Model.Title ....</li>
+        </ul>
+    </div>
+</div><!--/breadcrumbs-->
+<!--=== End Breadcrumbs ===-->
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<div class="container content blog-page blog-item">
+    <!--Blog Post-->
+    <div class="blog margin-bottom-40">
+        <div class="blog-img">
+            <img class="img-responsive" src="@Model.MediaUrl" alt="">
+        </div>
+        <h2>
+        @Html.ActionLink(Model.Title, "Details", new { id = Model.Id })
+        </h2>
+        <div class="blog-post-tags">
+            <ul class="list-unstyled list-inline blog-info">
+                <li><i class="fa fa-calendar"></i> @Model.Created </li>
+                <li><i class="fa fa-pencil"></i> Powers Wartman </li>
+                <li><i class="fa fa-comments"></i> <a href="#"> @Model.Comments.Count</a> Comments </li>
+                <li>
+                    <i class="fa fa-tags"></i>
+                    @foreach (var item in Model.Categories)
+                    {
+                        @item.Name
+                    }
+                </li>
+            </ul>
+        </div>
+
+
+        <p>@Html.DisplayFor(model => model.Body)</p><br>
+
+        <!--Save some of this maybe?-->
+        <div class="tag-box tag-box-v2">
+            <p> </p>
+        </div>
+        <p> </p><br>
+        <blockquote>
+            <p>Aure Entuluva</p>
+            <small>Hurin</small>
+        </blockquote>
+        <p> This is some text about some stuff</p>
+    </div>
+    <!--End Blog Post-->
+
+    <hr />
+
+</div>
