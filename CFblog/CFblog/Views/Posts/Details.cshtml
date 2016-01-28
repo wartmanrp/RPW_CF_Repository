@@ -37,69 +37,32 @@
 
     <p>@Html.DisplayFor(model => model.Body)</p><br>
 
-    @foreach (var Comments in Model)
-        {
+
+        <div class="media">
+            <h3>Comments</h3>
             <!--Comments Display-->
-    <div class="media">
-        <h3>Comments</h3>
-
-        <!--main comment-->
-        <a class="pull-left" href="#">
-            <img class="media-object" src="assets/img/sliders/elastislide/2.jpg" alt="" />
-        </a>
-        <div class="media-body">
-            <h4 class="media-heading">Media heading <span>5 hours ago / <a href="#">Reply</a></span></h4>
-            <p>Donec id erum quidem rerumd facilis est et expedita distinctio lorem ipsum dolorlit non mi portas sats eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna..</p>
-
-            <hr>
-
-            <!--reply-->
-            <div class="media">
+            @foreach (var comment in Model.Comments)
+            {
+            <!--main comment-->
                 <a class="pull-left" href="#">
-                    <img class="media-object" src="assets/img/sliders/elastislide/5.jpg" alt="" />
+                    <img class="media-object" src="~/assets/img/site logo-sm.png" alt="" />
                 </a>
                 <div class="media-body">
-                    <h4 class="media-heading">Media heading <span>17 hours ago / <a href="#">Reply</a></span></h4>
-                    <p>Donec id erum quidem rerumd facilis est et expedita distinctio lorem ipsum dolorlit non mi portas sats eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna..</p>
+                    <h4 class="media-heading">@comment.Author<span>@comment.Created / <a href="#"> Reply </a></span></h4>
+                    <p>@comment.Body</p>
+
+                    <hr>
                 </div>
-            </div>
+           
+            }
+        </div><!--/media-->
+        <!--End Comments Display-->
+           
 
-            <hr />
-        </div>
-    </div><!--/media-->
-
-
-
-                @*<div class="blog margin-bottom-40">
-
-                    <h2>
-                        @Html.ActionLink(post.Title, "Details", new { id = post.Id })
-                    </h2>
-                    <div class="blog-post-tags">
-                        <ul class="list-unstyled list-inline blog-info">
-                            <li><i class="fa fa-calendar"></i> @post.Created </li>
-                            <li><i class="fa fa-pencil"></i> Powers Wartman </li>
-                            <li><i class="fa fa-comments"></i> <a href="#"> @post.Comments.Count</a> Comments </li>
-                            <li>
-                                <i class="fa fa-tags"></i>
-                                @foreach (var item in post.Categories)
-                            {
-                                    @item.Name
-                            }
-                            </li>
-                        </ul>
-                    </div>
-                    <p>@post.Body</p>
-                    <p>
-                        @Html.ActionLink("Read More", "Details", new { id = post.Id }, new { @class = "btn-u btn-u-small" })
-                    </p>
-                </div>*@
-                <!--End Comments Display-->
-                @*}*@
 
             </div>
             <!--End Blog Post-->
 
-            <hr />
+            
 
-        </div>
+</div>
