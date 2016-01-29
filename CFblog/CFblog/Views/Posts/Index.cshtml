@@ -39,7 +39,9 @@
                     </li>
                 </ul>
             </div>
-            <p>@Html.Raw(post.Body)</p>
+            <div id="abstract">
+                <p>@Html.Raw(post.Body)</p>
+            </div>
             <p>
                 @Html.ActionLink("Read More", "Details", new { id = post.Id }, new { @class= "btn-u btn-u-small" })
             </p>

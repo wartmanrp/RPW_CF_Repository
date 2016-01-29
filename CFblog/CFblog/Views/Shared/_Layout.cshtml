@@ -226,6 +226,7 @@
     <script type="text/javascript" src="~/assets/plugins/back-to-top.js"></script>
     <script type="text/javascript" src="~/assets/plugins/flexslider/jquery.flexslider-min.js"></script>
     <script type="text/javascript" src="~/assets/plugins/jquery.mixitup.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/dotdotdot/jQuery.dotdotdot-master/src/js/jquery.dotdotdot.min.js"></script>
     <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
     <script>
     tinymce.init({
@@ -251,6 +252,12 @@
             App.initSliders();
             PortfolioPage.init();
             Index.initLayerSlider();
+            $("#abstract").dotdotdot({
+                ellipsis: '... ',
+                wrap: 'word',
+                fallbackToLetter: true,
+                watch: "window"
+            });
         });
     </script>
     <!--[if lt IE 9]>

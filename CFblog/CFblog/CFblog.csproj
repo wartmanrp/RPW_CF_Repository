@@ -757,6 +757,8 @@
     <Content Include="assets\plugins\counter\jquery.counterup.min.js" />
     <Content Include="assets\plugins\counter\waypoints.js" />
     <Content Include="assets\plugins\counter\waypoints.min.js" />
+    <Content Include="assets\plugins\dotdotdot\jQuery.dotdotdot-master\src\js\jquery.dotdotdot.js" />
+    <Content Include="assets\plugins\dotdotdot\jQuery.dotdotdot-master\src\js\jquery.dotdotdot.min.js" />
     <Content Include="assets\plugins\fancybox\CHANGELOG.txt" />
     <Content Include="assets\plugins\fancybox\demo\1_b.jpg" />
     <Content Include="assets\plugins\fancybox\demo\1_s.jpg" />
