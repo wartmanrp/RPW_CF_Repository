@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CFblog.Models;
+using System.IO;
 
 namespace CFblog.Controllers
 {
@@ -48,10 +49,17 @@ namespace CFblog.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create([Bind(Include = "Title,Body,MediaUrl,Published")] Post post)
+        public ActionResult Create(Post post, HttpPostedFileBase fileUpload)
         {
             if (ModelState.IsValid)
             {
+                //restrict the valid file formats to img only
+                if (ImageUploadValidator.IsWebFriendlyImage(fileUpload))
+                {
+                    var fileName = Path.GetFileName(fileUpload.FileName);
+                    fileUpload.SaveAs(Path.Combine(Server.MapPath("~/assets/img/posts/"), fileName));
+                    post.MediaUrl = "~/assets/img/posts/" + fileName;
+                }
                 post.Created = new DateTimeOffset(DateTime.Now);
                 db.Posts.Add(post);
                 db.SaveChanges();

@@ -9,17 +9,20 @@
 <p>
 @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
 @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
-
+@Html.ActionLink("Back to List", "Index")
 </p> 
 }
-@Html.ActionLink("Back to List", "Index")
+
 
 
 <div class="container content blog-page blog-item">
     <!--Blog Post-->
     <div class="blog margin-bottom-40">
     <div class="blog-img">
-        <img class="img-responsive" src="@Model.MediaUrl" alt="">
+        @if (Model.MediaUrl != null)
+        {
+            <img class="img-responsive" src="@Url.Content(Model.MediaUrl)" alt="" />
+        }
     </div>
     <h2>
         @Html.ActionLink(Model.Title, "Details", new { id = Model.Id })
