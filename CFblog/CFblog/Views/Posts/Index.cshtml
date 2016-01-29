@@ -39,7 +39,7 @@
                     </li>
                 </ul>
             </div>
-            <div id="abstract">
+            <div id="abstract + @post.Id">
                 <p>@Html.Raw(post.Body)</p>
             </div>
             <p>
@@ -52,4 +52,15 @@
     }
 
 </div><!--/container-->
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("[id^=abstract]").dotdotdot({
+                height: 50,
+                ellipsis: '... ',
+                wrap: 'word',
+                fallbackToLetter: true,
+                watch: "window"
+            });
+        });
+</script>
 <!--=== End Content Part ===-->

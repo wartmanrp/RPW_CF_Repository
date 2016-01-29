@@ -3,4 +3,8 @@ body {
     margin-top: 15.5px;
 }
 
-#nav
+
+
+#body-background {
+        background-image: url('../img/patterns/6.png');
+}

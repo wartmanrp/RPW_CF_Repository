@@ -35,6 +35,10 @@
 
     <!-- CSS Customization -->
     <link rel="stylesheet" href="~/assets/css/custom.css">
+
+    <script type="text/javascript" src="~/assets/plugins/jquery-1.10.2.min.js"></script>
+    <script src="~/assets/plugins/dotdotdot/jQuery.dotdotdot-master/src/js/jquery.dotdotdot.js"></script>
+
 </head>
 
 <body>
@@ -131,7 +135,7 @@
         
         <!--=== End Header ===-->
 
-        <div class="container body-content">
+        <div class="container body-content" id="body-background">
             @RenderBody()
         </div>
 
@@ -219,14 +223,12 @@
     </div><!--/wrapper-->
 
     <!-- JS Global Compulsory -->
-    <script type="text/javascript" src="~/assets/plugins/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="~/assets/plugins/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <!-- JS Implementing Plugins -->
     <script type="text/javascript" src="~/assets/plugins/back-to-top.js"></script>
     <script type="text/javascript" src="~/assets/plugins/flexslider/jquery.flexslider-min.js"></script>
     <script type="text/javascript" src="~/assets/plugins/jquery.mixitup.min.js"></script>
-    <script type="text/javascript" src="~/assets/plugins/dotdotdot/jQuery.dotdotdot-master/src/js/jquery.dotdotdot.min.js"></script>
     <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
     <script>
     tinymce.init({
@@ -252,19 +254,13 @@
             App.initSliders();
             PortfolioPage.init();
             Index.initLayerSlider();
-            $("#abstract").dotdotdot({
-                ellipsis: '... ',
-                wrap: 'word',
-                fallbackToLetter: true,
-                watch: "window"
-            });
         });
     </script>
     <!--[if lt IE 9]>
         <script src="assets/plugins/respond.js"></script>
     <![endif]-->
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @*@Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
 </body>
 </html>
