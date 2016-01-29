@@ -4,12 +4,17 @@
     ViewBag.Title = "Details";
 }
 
-
+@if (User.IsInRole("Admin")) 
+{ 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+@Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
+
+</p> 
+}
+@Html.ActionLink("Back to List", "Index")
+
+
 <div class="container content blog-page blog-item">
     <!--Blog Post-->
     <div class="blog margin-bottom-40">
@@ -35,12 +40,14 @@
     </div>
 
 
-    <p>@Html.DisplayFor(model => model.Body)</p><br>
+    <p>@Html.Raw(Model.Body)</p><br>
 
 
+
+        <!--Comments Display-->
         <div class="media">
             <h3>Comments</h3>
-            <!--Comments Display-->
+
             @foreach (var comment in Model.Comments)
             {
             <!--main comment-->

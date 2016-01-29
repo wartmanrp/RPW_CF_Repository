@@ -9,9 +9,9 @@
 
 @if (User.IsInRole("Admin"))
 {
-    <h6>
+    <h4 class="pull-right">
         @Html.ActionLink("Create New", "Create")
-    </h6>
+    </h4>
 }
 
     @foreach (var post in Model)
@@ -19,7 +19,9 @@
             <!--Blog Post-->
         <div class="blog margin-bottom-40">
             <div class="blog-img">
-                <img class="img-responsive" src="@post.MediaUrl" alt="">
+                <a href="~/Posts/Details/@post.Id">
+                    <img class="img-responsive" src="@post.MediaUrl" alt="">
+                </a>
             </div>
             <h2>
                 @Html.ActionLink(post.Title, "Details", new { id = post.Id})
@@ -37,7 +39,7 @@
                     </li>
                 </ul>
             </div>
-            <p>@post.Body</p>
+            <p>@Html.Raw(post.Body)</p>
             <p>
                 @Html.ActionLink("Read More", "Details", new { id = post.Id }, new { @class= "btn-u btn-u-small" })
             </p>
