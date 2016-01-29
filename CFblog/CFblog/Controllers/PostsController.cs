@@ -18,7 +18,7 @@ namespace CFblog.Controllers
         // GET: Posts
         public ActionResult Index()
         {
-            return View(db.Posts.ToList());
+            return View(db.Posts.ToList().OrderByDescending(p => p.Created));
         }
 
         // GET: Posts/Details/5
@@ -91,15 +91,23 @@ namespace CFblog.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit([Bind(Include = "Id,Created,Updated,Title,Body,MediaUrl,Published")] Post post)
+        public ActionResult Edit([Bind(Include = "Id,Created,Updated,Title,Body,MediaUrl,Published")] Post post, HttpPostedFileBase fileUpload)
         {
             if (ModelState.IsValid)
             {
+                //restrict the valid file formats to img only
+                if (ImageUploadValidator.IsWebFriendlyImage(fileUpload))
+                {
+                    var fileName = Path.GetFileName(fileUpload.FileName);
+                    fileUpload.SaveAs(Path.Combine(Server.MapPath("~/assets/img/posts/"), fileName));
+                    post.MediaUrl = "~/assets/img/posts/" + fileName;
+                }
                 post.Updated = new DateTimeOffset(DateTime.Now);
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(post);
         }
 
