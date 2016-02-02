@@ -218,9 +218,40 @@ namespace CarFinder.Controllers
 
             foreach (var result in imageResults)
             {
-                images.Add(result.MediaUrl);
+                if( UrlCtrl.IsUrl(result.MediaUrl))
+                {
+                    images.Add(result.MediaUrl);
+                }
             }
             return images.ToArray();
+        }
+    }
+
+    public static class UrlCtrl
+    {
+        public static bool  IsUrl(string path)
+        {
+            HttpWebResponse response = null;
+            var request = (HttpWebRequest)WebRequest.Create(path);
+            request.Method = "HEAD";
+            bool result = true;
+
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                result = false;
+            }
+            finally
+            {
+                if (response != null)
+                {
+                    response.Close();
+                }
+            }
+            return result;
         }
     }
 }

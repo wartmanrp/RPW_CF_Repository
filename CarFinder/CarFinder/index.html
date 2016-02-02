@@ -184,10 +184,10 @@
                             <div class="ls-layer" style="slidedirection: right; transition2d: 92,93,105; ">
                                 <img src="assets/img/carfinder slider/slide3.jpg" class="ls-bg" alt="Slide background">
                                 <span class="ls-s-1" style=" color: #777; line-height:45px; font-weight: 200; font-size: 35px; top:100px; left: 50px; slidedirection : top; slideoutdirection : bottom; durationin : 1000; durationout : 1000; ">
-                                   From old classics <br> To modern super cars
+                                   Web API and <br> Angular JS <br> for a tight, responsive experience.
                                 </span>
-                                <a class="btn-u btn-u-red ls-s-1" href="#yearSelection" style=" padding: 9px 20px; font-size:25px; top:220px; left: 50px; slidedirection : bottom; slideoutdirection : bottom; durationin : 2000; durationout : 2000; ">
-                                    Jump right in
+                                <a class="btn-u btn-u-red ls-s-1" data-toggle="modal" data-target="#JSModal" href="" style=" padding: 9px 20px; font-size:25px; top:240px; left: 50px; slidedirection : bottom; slideoutdirection : bottom; durationin : 2000; durationout : 2000; ">
+                                    Look under the hood
                                 </a>
                             </div>
                             <!--End Third Slide-->
@@ -346,39 +346,44 @@
                                     </div>
                                 </div>
 
+
+
                                 <div class="col-md-9" ng-show="true">
-                                    <div class="bg-light" ng-repeat="recall in carData.recalls.Results">
-                                        <div class="row" ng-show="recall.Manufacturer != '' || null">
-                                            <div class="col-sm-3 text-primary">Manufacturer:</div>
-                                            <div class="col-sm-9 text-left">{{recall.Manufacturer}}</div><br />
-                                            <br />
-                                        </div>
-                                        <div class="row" ng-show="recall.NHTSACampaignNumber != '' || null">
-                                            <div class="col-sm-3 text-primary">NHTSA Campaign Number:</div>
-                                            <div class="col-sm-9 text-left">{{recall.NHTSACampaignNumber}}</div><br />
-                                            <br />
-                                        </div>
-                                        <div class="row" ng-show="recall.Component != '' || null">
-                                            <div class="col-sm-3 text-primary">Component:</div>
-                                            <div class="col-sm-9 text-left">{{recall.Component}}</div><br />
-                                            <br />
-                                        </div>
-                                        <div class="row" ng-show="recall.Summary != '' || null">
-                                            <div class="col-sm-3 text-primary">Summary:</div>
-                                            <div class="col-sm-9 text-left">{{recall.Summary}}</div><br />
-                                            <br />
-                                        </div>
-                                        <div class="row" ng-show="recall.Conequence != '' || null">
-                                            <div class="col-sm-3 text-primary">Consequence:</div>
-                                            <div class="col-sm-9 text-left">{{recall.Conequence}}</div><br />
-                                            <br />
-                                        </div>
-                                        <div class="row" ng-show="recall.Remedy != '' || null">
-                                            <div class="col-sm-3 text-primary">Remedy:</div>
-                                            <div class="col-sm-9 text-left">{{recall.Remedy}}</div><br />
-                                            <br />
-                                        </div>
-                                    </div>
+                                    <uib-accordion close-others="true">
+                                        <uib-accordion-group heading="Recall Item" is-open="status.isFirstOpen" ng-repeat="recall in carData.recalls.Results">
+                                            <div class="row" ng-show="recall.Manufacturer != '' || null">
+                                                <div class="col-sm-3 text-primary">Manufacturer:</div>
+                                                <div class="col-sm-9 text-left">{{recall.Manufacturer}}</div><br />
+                                                <br />
+                                            </div>
+                                            <div class="row" ng-show="recall.NHTSACampaignNumber != '' || null">
+                                                <div class="col-sm-3 text-primary">NHTSA Campaign Number:</div>
+                                                <div class="col-sm-9 text-left">{{recall.NHTSACampaignNumber}}</div><br />
+                                                <br />
+                                            </div>
+                                            <div class="row" ng-show="recall.Component != '' || null">
+                                                <div class="col-sm-3 text-primary">Component:</div>
+                                                <div class="col-sm-9 text-left">{{recall.Component}}</div><br />
+                                                <br />
+                                            </div>
+                                            <div class="row" ng-show="recall.Summary != '' || null">
+                                                <div class="col-sm-3 text-primary">Summary:</div>
+                                                <div class="col-sm-9 text-left">{{recall.Summary}}</div><br />
+                                                <br />
+                                            </div>
+                                            <div class="row" ng-show="recall.Conequence != '' || null">
+                                                <div class="col-sm-3 text-primary">Consequence:</div>
+                                                <div class="col-sm-9 text-left">{{recall.Conequence}}</div><br />
+                                                <br />
+                                            </div>
+                                            <div class="row" ng-show="recall.Remedy != '' || null">
+                                                <div class="col-sm-3 text-primary">Remedy:</div>
+                                                <div class="col-sm-9 text-left">{{recall.Remedy}}</div><br />
+                                                <br />
+                                            </div>
+                                        </uib-accordion-group>
+                                    </uib-accordion>
+
                                  </div>
                             </div>
                         </div>
@@ -388,15 +393,15 @@
 
                 <!-- Begin Info Block -->
                 <div class="container content">
-                    <div class="row margin-bottom-40">   
+                    <div class="row margin-bottom-20">   
                         
                         <!--First Block-->                     
                         <div class="col-md-6 col-sm-12">
-                            <a href="" data-toggle="modal" data-target="#ngModal">
+                            <a href="" data-toggle="modal" data-target="#JSModal">
                                 <div class="servive-block servive-block-red service-or">
                                     <div class="service-bg"></div>
                                     <i class="icon-custom icon-color-light rounded-x icon-line icon-fire"></i>
-                                    <h2 class="heading-md"></h2>
+                                    <h2 class="heading-md">Front End</h2>
                                     <p></p>
                                 </div>
                             </a>
@@ -404,31 +409,27 @@
                         <!--End First Block-->
 
                         <!--First Block Modal-->
-                        <div class="modal fade" id="ngModal" tabindex="-1" role="dialog"
-                             aria=labelledby aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal"
-                                                aria-hidden="true" id="ngModalClose">X</button>
-                                        <h1 class="modal-title" id="modalHeader">AngularJS</h1>
-                                    </div>
-                                    <div class="modal-body col-sm-12 container content">
-                                        <div class="row">
-                                            <div class="col-sm-2">
-                                                <h2>This will contain information about the angularJS used in this project.</h2>
+                        <div id="JSModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">X</button>
+                                            <h1 class="modal-title">AngularJS</h1>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">                                            
+                                                <h4>The front end for this Car Finder application uses a combination of AngularJS and Ui-bootstrap</h4>
+                                            </div>   
+                                            <div class="row">
+                                                <p>Built upon a basic foundation of HTML5, CSS3, and Twitter Boostrap, I also used AngularJS to define a controller and allocate 2 way data binding to elements within the page.</p>
+                                                <p>ui-boostrap, an extension of AngularJS, was used to implement the image carousel, as well as the accordions for recall information. </p>
+                                                <p><em>If you are having trouble viewing recall information, try viewing the 1998 Ford Ranger, or 2009 Maserati Gran Turismo.</em></p>
                                             </div>
-                                            <div class="col-sm-10">
-                                                <p>Here is that information and stuff and ca;lsdkjf;alsdkfj</p>
-                                            </div>
-                                        </div> 
+                                        </div>
                                     </div>
-                                    <div class="modal-footer  no-margin">
-
-                                    </div>
-                                </div>                                  
+                                </div>
                             </div>
-                        </div>
+                        
                         <!--End First Block Modal-->
 
                         <!--Second Block-->
@@ -437,7 +438,7 @@
                                 <div class="servive-block servive-block-blue service-or">
                                     <div class="service-bg"></div>
                                     <i class="icon-custom icon-color-light rounded-x icon-line icon-rocket"></i>
-                                    <h2 class="heading-md"></h2>
+                                    <h2 class="heading-md">Back End</h2>
                                     <p></p>
                                 </div>
                             </a>
@@ -445,29 +446,22 @@
                         <!--End Second Block-->
 
                         <!--Second Block Modal-->
-                        <div class="modal fade" id="apiModal" tabindex="-1" role="dialog"
-                             aria=labelledby aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal content">
+                        <div id="apiModal" class="modal fade" role="dialog" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal"
-                                                aria-hidden="true" id="apiModalClose">
-                                            X
-                                        </button>
-                                        <h1 class="modal-title" id="modalHeader">Web API</h1>
+                                        <button type="button" class="close" data-dismiss="modal">X</button>
+                                        <h1 class="modal-title">Web API + Stored Procedures</h1>
                                     </div>
-                                    <div class="modal-body col-sm-12 container content">
+                                    <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-sm-2">
-                                                <h2>This will contain information about the Web API used in this project.</h2>
-                                            </div>
-                                            <div class="col-sm-10">
-                                                <p>Here is that information and stuff and ca;lsdkjf;alsdkfj</p>
-                                            </div>
+                                            <h4>The back end for this Car Finder application uses ASP.NET's Web API framework as well as calls to a MS SQL database.</h4>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer  no-margin">
-
+                                        <div class="row">
+                                            <p>All car information is gathered from a database using stored procedures in MS SQL server. This serves to create a consumable RESTful API service which is then used by the application.<em>You can view the API documentation by clicking <a href="http://rpwartman-carfinder.azurewebsites.net/Help">here</a>.</em></p>
+                                            <p>Carfinder also pulls from two other API's to provide information to the user. The first is the NHTSA recall database, to provide recall information. The second is Bing's image search API, which provides the images for the carousel.</p>
+                                            <p>All of this database and API information is then bound to Angular elements within the page to form a fully responsive, cross browser, single page application.</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -479,12 +473,14 @@
                     <!--Third Block-->
                     <div class="row margin-bottom-40">
                         <div class="col-md-12 col-sm-12">
-                            <div class="servive-block servive-block-red service-or">
-                                <div class="service-bg"></div>
-                                <i class="icon-custom icon-color-light rounded-x fa fa-lightbulb-o"></i>
-                                <h2 class="heading-md"><a href="http://rpwartman-carfinder.azurewebsites.net/Help">API Menu</a></h2>
-                                <p></p>
-                            </div>
+                            <a href="http://rpwartman-carfinder.azurewebsites.net/Help">
+                                <div class="servive-block servive-block-red service-or">
+                                    <div class="service-bg"></div>
+                                    <i class="icon-custom icon-color-light rounded-x fa fa-lightbulb-o"></i>
+                                    <h2 class="heading-md">API Menu</h2>
+                                    <p></p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <!--End Third Block-->
@@ -577,7 +573,7 @@
 
             </div>
         </div>
-    </div>
+
     <!-- JS Global Compulsory -->
     <script type="text/javascript" src="assets/plugins/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="assets/plugins/jquery-migrate-1.2.1.min.js"></script>
