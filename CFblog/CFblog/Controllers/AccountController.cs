@@ -12,6 +12,7 @@ using CFblog.Models;
 
 namespace CFblog.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class AccountController : Controller
     {

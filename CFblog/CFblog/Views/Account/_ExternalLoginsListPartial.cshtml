@@ -1,7 +1,7 @@
 ﻿@model CFblog.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
 
-<h4>Use another service to log in.</h4>
+<h4>Guest wishing to leave comments may log in using any of the third party applications listed below (uses secure HTTPS connections). No personal information is stored locally.</h4>
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();

@@ -11,6 +11,7 @@ using System.IO;
 
 namespace CFblog.Controllers
 {
+    [RequireHttps]
     public class PostsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

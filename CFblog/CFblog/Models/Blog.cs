@@ -50,7 +50,7 @@ namespace CFblog.Models
         public int PostId { get; set; }
         public string AuthorId { get; set; }
         public string EditorId { get; set; }
-        public int ParentCommentId { get; set; }
+        public int? ParentCommentId { get; set; }
         public string Body { get; set; }
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset? Updated { get; set; }

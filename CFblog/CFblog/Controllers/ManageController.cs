@@ -10,6 +10,7 @@ using CFblog.Models;
 
 namespace CFblog.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class ManageController : Controller
     {

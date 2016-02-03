@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using CFblog.Models;
+using Owin.Security.Providers.LinkedIn;
 
 namespace CFblog
 {
@@ -50,19 +51,21 @@ namespace CFblog
             //    clientId: "",
             //    clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            app.UseTwitterAuthentication(
+               consumerKey: "LDoUxWD8c73uLNyItb4n9zakL",
+               consumerSecret: "QWDbGJjEHNBfCm3JFbiGDWtGyu8gk7TsqjkGhtVPwhe2D8CQJ9");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "1660232957549795",
+               appSecret: "d8c9351569cdc81af07aad08a9c21a13");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "930626597389-1fkv4b6e2rephc7oul7bg1e2ukhh7h37.apps.googleusercontent.com",
+                ClientSecret = "7eRkapQJUEMKa2zbl48GAY2u"
+            });
+
+            app.UseLinkedInAuthentication("77yej3fdrghyp6", "LARWR6TNkqNEr6Q7");
         }
     }
 }

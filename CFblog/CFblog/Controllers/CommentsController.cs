@@ -10,6 +10,7 @@ using CFblog.Models;
 
 namespace CFblog.Controllers
 {
+    [RequireHttps]
     public class CommentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -38,12 +39,10 @@ namespace CFblog.Controllers
 
         // GET: Comments/Create
         [Authorize]
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.EditorId = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.PostId = new SelectList(db.Posts, "PostId", "Title");
-            return View();
+            var model = new Comment { PostId = id };
+            return View(model);
         }
 
         // POST: Comments/Create
@@ -52,18 +51,16 @@ namespace CFblog.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "CommentId,PostId,AuthorId,EditorId,ParentCommentId,Body,Created,Updated,MarkForDeletion")] Comment comment)
+        public ActionResult Create([Bind(Include = "PostId,Body")] Comment comment)
         {
             if (ModelState.IsValid)
             {
+                comment.Created = new DateTimeOffset(DateTime.Now);
+                comment.AuthorId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Posts", new { id = comment.PostId });
             }
-
-            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", comment.AuthorId);
-            ViewBag.EditorId = new SelectList(db.Users, "Id", "FirstName", comment.EditorId);
-            ViewBag.PostId = new SelectList(db.Posts, "PostId", "Title", comment.PostId);
             return View(comment);
         }
 

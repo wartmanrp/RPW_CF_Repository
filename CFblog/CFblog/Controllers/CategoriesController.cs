@@ -10,6 +10,7 @@ using CFblog.Models;
 
 namespace CFblog.Controllers
 {
+    [RequireHttps]
     [Authorize(Roles = "Admin")]
     public class CategoriesController : Controller
     {
