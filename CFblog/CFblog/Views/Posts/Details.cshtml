@@ -66,9 +66,9 @@
                     <img class="media-object" src="~/assets/img/site logo-sm.png" alt="" />
                 </a>
                 <div class="media-body">
-                    <h4 class="media-heading">@comment.AuthorId<span>@comment.Created / <a href="#"> Reply </a></span></h4>
+                    <h4 class="media-heading">@comment.Author<span>@comment.Created / <a href="#"> Reply </a></span></h4>
                     <p>@comment.Body</p>
-
+                    @Html.ActionLink("-", "Delete", "Comments", new { id = @comment.Id, postId = @Model.Id }, null)
                     <hr>
                 </div>
            

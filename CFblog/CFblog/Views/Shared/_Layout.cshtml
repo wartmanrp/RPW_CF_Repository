@@ -126,15 +126,15 @@
             <div class="breadcrumbs">
                 <div class="container">
                     <div class="row">
-                            <ul class="pull-left breadcrumb">
+                        <div class="col-md-6">
+                            <ul class="breadcrumb">
                                 <li><a href="http://rpwartman.azurewebsites.net/">Home</a></li>
                                 <li><a href="~/Posts/Index">Blog</a></li>
                             </ul>
-                    <div class="pull-right">
-                        @Html.Partial("_LoginPartial")
-                    </div>
-                                
-   
+                        </div>                         
+                        <div class="col-md-6">
+                            @Html.Partial("_LoginPartial")
+                        </div>
                     </div>
                 </div>
             </div>

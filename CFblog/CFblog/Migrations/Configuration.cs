@@ -57,19 +57,19 @@ namespace CFblog.Migrations
 
 
             //creates new user
-            if (userManager.FindByEmail("tjones@coderfoundry.com") == null)
+            if (userManager.FindByEmail("ajensen@coderfoundry.com") == null)
             {
                 userManager.Create(new ApplicationUser
                 {
-                    UserName = "tjones@coderfoundry.com",
-                    Email = "tjones@coderfoundry.com",
-                    FirstName = "TJ",
-                    LastName = "Jones"
+                    UserName = "ajensen@coderfoundry.com",
+                    Email = "ajensen@coderfoundry.com",
+                    FirstName = "Andrew",
+                    LastName = "Jensen"
                 }, "Password-1");
             }
 
             //assigns person to given role (admin || moderator), if not already in it.
-            userId = userManager.FindByEmail("tjones@coderfoundry.com").Id;
+            userId = userManager.FindByEmail("ajensen@coderfoundry.com").Id;
             if (!userManager.IsInRole(userId, "Moderator"))
             {
                 userManager.AddToRole(userId, "Moderator");

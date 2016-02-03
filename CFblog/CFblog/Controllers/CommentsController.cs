@@ -107,7 +107,7 @@ namespace CFblog.Controllers
         }
 
         // GET: Comments/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, int postId)
         {
             if (id == null)
             {
@@ -118,7 +118,10 @@ namespace CFblog.Controllers
             {
                 return HttpNotFound();
             }
-            return View(comment);
+            comment.MarkForDeletion = true;
+            db.SaveChanges();
+            return RedirectToAction("Details", "Posts", new { id = postId });
+            //return View(comment);
         }
 
         // POST: Comments/Delete/5
@@ -129,7 +132,7 @@ namespace CFblog.Controllers
             Comment comment = db.Comments.Find(id);
             db.Comments.Remove(comment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Posts", id);
         }
 
         protected override void Dispose(bool disposing)
