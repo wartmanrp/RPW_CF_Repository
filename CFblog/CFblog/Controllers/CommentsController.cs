@@ -90,6 +90,7 @@ namespace CFblog.Controllers
         // POST: Comments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CommentId,PostId,AuthorId,EditorId,ParentCommentId,Body,Created,Updated,MarkForDeletion")] Comment comment)
@@ -107,6 +108,7 @@ namespace CFblog.Controllers
         }
 
         // GET: Comments/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id, int postId)
         {
             if (id == null)
@@ -127,12 +129,13 @@ namespace CFblog.Controllers
         // POST: Comments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Comment comment = db.Comments.Find(id);
             db.Comments.Remove(comment);
             db.SaveChanges();
-            return RedirectToAction("Details", "Posts", id);
+            return View("Index");
         }
 
         protected override void Dispose(bool disposing)

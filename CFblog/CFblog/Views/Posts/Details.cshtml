@@ -31,7 +31,6 @@
         <ul class="list-unstyled list-inline blog-info">
             <li><i class="fa fa-calendar"></i> @Model.Created </li>
             <li><i class="fa fa-pencil"></i> Powers Wartman </li>
-            <li><i class="fa fa-comments"></i> <a href="#"> @Model.Comments.Count</a> Comments </li>
             <li>
                 <i class="fa fa-tags"></i>
                 @foreach (var item in Model.Categories)
@@ -57,21 +56,30 @@
             <div class="row">
                 <h3 class="col-md-6 pull-left">Comments</h3>
             </div>
-
-
             @foreach (var comment in Model.Comments)
             {
-            <!--main comment-->
-                <a class="pull-left" href="#">
-                    <img class="media-object" src="~/assets/img/site logo-sm.png" alt="" />
-                </a>
-                <div class="media-body">
-                    <h4 class="media-heading">@comment.Author<span>@comment.Created / <a href="#"> Reply </a></span></h4>
-                    <p>@comment.Body</p>
-                    @Html.ActionLink("-", "Delete", "Comments", new { id = @comment.Id, postId = @Model.Id }, null)
-                    <hr>
-                </div>
-           
+                if (!comment.MarkForDeletion)
+                {
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="~/assets/img/site logo-sm.png" alt="" />
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">@comment.Author<span>@comment.Created / <a href="#"> Reply </a></span></h4>
+                        <p>@comment.Body</p>
+
+
+                        @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                        {
+                            <h4 class="pull-right">
+                                @Html.ActionLink("Delete", "Delete", "Comments", new { id = @comment.Id, postId = @Model.Id }, null)
+                            </h4>
+                        }
+
+
+
+                        <hr>
+                    </div>
+                }                   
             }
         </div><!--/media-->
         <!--End Comments Display-->
