@@ -51,9 +51,9 @@ namespace CFblog
             //    clientId: "",
             //    clientSecret: "");
 
-            app.UseTwitterAuthentication(
-               consumerKey: "LDoUxWD8c73uLNyItb4n9zakL",
-               consumerSecret: "QWDbGJjEHNBfCm3JFbiGDWtGyu8gk7TsqjkGhtVPwhe2D8CQJ9");
+            //app.UseTwitterAuthentication(
+            //   consumerKey: "LDoUxWD8c73uLNyItb4n9zakL",
+            //   consumerSecret: "QWDbGJjEHNBfCm3JFbiGDWtGyu8gk7TsqjkGhtVPwhe2D8CQJ9");
 
             app.UseFacebookAuthentication(
                appId: "1660232957549795",

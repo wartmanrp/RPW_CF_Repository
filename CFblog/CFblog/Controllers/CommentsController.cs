@@ -108,7 +108,7 @@ namespace CFblog.Controllers
         }
 
         // GET: Comments/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Moderator")]
         public ActionResult Delete(int? id, int postId)
         {
             if (id == null)
@@ -129,7 +129,7 @@ namespace CFblog.Controllers
         // POST: Comments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Moderator")]
         public ActionResult DeleteConfirmed(int id)
         {
             Comment comment = db.Comments.Find(id);

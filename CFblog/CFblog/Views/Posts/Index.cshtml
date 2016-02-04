@@ -6,13 +6,14 @@
     <!--=== Content Part ===-->
 <div class="content blog-full-width">
 
-
-@if (User.IsInRole("Admin"))
-{
-    <h4 class="pull-right">
-        @Html.ActionLink("Create New", "Create")
-    </h4>
-}
+    <div class="row">
+        @if (User.IsInRole("Admin"))
+        {
+            <button class="btn btn-u-dark-blue">
+                @Html.ActionLink("Create New", "Create")
+            </button>
+        }
+    </div>
 
     @foreach (var post in Model)
     {

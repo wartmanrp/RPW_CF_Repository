@@ -15,7 +15,7 @@
 
 
 
-<div class="container content blog-page blog-item">
+<div class="blog-page blog-item">
     <!--Blog Post-->
     <div class="blog margin-bottom-40">
     <div class="blog-img">
@@ -48,13 +48,12 @@
 
         <!--Comments Display-->
         <div class="media">
-        <div class="row">
-            <h3 class="col-md-6 pull-right">
-                @Html.ActionLink("New Comment", "Create", "Comments", new { id = @Model.Id }, new { @class = "btn btn-default" })
-            </h3>
-        </div>
             <div class="row">
                 <h3 class="col-md-6 pull-left">Comments</h3>
+                <div class="col-md-6 text-right">
+                        @Html.ActionLink("New Comment", "Create", "Comments", new { id = @Model.Id }, new { @class = "btn btn-success" })
+                </div>
+
             </div>
             @foreach (var comment in Model.Comments)
             {
@@ -64,16 +63,18 @@
                         <img class="media-object" src="~/assets/img/site logo-sm.png" alt="" />
                     </a>
                     <div class="media-body">
-                        <h4 class="media-heading">@comment.Author<span>@comment.Created / <a href="#"> Reply </a></span></h4>
-                        <p>@comment.Body</p>
+                        <h4 class="media-heading">@comment.Author<span>@comment.Created</span></h4>
+                        <p>@comment.Body
+                            @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                            {
+                                <div class="pull-right">
+                                    @Html.ActionLink("Delete", "Delete", "Comments", new { id = @comment.Id, postId = @Model.Id }, null)
+                                </div>
+                            }
+
+                        </p>
 
 
-                        @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
-                        {
-                            <h4 class="pull-right">
-                                @Html.ActionLink("Delete", "Delete", "Comments", new { id = @comment.Id, postId = @Model.Id }, null)
-                            </h4>
-                        }
 
 
 
@@ -81,14 +82,7 @@
                     </div>
                 }                   
             }
-        </div><!--/media-->
+        </div>
         <!--End Comments Display-->
-           
-
-
-            </div>
-            <!--End Blog Post-->
-
-            
-
+    </div>
 </div>
