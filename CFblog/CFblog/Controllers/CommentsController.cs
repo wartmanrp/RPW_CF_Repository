@@ -51,7 +51,7 @@ namespace CFblog.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "PostId,Body")] Comment comment)
+        public ActionResult Create([Bind(Include = "Id,PostId,AuthorId,EditorId,ParentCommentId,Body,Created,Updated,MarkForDeletion")] Comment comment)
         {
             if (ModelState.IsValid)
             {

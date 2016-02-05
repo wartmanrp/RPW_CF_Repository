@@ -49,39 +49,42 @@
         <!--Comments Display-->
         <div class="media">
             <div class="row">
-                <h3 class="col-md-6 pull-left">Comments</h3>
-                <div class="col-md-6 text-right">
+                <h3 class="col-md-3 vcenter">Comments</h3>
+                <div class="col-md-8 vcenter2">
                         @Html.ActionLink("New Comment", "Create", "Comments", new { id = @Model.Id }, new { @class = "btn btn-success" })
                 </div>
-
             </div>
-            @foreach (var comment in Model.Comments)
-            {
-                if (!comment.MarkForDeletion)
+            <div class="row">
+
+                @foreach (var comment in Model.Comments)
                 {
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="~/assets/img/site logo-sm.png" alt="" />
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">@comment.Author<span>@comment.Created</span></h4>
-                        <p>@comment.Body
-                            @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
-                            {
-                                <div class="pull-right">
-                                    @Html.ActionLink("Delete", "Delete", "Comments", new { id = @comment.Id, postId = @Model.Id }, null)
-                                </div>
-                            }
+                    if (!comment.MarkForDeletion)
+                    {
+                        <div class="col-md-3 vcenter">
+                            <h5 class="text-center" >
+                                @comment.Author.UserName
+                            </h5>
+                        </div><!--                                  
+                              --><div class="col-md-9 vcenter">
+                            <div class="media-body">
+                                <div class="media-heading text-right"><span>@comment.Created</span></div>
+                                <p>
+                                    @Html.Raw(comment.Body)
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                                    {
+                                        <div class="pull-right">
+                                            @Html.ActionLink("Delete", "Delete", "Comments", new { id = @comment.Id, postId = @Model.Id }, null)
+                                        </div>
+                                    }
 
-                        </p>
-
-
-
-
-
-                        <hr>
-                    </div>
-                }                   
-            }
+                                </p>
+                                <hr>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            
         </div>
         <!--End Comments Display-->
     </div>

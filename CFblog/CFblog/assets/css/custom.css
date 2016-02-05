@@ -13,3 +13,16 @@ img.center {
     display: block;
     margin: 0 auto
 }
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.vcenter2 {
+
+    vertical-align: middle;
+    float: right;
+    text-align: right;
+}

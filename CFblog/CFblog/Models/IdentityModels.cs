@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace CFblog.Models
 {
@@ -11,6 +12,12 @@ namespace CFblog.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        public ApplicationUser()
+        {
+            this.Comments = new HashSet<Comment>();
+        }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -18,6 +25,8 @@ namespace CFblog.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

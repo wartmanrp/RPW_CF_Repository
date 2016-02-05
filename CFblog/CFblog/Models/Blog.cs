@@ -51,16 +51,17 @@ namespace CFblog.Models
         public string AuthorId { get; set; }
         public string EditorId { get; set; }
         public int? ParentCommentId { get; set; }
+        [AllowHtml]
         public string Body { get; set; }
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset? Updated { get; set; }
         public bool MarkForDeletion { get; set; }
 
 
-        public Post Post { get; set; }
-        public ApplicationUser Author { get; set; }
-        public ApplicationUser Editor { get; set; }
-        public Comment ParentComment { get; set; }
+        public virtual Post Post { get; set; }
+        public virtual ApplicationUser Author { get; set; }
+        public virtual ApplicationUser Editor { get; set; }
+        public virtual Comment ParentComment { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
     }
