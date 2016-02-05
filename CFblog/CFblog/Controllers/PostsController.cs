@@ -26,6 +26,19 @@ namespace CFblog.Controllers
             return View(db.Posts.ToList().OrderByDescending(p => p.Created).ToPagedList(pageNumber, pageSize));
         }
 
+        [HttpPost]
+        public ActionResult Index(string searchStr, int? page, int? size, int? count)
+        {
+            var result = db.Posts.Where(p =>
+                p.Title.Contains(searchStr) ||
+                p.Body.Contains(searchStr));
+                //p.Comments.Any(c => c.Body.Contains(searchStr)) ||
+                //p.Comments.Any(c => c.Author.UserName.Contains(searchStr))
+
+            return View(result);
+
+        }
+
         // GET: Posts/Details/5
         public ActionResult Details(int? id)
         {

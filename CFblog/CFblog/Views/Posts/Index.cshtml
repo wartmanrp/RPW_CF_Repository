@@ -32,7 +32,7 @@
                     }
                 </a>
             </div>
-            <h2>
+            <h2 id="blogtitle + @post.Id">
                 @Html.ActionLink(post.Title, "Details", new { id = post.Id})
             </h2>
             <div class="blog-post-tags">
@@ -73,5 +73,10 @@
                 watch: "window"
             });
         });
+
+        if(@ViewBag.searchStr != null)  {
+            $("[id^=blogtitle]").innerHtml.replace(word, "<span class='highlight'>" + word + "</span>")
+            $("[id^=abstract]").innerHtml.replace(word, "<span class='highlight'>" + word + "</span>")
+        }
 </script>
 <!--=== End Content Part ===-->

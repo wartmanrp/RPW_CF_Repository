@@ -105,17 +105,17 @@
                             </li>
                             <!-- End Contacts -->
                             <!-- Search Block -->
-                            <!--   <li>
-                                   <i class="search fa fa-search search-btn"></i>
-                                   <div class="search-open">
-                                       <div class="input-group animated fadeInDown">
-                                           <input type="text" class="form-control" placeholder="Search">
-                                           <span class="input-group-btn">
-                                               <button class="btn-u" type="button">Go</button>
-                                           </span>
-                                       </div>
-                                   </div>
-                               </li>
+                            <li>
+                                <i class="search fa fa-search search-btn"></i>
+                                <div class="search-open">
+                                    <div class="input-group animated fadeInDown">
+                                        <input type="text" class="form-control" placeholder="Search">
+                                        <span class="input-group-btn">
+                                            <button class="btn-u" type="button">Go</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
                                <!-- End Search Block -->
                         </ul>
                     </div><!--/navbar-collapse-->
@@ -150,6 +150,15 @@
             @RenderBody()
         </div>
 
+    @*search form*@
+    <div class="row">
+        @Html.BeginForm("Index", "Posts")
+        {
+            <input name="searchStr" id="searchStr" type="text" />
+            <input type="submit" value="Search" class="btn btn-default" />
+        }
+
+    </div>
         <!--=== Footer ===-->
         <div class="footer">
             <div class="container">
