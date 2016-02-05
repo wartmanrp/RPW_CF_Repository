@@ -58,26 +58,27 @@
 
                 @foreach (var comment in Model.Comments)
                 {
+                    <div class="row"></div>
                     if (!comment.MarkForDeletion)
                     {
-                        <div class="col-md-3 vcenter">
-                            <h5 class="text-center" >
+                        <div class="col-md-3 vcenter" style="margin-top: 10px">
+                            <span class="text-center label label-dark-blue" >
                                 @comment.Author.UserName
-                            </h5>
+                            </span>
                         </div><!--                                  
-                              --><div class="col-md-9 vcenter">
+                     --><div class="col-md-9 vcenter">
                             <div class="media-body">
-                                <div class="media-heading text-right"><span>@comment.Created</span></div>
-                                <p>
+                                
                                     @Html.Raw(comment.Body)
                                     @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                                     {
-                                        <div class="pull-right">
+                                        
                                             @Html.ActionLink("Delete", "Delete", "Comments", new { id = @comment.Id, postId = @Model.Id }, null)
-                                        </div>
+                                        
                                     }
+                                
+                                <div class="media-heading text-right"><span>@comment.Created</span></div>
 
-                                </p>
                                 <hr>
                             </div>
                         </div>

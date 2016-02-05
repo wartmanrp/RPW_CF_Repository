@@ -1,8 +1,13 @@
-﻿@model IEnumerable<CFblog.Models.Post>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model PagedList<CFblog.Models.Post>
 
 @{
     ViewBag.Title = "Index";
 }
+
+
     <!--=== Content Part ===-->
 <div class="content blog-full-width">
 
@@ -53,6 +58,9 @@
 
 
     }
+
+    Page @Model.PageNumber of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page}))
 
 </div><!--/container-->
 <script type="text/javascript">

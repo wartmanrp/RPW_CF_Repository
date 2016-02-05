@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using CFblog.Models;
 using System.IO;
+using PagedList;
+using PagedList.Mvc;
 
 namespace CFblog.Controllers
 {
@@ -17,9 +19,11 @@ namespace CFblog.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Posts
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.Posts.ToList().OrderByDescending(p => p.Created));
+            int pageSize = 5; //number of posts you want to display per page
+            int pageNumber = (page ?? 1);
+            return View(db.Posts.ToList().OrderByDescending(p => p.Created).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Posts/Details/5
