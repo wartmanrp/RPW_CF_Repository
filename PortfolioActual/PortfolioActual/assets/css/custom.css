@@ -1,1 +1,14 @@
 /* Add here all your css styles (customizations) */
+.blog-img {
+	overflow: hidden;
+	position: relative;
+	min-height: 300px;
+	background: url(../img/bg/3.jpg) 70% 40% no-repeat;
+}
+
+.blog-img .blog-description {
+	padding: 20px;
+	max-width: 450px;
+	margin: 60px auto 100px;	
+	background: rgba(255,255,255,0.8);
+}
