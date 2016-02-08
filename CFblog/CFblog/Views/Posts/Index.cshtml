@@ -12,12 +12,21 @@
 <div class="content blog-full-width">
 
     <div class="row">
-        @if (User.IsInRole("Admin"))
-        {
-            <button class="btn btn-u-dark-blue">
-                @Html.ActionLink("Create New", "Create")
-            </button>
-        }
+        <div class="col-md-6">
+            @if (User.IsInRole("Admin"))
+            {
+                <button class="btn btn-u-dark-blue">
+                    @Html.ActionLink("Create New", "Create")
+                </button>
+            }
+        </div>
+        <div class="col-md-6 text-right !important">
+            @using (@Html.BeginForm("Index", "Posts", FormMethod.Post))
+            {
+                @Html.TextBox("searchStr", ViewBag.CurrentFilter as string, new { @placeholder = "Search..." })
+                <input type="submit" value="Search" class="btn btn-default" />
+            }
+        </div>
     </div>
 
     @foreach (var post in Model)
@@ -32,7 +41,7 @@
                     }
                 </a>
             </div>
-            <h2 id="blogtitle + @post.Id">
+            <h2 id=@("blogtitle" + post.Id)>
                 @Html.ActionLink(post.Title, "Details", new { id = post.Id})
             </h2>
             <div class="blog-post-tags">
@@ -47,7 +56,7 @@
                     </li>
                 </ul>
             </div>
-            <div id="abstract + @post.Id">
+            <div id=@("abstract" + post.Id)>
                 <p>@Html.Raw(post.Body)</p>
             </div>
             <p>
@@ -74,9 +83,19 @@
             });
         });
 
-        if(@ViewBag.searchStr != null)  {
-            $("[id^=blogtitle]").innerHtml.replace(word, "<span class='highlight'>" + word + "</span>")
-            $("[id^=abstract]").innerHtml.replace(word, "<span class='highlight'>" + word + "</span>")
+        // loop through number of results
+        var word = '@ViewBag.currentFilter';
+        if (word !== '')
+        {
+            var newtitle = $("[id^=blogtitle]").html().replace(word, "<span class='highlight'>" + word + "</span>")
+            $("[id^=blogtitle]").html(newtitle);
+
+            var newtitle = $("[id^=abstract]").html().replace(word, "<span class='highlight'>" + word + "</span>")
+            $("[id^=abstract]").html(newtitle);
         }
+
+
+
+
 </script>
 <!--=== End Content Part ===-->

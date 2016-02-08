@@ -150,15 +150,15 @@
             @RenderBody()
         </div>
 
-    @*search form*@
+        @*@*search form
     <div class="row">
-        @Html.BeginForm("Index", "Posts")
+        @using (@Html.BeginForm("Index", "Posts", FormMethod.Get))
         {
-            <input name="searchStr" id="searchStr" type="text" />
+            @Html.TextBox("searchStr", new { placeholder = "Search..." })
             <input type="submit" value="Search" class="btn btn-default" />
         }
 
-    </div>
+    </div>*@
         <!--=== Footer ===-->
         <div class="footer">
             <div class="container">

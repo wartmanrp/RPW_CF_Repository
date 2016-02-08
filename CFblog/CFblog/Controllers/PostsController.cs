@@ -27,15 +27,19 @@ namespace CFblog.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string searchStr, int? page, int? size, int? count)
+        public ActionResult Index(string currentFilter, string searchStr, int? pageNumber, int? pageSize, int? count)
         {
+            int pNum = (pageNumber ?? 1);
+            int pSize = (pageSize ?? 5);
+
+            ViewBag.CurrentFilter = searchStr;
             var result = db.Posts.Where(p =>
                 p.Title.Contains(searchStr) ||
-                p.Body.Contains(searchStr));
-                //p.Comments.Any(c => c.Body.Contains(searchStr)) ||
-                //p.Comments.Any(c => c.Author.UserName.Contains(searchStr))
+                p.Body.Contains(searchStr) ||
+                p.Comments.Any(c => c.Body.Contains(searchStr)) ||
+                p.Comments.Any(c => c.Author.UserName.Contains(searchStr)));
 
-            return View(result);
+            return View(result.ToList().OrderByDescending(p => p.Created).ToPagedList(pNum, pSize));
 
         }
 

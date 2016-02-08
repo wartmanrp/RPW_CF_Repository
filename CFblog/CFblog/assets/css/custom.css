@@ -31,3 +31,7 @@ img.center {
 .media-body {
     text-align: left;
 }
+
+.highlight{
+    background-color: yellow;
+}
