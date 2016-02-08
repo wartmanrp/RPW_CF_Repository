@@ -11,21 +11,21 @@ namespace CFblog.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Posts");
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            return RedirectToAction("Index", "Posts");
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
+            return RedirectToAction("Index", "Posts");
         }
     }
 }
