@@ -21,12 +21,17 @@ namespace CFblog.Migrations
         //checks if roles exist, if not runs them.
         protected override void Seed(CFblog.Models.ApplicationDbContext context)
         {
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var roleManager = new RoleManager<IdentityRole>(
+                new RoleStore<IdentityRole>(context));
+
+            //creates admin if doesn't exist.
             if (!roleManager.RoleExists("Admin"))
             if(!context.Roles.Any(r => r.Name == "Admin"))
             {
                  roleManager.Create(new IdentityRole { Name = "Admin" });
             }
+
+            //creates moderator role if doesn't exist
             if (!context.Roles.Any(r => r.Name == "Moderator")) 
             {
                 roleManager.Create(new IdentityRole { Name = "Moderator" });

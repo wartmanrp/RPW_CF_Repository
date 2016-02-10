@@ -151,7 +151,19 @@ namespace CFBudgeter.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var db = new ApplicationDbContext();
+                db.Households.Add(new Household { Name = model.HouseholdName });
+                await db.SaveChangesAsync();
+               
+                var id = db.Households.ToList().OrderByDescending(h => h.Id).FirstOrDefault(h => h.Name == model.HouseholdName).Id;
+
+                var user = new ApplicationUser { 
+                    UserName = model.Email, 
+                    Email = model.Email, 
+                    FirstName = model.FirstName, 
+                    LastName = model.LastName, 
+                    HouseholdId = id };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
