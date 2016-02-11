@@ -1,54 +1,434 @@
-﻿<!DOCTYPE html>
+﻿
+@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,800italic,400,600,800" type="text/css">
+    <link rel="stylesheet" href="~/Assets/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="~/Assets/js/libs/css/ui-lightness/jquery-ui-1.9.2.custom.css" type="text/css" />
+
+    <link rel="stylesheet" href="~/Assets/css/App.css" type="text/css" />
+
+    <link rel="stylesheet" href="~/Assets/css/custom.css" type="text/css" />
+
 
     <script type="text/javascript">
-        var appInsights=window.appInsights||function(config){
-            function r(config){t[config]=function(){var i=arguments;t.queue.push(function(){t[config].apply(t,i)})}}var t={config:config},u=document,e=window,o="script",s=u.createElement(o),i,f;for(s.src=config.url||"//az416426.vo.msecnd.net/scripts/a/ai.0.js",u.getElementsByTagName(o)[0].parentNode.appendChild(s),t.cookie=u.cookie,t.queue=[],i=["Event","Exception","Metric","PageView","Trace","Ajax"];i.length;)r("track"+i.pop());return r("setAuthenticatedUserContext"),r("clearAuthenticatedUserContext"),config.disableExceptionTracking||(i="onerror",r("_"+i),f=e[i],e[i]=function(config,r,u,e,o){var s=f&&f(config,r,u,e,o);return s!==!0&&t["_"+i](config,r,u,e,o),s}),t
-        }({
-            instrumentationKey:"2f390923-4726-4d40-bbac-d049540a0016"
-        });
-        
-        window.appInsights=appInsights;
-        appInsights.trackPageView();
+    var appInsights = window.appInsights || function (config) {
+        function r(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, u = document, e = window, o = "script", s = u.createElement(o), i, f; for (s.src = config.url || "//az416426.vo.msecnd.net/scripts/a/ai.0.js", u.getElementsByTagName(o)[0].parentNode.appendChild(s), t.cookie = u.cookie, t.queue = [], i = ["Event", "Exception", "Metric", "PageView", "Trace", "Ajax"]; i.length;) r("track" + i.pop()); return r("setAuthenticatedUserContext"), r("clearAuthenticatedUserContext"), config.disableExceptionTracking || (i = "onerror", r("_" + i), f = e[i], e[i] = function (config, r, u, e, o) { var s = f && f(config, r, u, e, o); return s !== !0 && t["_" + i](config, r, u, e, o), s }), t
+    }({
+        instrumentationKey: "2f390923-4726-4d40-bbac-d049540a0016"
+    });
+
+    window.appInsights = appInsights;
+    appInsights.trackPageView();
     </script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <div id="wrapper">
+
+        <header id="header">
+
+            <h1 id="site-logo">
+                <a href="../pages/index.html">
+                    <img src="~/Assets/img/logos/site logo-sm.png" alt="Site Logo" />
+                </a>
+            </h1>
+
+            <a href="javascript:;" data-toggle="collapse" data-target=".top-bar-collapse" id="top-bar-toggle" class="navbar-toggle collapsed">
+                <i class="fa fa-cog"></i>
+            </a>
+
+            <a href="javascript:;" data-toggle="collapse" data-target=".sidebar-collapse" id="sidebar-toggle" class="navbar-toggle collapsed">
+                <i class="fa fa-reorder"></i>
+            </a>
+
+        </header> <!-- header -->
+
+        <nav id="top-bar" class="collapse top-bar-collapse">
+            <ul class="nav navbar-nav pull-left">
+                <li class="">
+                    
+                        <i class="fa fa-home"></i>
+                        @Html.ActionLink("Home", "Index", "Home")
+                    
+                </li>
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+                        Dropdown <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="javascript:;"><i class="fa fa-user"></i>&nbsp;&nbsp;Example #1</a></li>
+                        <li><a href="javascript:;"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Example #2</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:;"><i class="fa fa-tasks"></i>&nbsp;&nbsp;Example #3</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+
+            @if (Request.IsAuthenticated)
+            {
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, htmlAttributes: new { @class = "navbar-right"}))
+                {
+                    @Html.AntiForgeryToken()
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href=javascript:;>
+                                <i class="fa fa-user"></i>
+                                @User.Identity.GetUserName()
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <i class="fa fa-user"></i>
+                                    @Html.ActionLink("My Profile", "Index", "Manage",
+                                     routeValues: null,
+                                     htmlAttributes: new { title = "Manage" })
+                                </li>      
+                                <li class="divider"></li>                         
+                                <li>
+                                    <i class=" fa fa-sign-out"></i>
+                                    <a href="javascript:document.getElementById('logoutForm').submit()">
+                                        Log off
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+            }
+            else
+            {
+                <ul class="nav navbar-nav pull-right">
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href=javascript:;>
+                            <i class="fa fa-user"></i>
+                            Please Log In or Register
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                            @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+                            </li>
+                            <li>
+                                @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            }
+        </nav> <!-- /#top-bar -->
+
+
+        <div id="sidebar-wrapper" class="collapse sidebar-collapse">
+
+            <div id="search">
+                <form>
+                    <input class="form-control input-sm" type="text" name="search" placeholder="Search..." />
+
+                    <button type="submit" id="search-btn" class="btn"><i class="fa fa-search"></i></button>
+                </form>
+            </div> <!-- #search -->
+
+            <nav id="sidebar">
+
+                <ul id="main-nav" class="open-active">
+                    <li class="">                        
+                            <i class="fa fa-dashboard"></i>
+                            @Html.ActionLink("Dashboard", "Index", "Home")                        
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="javascript:;">
+                            <i class="fa fa-file-text"></i>
+                            Example Pages
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="sub-nav">
+                            <li>
+                                <a href="../pages/page-profile.html">
+                                    <i class="fa fa-user"></i>
+                                    Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../pages/page-invoice.html">
+                                    <i class="fa fa-money"></i>
+                                    Invoice
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../pages/page-pricing.html">
+                                    <i class="fa fa-dollar"></i>
+                                    Pricing Plans
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../pages/page-support.html">
+                                    <i class="fa fa-question"></i>
+                                    Support Page
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../pages/page-gallery.html">
+                                    <i class="fa fa-picture-o"></i>
+                                    Gallery
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../pages/page-settings.html">
+                                    <i class="fa fa-cogs"></i>
+                                    Settings
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../pages/page-calendar.html">
+                                    <i class="fa fa-calendar"></i>
+                                    Calendar
+                                </a>
+                            </li>
+                        </ul>
+
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="javascript:;">
+                            <i class="fa fa-tasks"></i>
+                            Form Elements
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="sub-nav">
+                            <li>
+                                <a href="../pages/form-regular.html">
+                                    <i class="fa fa-location-arrow"></i>
+                                    Regular Elements
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../pages/form-extended.html">
+                                    <i class="fa fa-magic"></i>
+                                    Extended Elements
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../pages/form-validation.html">
+                                    <i class="fa fa-check"></i>
+                                    Validation
+                                </a>
+                            </li>
+                        </ul>
+
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="javascript:;">
+                            <i class="fa fa-desktop"></i>
+                            UI Features
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="sub-nav">
+                            <li>
+                                <a href="../pages/ui-buttons.html">
+                                    <i class="fa fa-hand-o-up"></i>
+                                    Buttons
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../pages/ui-tabs.html">
+                                    <i class="fa fa-reorder"></i>
+                                    Tabs & Accordions
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="../pages/ui-popups.html">
+                                    <i class="fa fa-asterisk"></i>
+                                    Popups / Notifications
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="../pages/ui-sliders.html">
+                                    <i class="fa fa-tasks"></i>
+                                    Sliders
+                                </a>
+                            </li>
+
+                            <li class="">
+                                <a href="../pages/ui-typography.html">
+                                    <i class="fa fa-font"></i>
+                                    Typography
+                                </a>
+                            </li>
+
+                            <li class="">
+                                <a href="../pages/ui-icons.html">
+                                    <i class="fa fa-star-o"></i>
+                                    Icons
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="javascript:;">
+                            <i class="fa fa-table"></i>
+                            Tables
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="sub-nav">
+                            <li>
+                                <a href="../pages/table-basic.html">
+                                    <i class="fa fa-table"></i>
+                                    Basic Tables
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../pages/table-advanced.html">
+                                    <i class="fa fa-table"></i>
+                                    Advanced Tables
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../pages/table-responsive.html">
+                                    <i class="fa fa-table"></i>
+                                    Responsive Tables
+                                </a>
+                            </li>
+                        </ul>
+
+                    </li>
+
+                    <li>
+                        <a href="../ui-portlets.html">
+                            <i class="fa fa-list-alt"></i>
+                            Portlets
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="javascript:;">
+                            <i class="fa fa-bar-chart-o"></i>
+                            Charts & Graphs
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="sub-nav">
+                            <li>
+                                <a href="../pages/chart-flot.html">
+                                    <i class="fa fa-bar-chart-o"></i>
+                                    jQuery Flot
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../pages/chart-morris.html">
+                                    <i class="fa fa-bar-chart-o"></i>
+                                    Morris.js
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown active">
+                        <a href="javascript:;">
+                            <i class="fa fa-file-text-o"></i>
+                            Extra Pages
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="sub-nav">
+                            <li>
+                                <a href="../pages/page-login.html">
+                                    <i class="fa fa-unlock"></i>
+                                    Login Basic
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../pages/page-login-social.html">
+                                    <i class="fa fa-unlock"></i>
+                                    Login Social
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../pages/page-404.html">
+                                    <i class="fa fa-ban"></i>
+                                    404 Error
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../pages/page-500.html">
+                                    <i class="fa fa-ban"></i>
+                                    500 Error
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../pages/page-blank.html">
+                                    <i class="fa fa-file-text-o"></i>
+                                    Blank Page
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+            </nav> <!-- #sidebar -->
+
+        </div> <!-- /#sidebar-wrapper -->
+
+
+
+        <div id="content">
+
+            <div id="content-header">
+               @RenderBody()
+            </div> <!-- #content-header -->
+
+
+            <div id="content-container">
+
+
+
+
+
+
+
+
+            </div> <!-- /#content-container -->
+
+        </div> <!-- #content -->
+
+
+    </div> <!-- #wrapper -->
+
+    <footer id="footer">
+        <ul class="nav pull-right">
+            <li>
+                Copyright &copy; 2013, Jumpstart Themes.
+            </li>
+        </ul>
+    </footer>
+    <script src="~/Assets/js/libs/jquery-1.9.1.min.js"></script>
+    <script src="~/Assets/js/libs/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="~/Assets/js/libs/bootstrap.min.js"></script>
+
+    <script src="~/Assets/js/App.js"></script>
 </body>
+
+
+ 
+
 </html>
