@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using CFBudgeter.Models;
+using Owin.Security.Providers.LinkedIn;
 
 namespace CFBudgeter
 {
@@ -54,15 +55,17 @@ namespace CFBudgeter
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "1514075418895094",
+               appSecret: "5091f9a82a426d0bb0e30cf001e22591");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "930626597389-1fkv4b6e2rephc7oul7bg1e2ukhh7h37.apps.googleusercontent.com",
+                ClientSecret = "7eRkapQJUEMKa2zbl48GAY2u"
+            });
+
+            app.UseLinkedInAuthentication("77yej3fdrghyp6", "LARWR6TNkqNEr6Q7");
         }
     }
 }
