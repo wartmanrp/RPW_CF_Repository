@@ -1,0 +1,58 @@
+﻿
+@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,800italic,400,600,800" type="text/css">
+    <link rel="stylesheet" href="~/Assets/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="~/Assets/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="~/Assets/js/libs/css/ui-lightness/jquery-ui-1.9.2.custom.css" type="text/css" />
+
+    <link rel="stylesheet" href="~/Assets/css/App.css" type="text/css" />
+    <link rel="stylesheet" href="~/Assets/css/Login.css" type="text/css" />
+
+
+    <link rel="stylesheet" href="~/Assets/css/custom.css" type="text/css" />
+
+
+    <script type="text/javascript">
+    var appInsights = window.appInsights || function (config) {
+        function r(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, u = document, e = window, o = "script", s = u.createElement(o), i, f; for (s.src = config.url || "//az416426.vo.msecnd.net/scripts/a/ai.0.js", u.getElementsByTagName(o)[0].parentNode.appendChild(s), t.cookie = u.cookie, t.queue = [], i = ["Event", "Exception", "Metric", "PageView", "Trace", "Ajax"]; i.length;) r("track" + i.pop()); return r("setAuthenticatedUserContext"), r("clearAuthenticatedUserContext"), config.disableExceptionTracking || (i = "onerror", r("_" + i), f = e[i], e[i] = function (config, r, u, e, o) { var s = f && f(config, r, u, e, o); return s !== !0 && t["_" + i](config, r, u, e, o), s }), t
+    }({
+        instrumentationKey: "2f390923-4726-4d40-bbac-d049540a0016"
+    });
+
+    window.appInsights = appInsights;
+    appInsights.trackPageView();
+    </script>
+</head>
+<body>
+
+@RenderBody()
+
+    @*<footer id="footer">
+        <ul class="nav pull-right">
+            <li>
+                Copyright &copy; 2013, Jumpstart Themes.
+            </li>
+        </ul>
+    </footer>*@
+    <script src="~/Assets/js/libs/jquery-1.9.1.min.js"></script>
+    <script src="~/Assets/js/libs/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="~/Assets/js/libs/bootstrap.min.js"></script>
+
+    <script src="~/Assets/js/App.js"></script>
+
+    <script src="./js/Login.js"></script>
+
+</body>
+
+
+ 
+
+</html>
