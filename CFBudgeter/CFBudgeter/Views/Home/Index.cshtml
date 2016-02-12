@@ -1,13 +1,95 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model CFBudgeter.Models.DashboardViewModel 
+
+@{
+    ViewBag.Title = "Dashboard";
 }
 
 <div class="jumbotron">
-    <h1>Test</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Dashboard</h1>
 </div>
 
+<div class="col-md-4">
+    <div class="portlet">
+        <div class="portlet-header">
+            <h3>
+                <i class="fa fa-money"></i>
+                Accounts
+            </h3>
+            <ul class="portlet-tools pull-right">
+                <li>
+                        @Html.ActionLink("Accounts", "Index", "HouseholdAccounts", null, new { @class = "btn btn-sm btn-default" })
+                </li>
+            </ul>
+
+        </div> <!-- /.portlet-header -->
+
+        <div class="portlet-content">
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Account</th>
+                            <th>Balance</th>
+                            <th>Reconciled Balance</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var account in Model)
+                        {
+                            <tr>
+                                <td>@account.Name</td>
+                                <td>@account.Balance</td>
+                                <td>@account.ReconciledBalance</td>
+                                <td>@Html.ActionLink("Details", "Details", "HouseholdAccounts", new { id = account.Id}, new { @class = "btn btn-xs btn-tertiary"})</td>
+                            </tr>
+                        }
+
+                        <tr>
+                            <td>09/21/2013</td>
+                            <td>1</td>
+                            <td>$30.89</td>
+                            <td><a href="javascript:;" class="btn btn-xs btn-tertiary">View &nbsp;&nbsp;<i class="fa fa-chevron-right"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td>09/20/2013</td>
+                            <td>2</td>
+                            <td>$52.06</td>
+                            <td><a href="javascript:;" class="btn btn-xs btn-tertiary">View &nbsp;&nbsp;<i class="fa fa-chevron-right"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td>09/19/2013</td>
+                            <td>4</td>
+                            <td>$73.54</td>
+                            <td><a href="javascript:;" class="btn btn-xs btn-tertiary">View &nbsp;&nbsp;<i class="fa fa-chevron-right"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td>09/19/2013</td>
+                            <td>4</td>
+                            <td>$73.54</td>
+                            <td><a href="javascript:;" class="btn btn-xs btn-tertiary">View &nbsp;&nbsp;<i class="fa fa-chevron-right"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td>09/19/2013</td>
+                            <td>4</td>
+                            <td>$73.54</td>
+                            <td><a href="javascript:;" class="btn btn-xs btn-tertiary">View &nbsp;&nbsp;<i class="fa fa-chevron-right"></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> <!-- /.table-responsive -->
+
+            <hr>
+
+            <a href="javascript:;" class="btn btn-sm btn-secondary">View All Orders</a>
+
+
+        </div> <!-- /.portlet-content -->
+
+    </div>
+</div>
 <div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>

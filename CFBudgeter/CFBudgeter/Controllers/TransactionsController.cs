@@ -10,11 +10,13 @@ using CFBudgeter.Models;
 
 namespace CFBudgeter.Controllers
 {
+    [RequireHttps]
     public class TransactionsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Transactions
+        [Authorize]
         public ActionResult Index()
         {
             var transactions = db.Transactions.Include(t => t.Account);
@@ -22,6 +24,7 @@ namespace CFBudgeter.Controllers
         }
 
         // GET: Transactions/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +40,7 @@ namespace CFBudgeter.Controllers
         }
 
         // GET: Transactions/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.AccountId = new SelectList(db.Accounts, "Id", "Name");
@@ -46,6 +50,7 @@ namespace CFBudgeter.Controllers
         // POST: Transactions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,AccountId,UserId,CategoryId,Descriptions,Type,Date,Amount,Reconciled,ReconciledAmount")] Transaction transaction)
@@ -62,6 +67,7 @@ namespace CFBudgeter.Controllers
         }
 
         // GET: Transactions/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -80,6 +86,7 @@ namespace CFBudgeter.Controllers
         // POST: Transactions/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,AccountId,UserId,CategoryId,Descriptions,Type,Date,Amount,Reconciled,ReconciledAmount")] Transaction transaction)
@@ -95,6 +102,7 @@ namespace CFBudgeter.Controllers
         }
 
         // GET: Transactions/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,6 +118,7 @@ namespace CFBudgeter.Controllers
         }
 
         // POST: Transactions/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

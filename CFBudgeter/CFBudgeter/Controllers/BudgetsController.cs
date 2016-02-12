@@ -10,11 +10,13 @@ using CFBudgeter.Models;
 
 namespace CFBudgeter.Controllers
 {
+    [RequireHttps]
     public class BudgetsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Budgets
+        [Authorize]
         public ActionResult Index()
         {
             var budgets = db.Budgets.Include(b => b.Household);
@@ -22,6 +24,7 @@ namespace CFBudgeter.Controllers
         }
 
         // GET: Budgets/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +40,7 @@ namespace CFBudgeter.Controllers
         }
 
         // GET: Budgets/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name");
@@ -46,6 +50,7 @@ namespace CFBudgeter.Controllers
         // POST: Budgets/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,HouseholdId,Name")] Budget budget)
@@ -62,6 +67,7 @@ namespace CFBudgeter.Controllers
         }
 
         // GET: Budgets/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -80,6 +86,7 @@ namespace CFBudgeter.Controllers
         // POST: Budgets/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,HouseholdId,Name")] Budget budget)
@@ -95,6 +102,7 @@ namespace CFBudgeter.Controllers
         }
 
         // GET: Budgets/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,6 +118,7 @@ namespace CFBudgeter.Controllers
         }
 
         // POST: Budgets/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

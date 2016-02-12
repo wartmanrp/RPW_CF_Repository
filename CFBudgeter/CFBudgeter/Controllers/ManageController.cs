@@ -10,6 +10,7 @@ using CFBudgeter.Models;
 
 namespace CFBudgeter.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class ManageController : Controller
     {

@@ -10,11 +10,13 @@ using CFBudgeter.Models;
 
 namespace CFBudgeter.Controllers
 {
+    [RequireHttps]
     public class HouseholdAccountsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Accounts
+        [Authorize]
         public ActionResult Index()
         {
             var accounts = db.Accounts.Include(a => a.Household);
@@ -22,6 +24,7 @@ namespace CFBudgeter.Controllers
         }
 
         // GET: Accounts/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +40,7 @@ namespace CFBudgeter.Controllers
         }
 
         // GET: Accounts/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name");
@@ -46,15 +50,17 @@ namespace CFBudgeter.Controllers
         // POST: Accounts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,HouseholdId,Name,CreationDate,Balance,ReconciledBalance")] Account account)
+        public ActionResult Create([Bind(Include = "Id,Name,Balance")] Account account)
         {
+            account.HouseholdId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId;
             if (ModelState.IsValid)
             {
                 db.Accounts.Add(account);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", account.HouseholdId);
@@ -62,6 +68,7 @@ namespace CFBudgeter.Controllers
         }
 
         // GET: Accounts/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -80,6 +87,7 @@ namespace CFBudgeter.Controllers
         // POST: Accounts/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,HouseholdId,Name,CreationDate,Balance,ReconciledBalance")] Account account)
@@ -95,6 +103,7 @@ namespace CFBudgeter.Controllers
         }
 
         // GET: Accounts/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,6 +119,7 @@ namespace CFBudgeter.Controllers
         }
 
         // POST: Accounts/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
