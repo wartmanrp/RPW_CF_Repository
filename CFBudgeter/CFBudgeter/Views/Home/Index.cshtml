@@ -3,94 +3,114 @@
 @{
     ViewBag.Title = "Dashboard";
 }
+<div id="content-header">
 
-<div class="jumbotron">
-    <h1>Dashboard</h1>
+        <h1>Dashboard</h1>
+
 </div>
 
-<div class="col-md-4">
-    <div class="portlet">
-        <div class="portlet-header">
-            <h3>
-                <i class="fa fa-money"></i>
-                Accounts
-            </h3>
-            <ul class="portlet-tools pull-right">
-                <li>
-                        @Html.ActionLink("Accounts", "Index", "HouseholdAccounts", null, new { @class = "btn btn-sm btn-default" })
-                </li>
-            </ul>
+<div id="content-container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="portlet">
+                <div class="portlet-header">
+                    <h3>
+                        <i class="fa fa-money"></i>
+                        @Model.Household.Name
+                    </h3>
+                    <ul class="portlet-tools pull-right">
+                        <li>
+                            @Html.ActionLink("View All", "Index", "HouseholdAccounts", null, new { @class = "btn btn-sm btn-default" })
+                        </li>
+                    </ul>
 
-        </div> <!-- /.portlet-header -->
+                </div> <!-- /.portlet-header -->
 
-        <div class="portlet-content">
+                <div class="portlet-content">
 
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Account</th>
-                            <th>Balance</th>
-                            <th>Reconciled Balance</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Account</th>
+                                    <th>Balance</th>
+                                    <th>Reconciled Balance</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                        @foreach (var account in Model)
-                        {
-                            <tr>
-                                <td>@account.Name</td>
-                                <td>@account.Balance</td>
-                                <td>@account.ReconciledBalance</td>
-                                <td>@Html.ActionLink("Details", "Details", "HouseholdAccounts", new { id = account.Id}, new { @class = "btn btn-xs btn-tertiary"})</td>
-                            </tr>
-                        }
+                                @foreach (var account in Model.Accounts)
+                                {
+                                    <tr>
+                                        <td>@account.Name</td>
+                                        <td>@account.Balance</td>
+                                        <td>@account.ReconciledBalance</td>
+                                        <td>@Html.ActionLink("Details", "Details", "HouseholdAccounts", new { id = account.Id }, new { @class = "btn btn-xs btn-tertiary" })</td>
+                                    </tr>
+                                }
 
-                        <tr>
-                            <td>09/21/2013</td>
-                            <td>1</td>
-                            <td>$30.89</td>
-                            <td><a href="javascript:;" class="btn btn-xs btn-tertiary">View &nbsp;&nbsp;<i class="fa fa-chevron-right"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>09/20/2013</td>
-                            <td>2</td>
-                            <td>$52.06</td>
-                            <td><a href="javascript:;" class="btn btn-xs btn-tertiary">View &nbsp;&nbsp;<i class="fa fa-chevron-right"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>09/19/2013</td>
-                            <td>4</td>
-                            <td>$73.54</td>
-                            <td><a href="javascript:;" class="btn btn-xs btn-tertiary">View &nbsp;&nbsp;<i class="fa fa-chevron-right"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>09/19/2013</td>
-                            <td>4</td>
-                            <td>$73.54</td>
-                            <td><a href="javascript:;" class="btn btn-xs btn-tertiary">View &nbsp;&nbsp;<i class="fa fa-chevron-right"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>09/19/2013</td>
-                            <td>4</td>
-                            <td>$73.54</td>
-                            <td><a href="javascript:;" class="btn btn-xs btn-tertiary">View &nbsp;&nbsp;<i class="fa fa-chevron-right"></i></a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> <!-- /.table-responsive -->
+                            </tbody>
+                        </table>
+                    </div> <!-- /.table-responsive -->
+                </div> <!-- /.portlet-content -->
 
-            <hr>
-
-            <a href="javascript:;" class="btn btn-sm btn-secondary">View All Orders</a>
-
-
-        </div> <!-- /.portlet-content -->
-
+            </div>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="portlet">
+                <div class="portlet-header">
+                    <h3>
+                        <i class="fa fa-money"></i>
+                        Recent Transactions
+                    </h3>
+                    <ul class="portlet-tools pull-right">
+                        <li>
+                            @Html.ActionLink("View All", "Index", "Transactions", null, new { @class = "btn btn-sm btn-default" })
+                        </li>
+                    </ul>
+                </div> <!-- /.portlet-header -->
+
+                <div class="portlet-content">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Account</th>
+                                    <th>User</th>
+                                    <th>Amount</th>
+                                    <th>Description</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="3">
+                                @foreach (var transaction in Model.RecentTransactions)
+                                {
+                                    <tr>
+                                        <td>@transaction.Date</td>
+                                        <td>@transaction.Account.Name</td>
+                                        <td>@transaction.User.UserName</td>
+                                        <td>@transaction.Amount</td>
+                                        <td>@transaction.Descriptions</td>
+                                        <td>@Html.ActionLink("Details", "Details", "Transactions", new { id = transaction.Id }, new { @class = "btn btn-xs btn-tertiary" })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div> <!-- /.table-responsive -->
+                </div> <!-- /.portlet-content -->
+            </div>
+        </div>
+    </div>
+
+
+
+
 </div>
-<div class="row">
+@*<div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>
         
@@ -111,4 +131,4 @@
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
-</div>
+</div>*@

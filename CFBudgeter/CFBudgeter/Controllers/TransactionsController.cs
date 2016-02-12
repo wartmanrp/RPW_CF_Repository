@@ -41,10 +41,10 @@ namespace CFBudgeter.Controllers
 
         // GET: Transactions/Create
         [Authorize]
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.AccountId = new SelectList(db.Accounts, "Id", "Name");
-            return View();
+            var model = new Transaction { AccountId = id };
+            return View(model);
         }
 
         // POST: Transactions/Create
@@ -55,6 +55,7 @@ namespace CFBudgeter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,AccountId,UserId,CategoryId,Descriptions,Type,Date,Amount,Reconciled,ReconciledAmount")] Transaction transaction)
         {
+            transaction.UserId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
             if (ModelState.IsValid)
             {
                 db.Transactions.Add(transaction);
@@ -91,6 +92,7 @@ namespace CFBudgeter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,AccountId,UserId,CategoryId,Descriptions,Type,Date,Amount,Reconciled,ReconciledAmount")] Transaction transaction)
         {
+            transaction.UserId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
             if (ModelState.IsValid)
             {
                 db.Entry(transaction).State = EntityState.Modified;

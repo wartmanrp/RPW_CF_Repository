@@ -90,8 +90,10 @@ namespace CFBudgeter.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,HouseholdId,Name,CreationDate,Balance,ReconciledBalance")] Account account)
+        public ActionResult Edit([Bind(Include = "Id,Name,Balance,ReconciledBalance")] Account account)
         {
+            account.HouseholdId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId;
+
             if (ModelState.IsValid)
             {
                 db.Entry(account).State = EntityState.Modified;
