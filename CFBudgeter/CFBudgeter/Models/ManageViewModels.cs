@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using CFBudgeter.Models;
 
 namespace CFBudgeter.Models
 {
@@ -82,5 +83,14 @@ namespace CFBudgeter.Models
     {
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
+    }
+
+    public class EditProfileViewModel
+    {
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int HouseholdId { get; set; }
     }
 }

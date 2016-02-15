@@ -92,7 +92,7 @@
                                     <tr>
                                         <td>@transaction.Date</td>
                                         <td>@transaction.Account.Name</td>
-                                        <td>@transaction.User.UserName</td>
+                                        <td>@transaction.User.Email</td>
                                         <td>@transaction.Amount</td>
                                         <td>@transaction.Descriptions</td>
                                         <td>@Html.ActionLink("Details", "Details", "Transactions", new { id = transaction.Id }, new { @class = "btn btn-xs btn-tertiary" })</td>

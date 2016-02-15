@@ -17,9 +17,11 @@ namespace CFBudgeter.Controllers
 
         // GET: Transactions
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(string userId)
         {
-            var transactions = db.Transactions.Include(t => t.Account);
+            var transactions = db.Transactions
+                .Include(t => t.Account)
+                .Where(t => t.UserId == userId );
             return View(transactions.ToList());
         }
 
@@ -69,9 +71,9 @@ namespace CFBudgeter.Controllers
 
         // GET: Transactions/Edit/5
         [Authorize]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }

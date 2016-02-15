@@ -9,12 +9,14 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CFBudgeter.Models;
+using System.Net;
 
 namespace CFBudgeter.Controllers
 {
     [RequireHttps]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -90,6 +92,8 @@ namespace CFBudgeter.Controllers
                     return RedirectToAction("Index", "Home");
             }
         }
+
+
 
         //
         // GET: /Account/VerifyCode

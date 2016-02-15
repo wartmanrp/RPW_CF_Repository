@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CFBudgeter.Models;
+using System.Data.Entity;
 
 namespace CFBudgeter.Controllers
 {
@@ -330,6 +331,56 @@ namespace CFBudgeter.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        //
+        //GET: /Manage/Edit
+        [Authorize]
+        public async Task<ActionResult> Edit()
+        {
+            var db = new ApplicationDbContext();
+            var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            var model = new EditProfileViewModel
+            {
+                UserName = user.Email,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                HouseholdId = user.HouseholdId
+            };
+
+            return View(model);
+        }
+
+        //
+        //POST: /Manage/Edit
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,UserName,Email,FirstName,LastName,HouseholdId")] EditProfileViewModel model)
+        {
+            var db = new ApplicationDbContext();
+            if (ModelState.IsValid)
+            {
+                var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+                user.UserName = model.UserName;
+                user.Email = model.Email;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.HouseholdId = model.HouseholdId;
+
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index","Home");
+            }
+            return View(model);
         }
 
 #region Helpers

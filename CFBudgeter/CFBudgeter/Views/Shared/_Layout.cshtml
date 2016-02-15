@@ -91,8 +91,8 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li>
                                     <i class="fa fa-user"></i>
-                                    @Html.ActionLink("My Profile", "Index", "Manage",
-                                     routeValues: null,
+                                    @Html.ActionLink("My Profile", "Edit", "Manage",
+                                     null,
                                      htmlAttributes: new { title = "Manage" })
                                 </li>      
                                 <li class="divider"></li>                         
@@ -133,11 +133,11 @@
         <div id="sidebar-wrapper" class="collapse sidebar-collapse">
 
             <div id="search">
-                <form>
+                @*<form>
                     <input class="form-control input-sm" type="text" name="search" placeholder="Search..." />
 
                     <button type="submit" id="search-btn" class="btn"><i class="fa fa-search"></i></button>
-                </form>
+                </form>*@
             </div> <!-- #search -->
 
             <nav id="sidebar">
@@ -147,7 +147,7 @@
                             <i class="fa fa-dashboard"></i>
                             @Html.ActionLink("Dashboard", "Index", "Home")                        
                     </li>
-
+                    <!--Start extra navbar links-->
                     <li class="dropdown">
                         <a href="javascript:;">
                             <i class="fa fa-file-text"></i>
@@ -282,108 +282,7 @@
                             </li>
                         </ul>
                     </li>
-
-                    <li class="dropdown">
-                        <a href="javascript:;">
-                            <i class="fa fa-table"></i>
-                            Tables
-                            <span class="caret"></span>
-                        </a>
-
-                        <ul class="sub-nav">
-                            <li>
-                                <a href="../pages/table-basic.html">
-                                    <i class="fa fa-table"></i>
-                                    Basic Tables
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../pages/table-advanced.html">
-                                    <i class="fa fa-table"></i>
-                                    Advanced Tables
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../pages/table-responsive.html">
-                                    <i class="fa fa-table"></i>
-                                    Responsive Tables
-                                </a>
-                            </li>
-                        </ul>
-
-                    </li>
-
-                    <li>
-                        <a href="../ui-portlets.html">
-                            <i class="fa fa-list-alt"></i>
-                            Portlets
-                        </a>
-                    </li>
-
-                    <li class="dropdown">
-                        <a href="javascript:;">
-                            <i class="fa fa-bar-chart-o"></i>
-                            Charts & Graphs
-                            <span class="caret"></span>
-                        </a>
-
-                        <ul class="sub-nav">
-                            <li>
-                                <a href="../pages/chart-flot.html">
-                                    <i class="fa fa-bar-chart-o"></i>
-                                    jQuery Flot
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../pages/chart-morris.html">
-                                    <i class="fa fa-bar-chart-o"></i>
-                                    Morris.js
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown active">
-                        <a href="javascript:;">
-                            <i class="fa fa-file-text-o"></i>
-                            Extra Pages
-                            <span class="caret"></span>
-                        </a>
-
-                        <ul class="sub-nav">
-                            <li>
-                                <a href="../pages/page-login.html">
-                                    <i class="fa fa-unlock"></i>
-                                    Login Basic
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../pages/page-login-social.html">
-                                    <i class="fa fa-unlock"></i>
-                                    Login Social
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../pages/page-404.html">
-                                    <i class="fa fa-ban"></i>
-                                    404 Error
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../pages/page-500.html">
-                                    <i class="fa fa-ban"></i>
-                                    500 Error
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../pages/page-blank.html">
-                                    <i class="fa fa-file-text-o"></i>
-                                    Blank Page
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
+                    <!--End extra navbar links-->
                 </ul>
             </nav> <!-- #sidebar -->
         </div> <!-- /#sidebar-wrapper -->
@@ -397,7 +296,7 @@
     <footer id="footer">
         <ul class="nav pull-right">
             <li>
-                Copyright &copy; 2013, Jumpstart Themes.
+                Copyright &copy; 2016, Powers Wartman.
             </li>
         </ul>
     </footer>
