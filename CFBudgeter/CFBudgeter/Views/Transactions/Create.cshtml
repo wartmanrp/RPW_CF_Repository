@@ -21,13 +21,11 @@
         @Html.HiddenFor(model => model.UserId)
 
 
-        @*<div class="form-group">
-            @Html.DropDownListFor(model => model.Categories, db.Categories.Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString()})
+        <div class="form-group">
+            @Html.DropDownListFor(model => model.CategoryId, new SelectList(ViewBag.Categories, "Id", "Name"), new { @class =""})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Descriptions, htmlAttributes: new { @class = "control-label col-md-2" })

@@ -45,8 +45,9 @@ namespace CFBudgeter.Controllers
         [Authorize]
         public ActionResult Create(int id)
         {
-            var houseId = from 
-            //ViewBag.Categories = new SelectList(db.Categories.Where(c => c.HouseholdId ==  ), "Id", "Name");
+            var houseId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId;
+            ViewBag.Categories = new SelectList(db.Categories.Where(c => c.HouseholdId == houseId), "Id", "Name");
+          
             var model = new Transaction { AccountId = id };
 
             return View(model);

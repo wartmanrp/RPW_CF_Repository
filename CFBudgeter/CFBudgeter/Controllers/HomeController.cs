@@ -16,7 +16,7 @@ namespace CFBudgeter.Controllers
             var db = new ApplicationDbContext();
             var model = new DashboardViewModel();
             model.Household = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
-            model.RecentTransactions = db.Transactions.Take(5).ToList();
+            model.RecentTransactions = db.Transactions.OrderByDescending(i => i.Id).Take(5).ToList();
             model.Accounts = db.Accounts.Where(a => a.HouseholdId == model.Household.Id).ToList();
             model.Invitations = db.Invitations.Where(e => e.ToEmail == User.Identity.Name).ToList();
             return View(model);

@@ -27,7 +27,6 @@
                 </div> <!-- /.portlet-header -->
 
                 <div class="portlet-content">
-
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -90,9 +89,9 @@
                                 @foreach (var transaction in Model.RecentTransactions)
                                 {
                                     <tr>
-                                        <td>@transaction.Date</td>
+                                        <td>@transaction.Date.ToString("d")</td>
                                         <td>@transaction.Account.Name</td>
-                                        <td>@transaction.User.Email</td>
+                                        <td>@transaction.User.FirstName</td>
                                         <td>@transaction.Amount</td>
                                         <td>@transaction.Descriptions</td>
                                         <td>@Html.ActionLink("Details", "Details", "Transactions", new { id = transaction.Id }, new { @class = "btn btn-xs btn-tertiary" })</td>

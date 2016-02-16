@@ -10,6 +10,7 @@
 
 
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,800italic,400,600,800" type="text/css">
+    <link rel="stylesheet" href="~/Assets/css/font-awesome.min.css" type="text/css" />
     <link rel="stylesheet" href="~/Assets/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="~/Assets/js/libs/css/ui-lightness/jquery-ui-1.9.2.custom.css" type="text/css" />
 
@@ -38,7 +39,7 @@
         <header id="header">
 
             <h1 id="site-logo">
-                <a href="../pages/index.html">
+                <a href=@Url.Action("Index", "Home")>
                     <img src="~/Assets/img/logos/site logo-sm.png" alt="Site Logo" />
                 </a>
             </h1>
@@ -54,28 +55,7 @@
         </header> <!-- header -->
 
         <nav id="top-bar" class="collapse top-bar-collapse">
-            <ul class="nav navbar-nav pull-left">
-                <li class="">
-                    
-                        <i class="fa fa-home"></i>
-                        @Html.ActionLink("Home", "Index", "Home")
-                    
-                </li>
 
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-                        Dropdown <span class="caret"></span>
-                    </a>
-
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="javascript:;"><i class="fa fa-user"></i>&nbsp;&nbsp;Example #1</a></li>
-                        <li><a href="javascript:;"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Example #2</a></li>
-                        <li class="divider"></li>
-                        <li><a href="javascript:;"><i class="fa fa-tasks"></i>&nbsp;&nbsp;Example #3</a></li>
-                    </ul>
-                </li>
-
-            </ul>
 
             @if (Request.IsAuthenticated)
             {
@@ -142,148 +122,22 @@
             </div> <!-- #search -->
 
             <nav id="sidebar">
-
                 <ul id="main-nav" class="open-active">
                     <li class="">                        
-                            <i class="fa fa-dashboard"></i>
-                            @Html.ActionLink("Dashboard", "Index", "Home")                        
+                        <a href=@Url.Action("Index", "Home")><i class="fa fa-dashboard"></i>Dashboard</a>                    
                     </li>
-                    <!--Start extra navbar links-->
-                    <li class="dropdown">
-                        <a href="javascript:;">
-                            <i class="fa fa-file-text"></i>
-                            Example Pages
-                            <span class="caret"></span>
-                        </a>
-
-                        <ul class="sub-nav">
-                            <li>
-                                <a href="../pages/page-profile.html">
-                                    <i class="fa fa-user"></i>
-                                    Profile
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../pages/page-invoice.html">
-                                    <i class="fa fa-money"></i>
-                                    Invoice
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../pages/page-pricing.html">
-                                    <i class="fa fa-dollar"></i>
-                                    Pricing Plans
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../pages/page-support.html">
-                                    <i class="fa fa-question"></i>
-                                    Support Page
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../pages/page-gallery.html">
-                                    <i class="fa fa-picture-o"></i>
-                                    Gallery
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../pages/page-settings.html">
-                                    <i class="fa fa-cogs"></i>
-                                    Settings
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../pages/page-calendar.html">
-                                    <i class="fa fa-calendar"></i>
-                                    Calendar
-                                </a>
-                            </li>
-                        </ul>
-
+                    <li class="">
+                        <a href=@Url.Action("Index", "HouseholdAccounts")><i class="fa fa-dashboard"></i>Accounts</a>
                     </li>
-
-                    <li class="dropdown">
-                        <a href="javascript:;">
-                            <i class="fa fa-tasks"></i>
-                            Form Elements
-                            <span class="caret"></span>
-                        </a>
-
-                        <ul class="sub-nav">
-                            <li>
-                                <a href="../pages/form-regular.html">
-                                    <i class="fa fa-location-arrow"></i>
-                                    Regular Elements
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../pages/form-extended.html">
-                                    <i class="fa fa-magic"></i>
-                                    Extended Elements
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../pages/form-validation.html">
-                                    <i class="fa fa-check"></i>
-                                    Validation
-                                </a>
-                            </li>
-                        </ul>
-
+                    <li class="">
+                        <a href=@Url.Action("Index", "Budgets")><i class="fa fa-dashboard"></i>Budgets</a>
                     </li>
-
-                    <li class="dropdown">
-                        <a href="javascript:;">
-                            <i class="fa fa-desktop"></i>
-                            UI Features
-                            <span class="caret"></span>
-                        </a>
-
-                        <ul class="sub-nav">
-                            <li>
-                                <a href="../pages/ui-buttons.html">
-                                    <i class="fa fa-hand-o-up"></i>
-                                    Buttons
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../pages/ui-tabs.html">
-                                    <i class="fa fa-reorder"></i>
-                                    Tabs & Accordions
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="../pages/ui-popups.html">
-                                    <i class="fa fa-asterisk"></i>
-                                    Popups / Notifications
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="../pages/ui-sliders.html">
-                                    <i class="fa fa-tasks"></i>
-                                    Sliders
-                                </a>
-                            </li>
-
-                            <li class="">
-                                <a href="../pages/ui-typography.html">
-                                    <i class="fa fa-font"></i>
-                                    Typography
-                                </a>
-                            </li>
-
-                            <li class="">
-                                <a href="../pages/ui-icons.html">
-                                    <i class="fa fa-star-o"></i>
-                                    Icons
-                                </a>
-                            </li>
-                        </ul>
+                    <li class="">
+                        <a href=@Url.Action("Index", "Household")><i class="fa fa-dashboard"></i>Household</a>
                     </li>
-                    <!--End extra navbar links-->
+                    <li class="">
+                        <a href=@Url.Action("About", "Home")><i class="fa fa-dashboard"></i>Help</a>
+                    </li>
                 </ul>
             </nav> <!-- #sidebar -->
         </div> <!-- /#sidebar-wrapper -->

@@ -60,7 +60,7 @@ namespace CFBudgeter.Controllers
             {
                 db.Accounts.Add(account);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Account");
+                return RedirectToAction("Index", "HouseholdAccounts");
             }
 
             ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", account.HouseholdId);
