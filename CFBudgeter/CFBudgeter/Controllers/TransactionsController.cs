@@ -45,7 +45,10 @@ namespace CFBudgeter.Controllers
         [Authorize]
         public ActionResult Create(int id)
         {
+            var houseId = from 
+            //ViewBag.Categories = new SelectList(db.Categories.Where(c => c.HouseholdId ==  ), "Id", "Name");
             var model = new Transaction { AccountId = id };
+
             return View(model);
         }
 
@@ -60,9 +63,10 @@ namespace CFBudgeter.Controllers
             transaction.UserId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
             if (ModelState.IsValid)
             {
+                transaction.Date = new DateTimeOffset(DateTime.Now);
                 db.Transactions.Add(transaction);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "HouseholdAccounts", new { id = transaction.AccountId});
             }
 
             ViewBag.AccountId = new SelectList(db.Accounts, "Id", "Name", transaction.AccountId);

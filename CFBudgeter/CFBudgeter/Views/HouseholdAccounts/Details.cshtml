@@ -11,34 +11,46 @@
 <div id="content-container">
     <h4>Account</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Account Name
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+    <div class="row">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Balance)
-        </dt>
+        <div class="col-md-3 col-sm-6">
+            <div class="dashboard-stat tertiary">
+                <div class="details">
+                    <span class="content">Account Name</span>
+                    <span class="value">@Html.DisplayFor(model => model.Name)</span>
+                </div> <!-- /.details -->
+            </div> <!-- /.dashboard-stat -->
+        </div> <!-- /.col-md-3 -->
 
-        <dd>
-            @Html.DisplayFor(model => model.Balance)
-        </dd>
+        <div class="col-md-3 col-sm-6">
+            <div class="dashboard-stat secondary">
+                <div class="details">
+                    <span class="content">@Html.DisplayNameFor(model => model.Balance)</span>
+                    <span class="value">@Html.DisplayFor(model => model.Balance)</span>
+                </div> <!-- /.details -->
+            </div> <!-- /.dashboard-stat -->
+        </div> <!-- /.col-md-3 -->
 
-        <dt>
-            Reconciled Balance
-        </dt>
+        <div class="col-md-3 col-sm-6">
+            <div class="dashboard-stat primary">
+                <div class="details">
+                    <span class="content">Reconciled Balance</span>
+                    <span class="value">@Html.DisplayFor(model => model.ReconciledBalance)</span>
+                </div> <!-- /.details -->
+            </div> <!-- /.dashboard-stat -->
+        </div> <!-- /.col-md-3 -->
 
-        <dd>
-            @Html.DisplayFor(model => model.ReconciledBalance)
-        </dd>
-
-    </dl>
-
-
+        @*<div class="col-md-3 col-sm-6">
+            <div class="dashboard-stat">
+                <div class="details">
+                    <span class="content">Total Revenue</span>
+                    <span class="value">$173K</span>
+                </div> <!-- /.details -->
+            </div> <!-- /.dashboard-stat -->
+        </div> <!-- /.col-md-9 -->
+    </div> <!-- /.row -->*@
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="portlet">
@@ -77,6 +89,7 @@
                                     <th data-filterable="true" data-sortable="true">Amount</th>
                                     <th data-filterable="true" data-sortable="true" class="hidden-xs hidden-sm">User</th>
                                     <th data-filterable="true" data-sortable="true" class="hidden-xs hidden-sm">Date</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -90,6 +103,10 @@
                                         <td>@transaction.Amount</td>
                                         <td class="hidden-xs hidden-sm">@transaction.User.FirstName</td>
                                         <td class="hidden-xs hidden-sm">@transaction.Date</td>
+                                        <td>
+                                            @Html.ActionLink("Details", "Details", "Transactions", new { id = transaction.Id}, new { @class = "btn btn-xs btn-tertiary" })
+                                            @Html.ActionLink("Edit", "Edit", "Transactions", new { id = transaction.Id }, new { @class = "btn btn-xs btn-tertiary"})
+                                        </td>
                                     </tr>
                                 }
                                 
@@ -105,13 +122,7 @@
         </div> <!-- /.col -->
 
     </div> <!-- /.row -->
-
-
-
-
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-success"}) 
+    @Html.ActionLink("Back to Accounts", "Index", null, new { @class = "btn btn-default" })
 </div>
 
