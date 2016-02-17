@@ -13,11 +13,13 @@ namespace CFBudgeter.Models
             this.Members = new HashSet<ApplicationUser>();
             this.Accounts = new HashSet<Account>();
             this.Budgets = new HashSet<Budget>();
+            this.Categories = new HashSet<Category>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
 
+        public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<ApplicationUser> Members { get; set;}
         public virtual ICollection<Account> Accounts { get; set; }
         public virtual ICollection<Budget> Budgets { get; set; }
@@ -49,7 +51,7 @@ namespace CFBudgeter.Models
         {
             //this.Users = new HashSet<ApplicationUser>();
             //this.Accounts = new HashSet<Account>();
-            this.Categories = new HashSet<Category>();
+            //this.Categories = new HashSet<Category>();
         }
         public int Id { get; set; }
         public int AccountId { get; set; }
@@ -64,8 +66,7 @@ namespace CFBudgeter.Models
 
         public virtual ApplicationUser User { get; set; }
         public virtual Account Account { get; set; }
-
-        public virtual ICollection<Category> Categories { get; set; }
+        public virtual Category Category { get; set; }
 
     }
 
@@ -73,14 +74,15 @@ namespace CFBudgeter.Models
     {
         public Category()
         {
+            this.BudgetItems = new HashSet<BudgetItem>();
             this.Households = new HashSet<Household>();
             this.Transactions = new HashSet<Transaction>();
         }
 
         public int Id { get; set; }
-        public int HouseholdId { get; set; }
         public string Name { get; set; }
 
+        public virtual ICollection<BudgetItem> BudgetItems { get; set; }
         public virtual ICollection<Household> Households { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; }
 

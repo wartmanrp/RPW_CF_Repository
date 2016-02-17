@@ -19,9 +19,25 @@ namespace CFBudgeter.Migrations
         protected override void Seed(CFBudgeter.Models.ApplicationDbContext context)
         {
             //create default categories
-            string[] categories = { "Automobile", "Bank Charges", "Charity", "Childcare", "CLothing", "Credit Car Fees", "Education",
+            string[] categories = { "Automobile", "Bank Charges", "Charity", "Childcare", "Clothing", "Credit Car Fees", "Education",
                                   "Events", "Food", "Gifts", "Healthcare", "Household", "Insurance", "Job Expenses", "Leisure (daily)", 
                                   "Hobbies", "Loans", "Pet Care", "Savings", "Taxes", "Utilities", "Vacation" };
+
+            //get all households, add default categories to each if not already assignedd
+            var households = context.Households.ToList();
+            var cats = context.Categories.ToList();
+            foreach (var h in households)
+            {
+                if (h.Categories.Count == 0)
+                {
+                    foreach (var item in cats)
+                    {
+                        h.Categories.Add(item);
+                    }
+                }
+            }
+            //save changes
+            context.SaveChanges();
 
             // add default categories if no present
             if (context.Categories.Count() == 0)

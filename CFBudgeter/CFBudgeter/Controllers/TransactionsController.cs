@@ -46,7 +46,7 @@ namespace CFBudgeter.Controllers
         public ActionResult Create(int id)
         {
             var houseId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId;
-            ViewBag.Categories = new SelectList(db.Categories.Where(c => c.HouseholdId == houseId), "Id", "Name");
+            ViewBag.Categories = new SelectList(db.Households.Find(houseId).Categories.ToList(), "Id", "Name");
           
             var model = new Transaction { AccountId = id };
 
@@ -88,6 +88,7 @@ namespace CFBudgeter.Controllers
                 return HttpNotFound();
             }
             ViewBag.AccountId = new SelectList(db.Accounts, "Id", "Name", transaction.AccountId);
+            ViewBag.Categories = new SelectList(db.Categories, "Id", "Name", transaction.CategoryId);
             return View(transaction);
         }
 
@@ -104,7 +105,7 @@ namespace CFBudgeter.Controllers
             {
                 db.Entry(transaction).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "HouseholdAccounts", new { id = transaction.AccountId });
             }
             ViewBag.AccountId = new SelectList(db.Accounts, "Id", "Name", transaction.AccountId);
             return View(transaction);
@@ -135,7 +136,7 @@ namespace CFBudgeter.Controllers
             Transaction transaction = db.Transactions.Find(id);
             db.Transactions.Remove(transaction);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "HouseholdAccounts", new { id = transaction.AccountId });
         }
 
         protected override void Dispose(bool disposing)

@@ -4,87 +4,62 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Transaction</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Account.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Account.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CategoryId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descriptions)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descriptions)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Amount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Amount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Reconciled)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Reconciled)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ReconciledAmount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ReconciledAmount)
-        </dd>
-
-    </dl>
+<div id="content-header">
+    <h1>Transaction Details</h1>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div id="content-container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+
+                <div class="list-group">
+
+                    <div class="list-group-item">
+                        <h4 class="list-group-item-heading">@Html.DisplayFor(model => model.Account.Name)</h4>
+                        <p class="list-group-item-text">Account Name</p>
+                    </div>
+
+                    <div class="list-group-item">
+                        <h4 class="list-group-item-heading">@Html.DisplayFor(model => model.Category.Name)</h4>
+                        <p class="list-group-item-text">@Html.DisplayNameFor(model => model.Category)</p>
+                    </div>
+
+                    <div class="list-group-item">
+                        <h4 class="list-group-item-heading">@Html.DisplayFor(model => model.Descriptions)</h4>
+                        <p class="list-group-item-text">Description</p>
+                    </div>
+
+                    <div class="list-group-item">
+                        <h4 class="list-group-item-heading">@Html.DisplayFor(model => model.Date)</h4>
+                        <p class="list-group-item-text">@Html.DisplayNameFor(model => model.Date)</p>
+                    </div>
+
+                    <div class="list-group-item">
+                        <h4 class="list-group-item-heading">$@Html.DisplayFor(model => model.Amount)</h4>
+                        <p class="list-group-item-text">@Html.DisplayNameFor(model => model.Amount)</p>
+                    </div>
+
+                    <div class="list-group-item">
+                        @if (Model.Reconciled == true)
+                        {
+                            <h4 class="list-group-item-heading">Yes</h4>
+                        }
+                        else
+                        {
+                            <h4 class="list-group-item-heading">No</h4>
+
+                        }
+                        <p class="list-group-item-text">@Html.DisplayNameFor(model => model.Reconciled)</p>
+                    </div>
+                </div> <!-- /.list-group -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Back to Account", "Details", "HouseholdAccounts", new { id = Model.AccountId }, new { @class = "btn btn-default" })
+            </div>
+    </div>
+    
+</div>
+

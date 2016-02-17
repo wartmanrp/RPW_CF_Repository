@@ -22,8 +22,10 @@
 
 
         <div class="form-group">
-            @Html.DropDownListFor(model => model.CategoryId, new SelectList(ViewBag.Categories, "Id", "Name"), new { @class =""})
+            @Html.LabelFor(model => model.Category.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.Categories, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -64,7 +66,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-success" />
-                @Html.ActionLink("Back to List", "Details", "HouseholdAccounts", new { id = Model.AccountId}, new { @class = "btn btn-default"})
+                @Html.ActionLink("Back to Account", "Details", "HouseholdAccounts", new { id = Model.AccountId}, new { @class = "btn btn-default"})
             </div>
         </div>
     </div>    
