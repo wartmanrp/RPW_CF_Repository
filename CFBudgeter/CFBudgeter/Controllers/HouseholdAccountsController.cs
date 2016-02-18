@@ -19,7 +19,9 @@ namespace CFBudgeter.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            var accounts = db.Accounts.Include(a => a.Household);
+            //restrict to current household
+            var currentUser = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId;
+            var accounts = db.Accounts.Where(a => a.HouseholdId == currentUser);
             return View(accounts.ToList());
         }
 
@@ -31,7 +33,9 @@ namespace CFBudgeter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
+            var currentHousehold = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
+
+            Account account = currentHousehold.Accounts.FirstOrDefault(a => a.Id == id);
             if (account == null)
             {
                 return HttpNotFound();
@@ -75,7 +79,9 @@ namespace CFBudgeter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
+            var currentHousehold = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
+
+            Account account = currentHousehold.Accounts.FirstOrDefault(a => a.Id == id);
             if (account == null)
             {
                 return HttpNotFound();
@@ -112,8 +118,9 @@ namespace CFBudgeter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
-            if (account == null)
+            var currentHousehold = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
+
+            Account account = currentHousehold.Accounts.FirstOrDefault(a => a.Id == id); if (account == null)
             {
                 return HttpNotFound();
             }
@@ -126,7 +133,9 @@ namespace CFBudgeter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Account account = db.Accounts.Find(id);
+            var currentHousehold = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
+
+            Account account = currentHousehold.Accounts.FirstOrDefault(a => a.Id == id);
             db.Accounts.Remove(account);
             db.SaveChanges();
             return RedirectToAction("Index");

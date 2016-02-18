@@ -15,12 +15,21 @@ namespace CFBudgeter.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Households
-        [Authorize]
-        public ActionResult Index()
-        {
-            return View(db.Households.ToList());
-        }
+        //// GET: Households
+        //[Authorize]
+        //public ActionResult Index()
+        //{
+        //    var currentUser = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+        //    return View(currentUser.Household);
+        //}
+
+        //GET: HouseholdId
+        //[Authorize]
+        //public string GetHouseholdId (string houseId)
+        //{
+        //    var houseId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId.ToString;
+            
+        //}
 
         // GET: Households/Details/5
         [Authorize]

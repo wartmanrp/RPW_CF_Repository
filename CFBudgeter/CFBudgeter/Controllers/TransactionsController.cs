@@ -33,12 +33,20 @@ namespace CFBudgeter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Transaction transaction = db.Transactions.Find(id);
+
+            var transaction = db.Transactions.Find(id);
             if (transaction == null)
             {
                 return HttpNotFound();
             }
+
+            var accountsIds = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household.Accounts.Select(a => a.Id).ToList();
+            if (accountsIds.Contains(transaction.AccountId))
+            {
             return View(transaction);
+            }
+            return HttpNotFound();
+
         }
 
         // GET: Transactions/Create
@@ -82,14 +90,19 @@ namespace CFBudgeter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Transaction transaction = db.Transactions.Find(id);
+            var transaction = db.Transactions.Find(id);
             if (transaction == null)
             {
                 return HttpNotFound();
             }
             ViewBag.AccountId = new SelectList(db.Accounts, "Id", "Name", transaction.AccountId);
             ViewBag.Categories = new SelectList(db.Categories, "Id", "Name", transaction.CategoryId);
-            return View(transaction);
+            var accountsIds = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household.Accounts.Select(a => a.Id).ToList();
+            if (accountsIds.Contains(transaction.AccountId))
+            {
+                return View(transaction);
+            }
+            return HttpNotFound();
         }
 
         // POST: Transactions/Edit/5
@@ -119,12 +132,18 @@ namespace CFBudgeter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Transaction transaction = db.Transactions.Find(id);
+            var transaction = db.Transactions.Find(id);
             if (transaction == null)
             {
                 return HttpNotFound();
             }
-            return View(transaction);
+
+            var accountsIds = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household.Accounts.Select(a => a.Id).ToList();
+            if (accountsIds.Contains(transaction.AccountId))
+            {
+                return View(transaction);
+            }
+            return HttpNotFound();
         }
 
         // POST: Transactions/Delete/5

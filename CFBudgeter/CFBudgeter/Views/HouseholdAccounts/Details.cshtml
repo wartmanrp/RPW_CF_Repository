@@ -63,7 +63,7 @@
 
                     <ul class="portlet-tools pull-right">
                         <li>
-                            @Html.ActionLink("New Transaction", "Create", "Transactions", new { id = Model.Id }, new { @class = "btn btn-default" })
+                            @Html.ActionLink("New Transaction", "Create", "Transactions", new { id = Model.Id }, new { @class = "btn btn-success" })
                         </li>
                     </ul>
 
@@ -106,8 +106,8 @@
                                         <td class="hidden-xs hidden-sm">@transaction.User.FirstName</td>
                                         <td class="hidden-xs hidden-sm">@transaction.Date</td>
                                         <td>
-                                            @Html.ActionLink("Details", "Details", "Transactions", new { id = transaction.Id}, new { @class = "btn btn-xs btn-tertiary" })
-                                            @Html.ActionLink("Edit", "Edit", "Transactions", new { id = transaction.Id }, new { @class = "btn btn-xs btn-tertiary"})
+                                            @Html.ActionLink("Details", "Details", "Transactions", new { id = transaction.Id}, new { @class = "btn btn-xs btn-success" })
+                                            @Html.ActionLink("Edit", "Edit", "Transactions", new { id = transaction.Id }, new { @class = "btn btn-xs btn-info"})
                                         </td>
                                     </tr>
                                 }
@@ -124,7 +124,7 @@
         </div> <!-- /.col -->
 
     </div> <!-- /.row -->
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-success"}) 
+    @Html.ActionLink("Edit Account", "Edit", new { id = Model.Id }, new { @class = "btn btn-info"}) 
     @Html.ActionLink("Back to Accounts", "Index", null, new { @class = "btn btn-default" })
 </div>
 

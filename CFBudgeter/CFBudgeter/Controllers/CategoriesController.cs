@@ -19,7 +19,8 @@ namespace CFBudgeter.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
+            return View(user.Categories);
         }
 
         // GET: Categories/Details/5
@@ -30,7 +31,9 @@ namespace CFBudgeter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            var currentHousehold = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
+
+            Category category = currentHousehold.Categories.FirstOrDefault(a => a.Id == id); 
             if (category == null)
             {
                 return HttpNotFound();
@@ -55,7 +58,9 @@ namespace CFBudgeter.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Categories.Add(category);
+                var household = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
+                household.Categories.Add(category);
+                db.Entry(household).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -71,7 +76,9 @@ namespace CFBudgeter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            var currentHousehold = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
+
+            Category category = currentHousehold.Categories.FirstOrDefault(a => a.Id == id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -104,7 +111,9 @@ namespace CFBudgeter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            var currentHousehold = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
+
+            Category category = currentHousehold.Categories.FirstOrDefault(a => a.Id == id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -118,7 +127,9 @@ namespace CFBudgeter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
+            var currentHousehold = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
+
+            Category category = currentHousehold.Categories.FirstOrDefault(a => a.Id == id);
             db.Categories.Remove(category);
             db.SaveChanges();
             return RedirectToAction("Index");

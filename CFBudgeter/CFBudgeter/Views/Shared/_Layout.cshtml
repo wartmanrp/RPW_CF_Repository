@@ -133,7 +133,10 @@
                         <a href=@Url.Action("Index", "Budgets")><i class="fa fa-bar-chart-o"></i>Budgets</a>
                     </li>
                     <li class="">
-                        <a href=@Url.Action("Details", "Household")><i class="fa fa-group"></i>Household</a>
+                        <a href=@Url.Action("Index", "Categories")><i class="fa fa-tag"></i>Categories</a>
+                    </li>
+                    <li class="">
+                        <a href=@Url.Action("Details", "Households")><i class="fa fa-group"></i>Household</a>
                     </li>
                     <li class="">
                         <a href=@Url.Action("About", "Home")><i class="fa fa-question-circle"></i>Help</a>
@@ -155,6 +158,10 @@
             </li>
         </ul>
     </footer>
+    @*<script>
+        $.get("", null, function (result)) {
+            $("#id").href(result);})
+    </script>*@
     <script src="~/Assets/js/libs/jquery-1.9.1.min.js"></script>
     <script src="~/Assets/js/libs/jquery-ui-1.9.2.custom.min.js"></script>
     <script src="~/Assets/js/libs/bootstrap.min.js"></script>

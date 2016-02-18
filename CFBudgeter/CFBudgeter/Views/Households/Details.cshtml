@@ -5,11 +5,10 @@
 }
 
 <div id="content-header">
-    <h1>Details</h1>
+    <h1>Household Details</h1>
 </div>
 
 <div id="content-container">
-    <hr />
     @*<dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -53,7 +52,10 @@
                         <tr>
                             <td>@member.FirstName @member.LastName</td>
                             <td>@member.Email</td>
-                            <td>@Html.ActionLink("History", "Index", "Transactions", new { userId = member.Id}, new { @class = "btn btn-xs btn-tertiary" })</td>
+                            <td>
+                                @Html.ActionLink("Accounts", "Index", "HouseholdAccounts", null, new { @class = "btn btn-xs btn-tertiary" })
+                                @Html.ActionLink("Budgets", "Index", "Budgets", null, new { @class = "btn btn-xs btn-tertiary"})
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -63,8 +65,8 @@
     </div>
 
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-info"})
+        @Html.ActionLink("Back to Dashboard", "Index", "Home", null, new { @class = "btn btn-default"})
     </p>
 </div>
 
