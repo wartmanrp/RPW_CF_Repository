@@ -83,7 +83,7 @@
                             <thead>
                                 <tr>
                                     <th class="checkbox-column">
-                                        <input type="checkbox" class="icheck-input">
+                                        Reconciled
                                     </th>
                                     <th data-filterable="true" data-sortable="true" data-direction="desc">Description</th>
                                     <th data-filterable="true" data-sortable="true">Amount</th>
@@ -98,7 +98,14 @@
                                 {
                                     <tr>
                                         <td class="checkbox-column">
-                                            <input type="checkbox" class="icheck-input">
+                                            @if (transaction.Reconciled.Equals(true))
+                                            {
+                                                <input type="checkbox" class="icheck-input" checked="checked">
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" class="icheck-input">
+                                            }
                                         </td>
                                         <td>@transaction.Descriptions</td>
                                         <td>@transaction.Amount</td>

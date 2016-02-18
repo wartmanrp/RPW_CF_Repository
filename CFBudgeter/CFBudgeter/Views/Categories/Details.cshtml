@@ -4,35 +4,36 @@
     ViewBag.Title = "Details";
 }
 <div id="content-header">
-    <h1>Details</h1>
+    <h1>Category Details</h1>
 </div>
+
 <div id="content-container">
-    <div>
-        <h4>Category</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Id)
-            </dt>
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
 
-            <dd>
-                @Html.DisplayFor(model => model.Id)
-            </dd>
+            <div class="list-group">
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-
-        </dl>
+                <div class="list-group-item">
+                    <h4 class="list-group-item-heading">@Html.DisplayFor(model => model.Name)</h4>
+                    <p class="list-group-item-text">Category Name</p>
+                </div> 
+                @*<div class="list-group-item">
+                    <h4 class="list-group-item-heading">@Html.DisplayFor(model => model.BudgetItems.Count)</h4>
+                    <p class="list-group-item-text">Budget Items Using</p>
+                </div>*@ 
+                <div class="list-group-item">
+                    <h4 class="list-group-item-heading">@Html.DisplayFor(model => model.Transactions.Count)</h4>
+                    <p class="list-group-item-text">Transactions Using this Category</p>
+                </div>            
+            </div> <!-- /.list-group -->
+        </div>
     </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+    <div class="row">
+        <div class="col-md-6">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-info"})
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default"})
+        </div>
+    </div>
 </div>
 
 

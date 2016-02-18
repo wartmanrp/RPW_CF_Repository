@@ -120,7 +120,9 @@ namespace CFBudgeter.Controllers
             }
             var currentHousehold = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
 
-            Account account = currentHousehold.Accounts.FirstOrDefault(a => a.Id == id); if (account == null)
+            Account account = currentHousehold.Accounts.FirstOrDefault(a => a.Id == id); 
+            
+            if (account == null)
             {
                 return HttpNotFound();
             }

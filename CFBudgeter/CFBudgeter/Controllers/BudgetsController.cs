@@ -19,7 +19,9 @@ namespace CFBudgeter.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            var budgets = db.Budgets.Include(b => b.Household);
+            var currentUser = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId;
+            var budgets = db.Budgets.Where(b => b.HouseholdId == currentUser);
+
             return View(budgets.ToList());
         }
 
@@ -31,7 +33,9 @@ namespace CFBudgeter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Budget budget = db.Budgets.Find(id);
+            var currentHousehold = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
+
+            Budget budget = currentHousehold.Budgets.FirstOrDefault(a => a.Id == id);
             if (budget == null)
             {
                 return HttpNotFound();
@@ -43,7 +47,6 @@ namespace CFBudgeter.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name");
             return View();
         }
 
@@ -55,11 +58,13 @@ namespace CFBudgeter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,HouseholdId,Name")] Budget budget)
         {
+            budget.HouseholdId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId;
+
             if (ModelState.IsValid)
             {
                 db.Budgets.Add(budget);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "BudgetItems");
             }
 
             ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", budget.HouseholdId);
@@ -74,7 +79,9 @@ namespace CFBudgeter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Budget budget = db.Budgets.Find(id);
+            var currentHousehold = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
+
+            Budget budget = currentHousehold.Budgets.FirstOrDefault(a => a.Id == id);
             if (budget == null)
             {
                 return HttpNotFound();
@@ -91,11 +98,13 @@ namespace CFBudgeter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,HouseholdId,Name")] Budget budget)
         {
+            budget.HouseholdId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId;
+
             if (ModelState.IsValid)
             {
                 db.Entry(budget).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Budgets");
             }
             ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", budget.HouseholdId);
             return View(budget);
@@ -109,7 +118,10 @@ namespace CFBudgeter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Budget budget = db.Budgets.Find(id);
+            var currentHousehold = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
+
+            Budget budget = currentHousehold.Budgets.FirstOrDefault(a => a.Id == id);
+
             if (budget == null)
             {
                 return HttpNotFound();
@@ -123,7 +135,9 @@ namespace CFBudgeter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Budget budget = db.Budgets.Find(id);
+            var currentHousehold = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
+
+            Budget budget = currentHousehold.Budgets.FirstOrDefault(a => a.Id == id);
             db.Budgets.Remove(budget);
             db.SaveChanges();
             return RedirectToAction("Index");
