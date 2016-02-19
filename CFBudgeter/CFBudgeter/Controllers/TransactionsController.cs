@@ -68,8 +68,11 @@ namespace CFBudgeter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,AccountId,UserId,CategoryId,Descriptions,Type,Date,Amount,Reconciled,ReconciledAmount")] Transaction transaction)
         {
+            var currentUser = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            transaction.UserId = currentUser.Id;
             if (ModelState.IsValid)
             {
+
                 transaction.Date = new DateTimeOffset(DateTime.Now);
                 db.Transactions.Add(transaction);
                 db.SaveChanges();

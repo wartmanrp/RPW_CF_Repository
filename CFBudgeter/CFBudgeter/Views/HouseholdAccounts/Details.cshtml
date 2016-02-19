@@ -110,7 +110,7 @@
                                         <td>@transaction.Descriptions</td>
                                         <td>@transaction.Amount</td>
                                         <td>@transaction.Category.Name</td>
-                                        <td class="hidden-xs hidden-sm">@transaction.User.FirstName</td>
+                                        <td class="hidden-xs hidden-sm">@transaction.User.UserName</td>
                                         <td class="hidden-xs hidden-sm">@transaction.Date</td>
                                         <td>
                                             @Html.ActionLink("Details", "Details", "Transactions", new { id = transaction.Id}, new { @class = "btn btn-xs btn-success" })

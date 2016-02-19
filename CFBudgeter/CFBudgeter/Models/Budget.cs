@@ -58,7 +58,7 @@ namespace CFBudgeter.Models
         public string UserId { get; set; }
         public int CategoryId { get; set; }
         public string Descriptions { get; set; }
-        public string Type { get; set; }
+        public bool Type { get; set; }
         public DateTimeOffset Date { get; set; }
         public double Amount { get; set; }
         public bool Reconciled { get; set; }

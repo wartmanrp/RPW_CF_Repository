@@ -164,6 +164,8 @@
     </script>*@
     <script src="~/Assets/js/libs/jquery-1.9.1.min.js"></script>
     <script src="~/Assets/js/libs/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="~/Assets/js/libs/underscore.min.js"></script>
+
     <script src="~/Assets/js/libs/bootstrap.min.js"></script>
 
     <script src="~/Assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -171,8 +173,40 @@
     <script src="~/Assets/js/plugins/tableCheckable/jquery.tableCheckable.js"></script>
 
     <script src="~/Assets/js/plugins/icheck/jquery.icheck.min.js"></script>
-
+    
     <script src="~/Assets/js/App.js"></script>
+
+    <!--HighCharts scripts-->
+    <script type="text/javascript">
+    $(function () {
+        $('#container').highcharts({
+            data: {
+                table: 'datatable'
+            },
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Budget Balance by Category'
+            },
+            yAxis: {
+                allowDecimals: false,
+                title: {
+                    text: 'Units'
+                }
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        this.point.y + ' ' + this.point.name.toLowerCase();
+                }
+            }
+        });
+    });
+    </script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
 </body>
 
 
