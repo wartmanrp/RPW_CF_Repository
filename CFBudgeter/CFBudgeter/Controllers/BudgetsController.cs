@@ -64,7 +64,7 @@ namespace CFBudgeter.Controllers
             {
                 db.Budgets.Add(budget);
                 db.SaveChanges();
-                return RedirectToAction("Create", "BudgetItems");
+                return RedirectToAction("Create", "BudgetItems", new { id = budget.Id});
             }
 
             ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", budget.HouseholdId);

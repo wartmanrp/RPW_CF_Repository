@@ -19,10 +19,7 @@ namespace CFBudgeter.Controllers
         [Authorize]
         public ActionResult Index(string userId)
         {
-            var transactions = db.Transactions
-                .Include(t => t.Account)
-                .Where(t => t.UserId == userId );
-            return View(transactions.ToList());
+            return RedirectToAction("Index", "HouseholdAccounts");
         }
 
         // GET: Transactions/Details/5
@@ -40,7 +37,9 @@ namespace CFBudgeter.Controllers
                 return HttpNotFound();
             }
 
-            var accountsIds = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household.Accounts.Select(a => a.Id).ToList();
+            var accountsIds = db.Users.FirstOrDefault(
+                u => u.UserName == User.Identity.Name)
+                .Household.Accounts.Select(a => a.Id).ToList();
             if (accountsIds.Contains(transaction.AccountId))
             {
             return View(transaction);
@@ -69,7 +68,6 @@ namespace CFBudgeter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,AccountId,UserId,CategoryId,Descriptions,Type,Date,Amount,Reconciled,ReconciledAmount")] Transaction transaction)
         {
-            transaction.UserId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
             if (ModelState.IsValid)
             {
                 transaction.Date = new DateTimeOffset(DateTime.Now);
@@ -97,7 +95,11 @@ namespace CFBudgeter.Controllers
             }
             ViewBag.AccountId = new SelectList(db.Accounts, "Id", "Name", transaction.AccountId);
             ViewBag.Categories = new SelectList(db.Categories, "Id", "Name", transaction.CategoryId);
-            var accountsIds = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household.Accounts.Select(a => a.Id).ToList();
+            var accountsIds = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name)
+                .Household
+                .Accounts
+                .Select(a => a.Id)
+                .ToList();
             if (accountsIds.Contains(transaction.AccountId))
             {
                 return View(transaction);
@@ -138,7 +140,11 @@ namespace CFBudgeter.Controllers
                 return HttpNotFound();
             }
 
-            var accountsIds = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household.Accounts.Select(a => a.Id).ToList();
+            var accountsIds = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name)
+                .Household
+                .Accounts
+                .Select(a => a.Id)
+                .ToList();
             if (accountsIds.Contains(transaction.AccountId))
             {
                 return View(transaction);

@@ -5,7 +5,7 @@
 }
 
 <div id="content-header">
-    <h1>Create</h1>
+    <h1>New Transaction</h1>
 </div>
 
 <div id="content-container">
@@ -14,8 +14,6 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Transaction</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.AccountId)
         @Html.HiddenFor(model => model.UserId)
@@ -23,7 +21,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Category.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-6">
                 @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.Categories, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
             </div>
@@ -31,7 +29,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Descriptions, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-6">
                 @Html.EditorFor(model => model.Descriptions, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Descriptions, "", new { @class = "text-danger" })
             </div>
@@ -47,7 +45,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-6">
                 @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
             </div>
@@ -55,7 +53,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Reconciled, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-6">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Reconciled)
                     @Html.ValidationMessageFor(model => model.Reconciled, "", new { @class = "text-danger" })
@@ -64,7 +62,7 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-2 col-md-6">
                 <input type="submit" value="Create" class="btn btn-success" />
                 @Html.ActionLink("Back to Account", "Details", "HouseholdAccounts", new { id = Model.AccountId}, new { @class = "btn btn-default"})
             </div>

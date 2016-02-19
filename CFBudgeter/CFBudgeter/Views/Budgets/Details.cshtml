@@ -46,15 +46,14 @@
                                 {
                                     <tr>
                                         <td>
-                                            @budgetItem.Category
+                                            @budgetItem.Category.Name
                                         </td>
                                         <td>
                                             @budgetItem.Amount
                                         </td>
                                         <td>
-                                            @Html.ActionLink("Details", "Details", new { id = budgetItem.Id }, new { @class = "btn btn-xs btn-tertiary" })
-                                            @Html.ActionLink("Edit", "Edit", new { id = budgetItem.Id }, new { @class = "btn btn-xs btn-info" })
-                                            @Html.ActionLink("Delete", "Delete", new { id = budgetItem.Id }, new { @class = "btn btn-xs btn-danger" })
+                                            @Html.ActionLink("Details", "Details", "BudgetItems", new { id = budgetItem.Id }, new { @class = "btn btn-xs btn-success" })
+                                            @Html.ActionLink("Edit", "Edit", "BudgetItems", new { id = budgetItem.Id }, new { @class = "btn btn-xs btn-info" })
                                         </td>
                                     </tr>
                                 }
@@ -65,35 +64,13 @@
             </div>
         </div>
     </div>
-
-
-
-    <div>
-        <h4>Budget</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Household.Name)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Household.Name)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-
-        </dl>
+    <div class="row">
+        <div class="col-md-6">
+            @Html.ActionLink("Edit Budget", "Edit", new { id = Model.Id }, new { @class = "btn btn-info"})
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default"})
+        </div>
     </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
 </div>
+
 
 

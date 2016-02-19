@@ -19,8 +19,7 @@ namespace CFBudgeter.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            var budgetItems = db.BudgetItems.Include(b => b.Category);
-            return View(budgetItems.ToList());
+            return RedirectToAction("Index", "Budgets");
         }
 
         // GET: BudgetItems/Details/5
@@ -31,20 +30,34 @@ namespace CFBudgeter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BudgetItem budgetItem = db.BudgetItems.Find(id);
+
+            var budgetItem = db.BudgetItems.Find(id);
             if (budgetItem == null)
             {
                 return HttpNotFound();
             }
-            return View(budgetItem);
+
+            var budgetId = db.Users.FirstOrDefault(
+                u => u.UserName == User.Identity.Name)
+                .Household.Budgets.Select(b => b.Id).ToList();
+
+            if (budgetId.Contains(budgetItem.BudgetId))
+            {
+                return View(budgetItem);
+            }
+            return HttpNotFound();
         }
 
         // GET: BudgetItems/Create
         [Authorize]
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
-            return View();
+            var houseId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId;
+            ViewBag.Categories = new SelectList(db.Households.Find(houseId).Categories.ToList(), "Id", "Name");
+
+            var model = new BudgetItem { BudgetId = id };
+            
+            return View(model);
         }
 
         // POST: BudgetItems/Create
@@ -53,16 +66,17 @@ namespace CFBudgeter.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CategoryId,Amount")] BudgetItem budgetItem)
+        public ActionResult Create([Bind(Include = "Id,CategoryId,BudgetId,Amount")] BudgetItem budgetItem)
         {
             if (ModelState.IsValid)
             {
+
                 db.BudgetItems.Add(budgetItem);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Budgets", new { id = budgetItem.BudgetId});
             }
 
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", budgetItem.CategoryId);
+            ViewBag.BudgetId = new SelectList(db.Budgets, "Id", "Name", budgetItem.BudgetId);
             return View(budgetItem);
         }
 
@@ -74,13 +88,23 @@ namespace CFBudgeter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BudgetItem budgetItem = db.BudgetItems.Find(id);
+            var budgetItem = db.BudgetItems.Find(id);
             if (budgetItem == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.BudgetId = new SelectList(db.Budgets, "Id", "Name", budgetItem.BudgetId);
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", budgetItem.CategoryId);
-            return View(budgetItem);
+            var budgetIds = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name)
+                .Household
+                .Budgets
+                .Select(b => b.Id)
+                .ToList();
+            if (budgetIds.Contains(budgetItem.BudgetId))
+            {
+                return View(budgetItem);
+            }
+            return HttpNotFound();
         }
 
         // POST: BudgetItems/Edit/5
@@ -89,15 +113,15 @@ namespace CFBudgeter.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CategoryId,Amount")] BudgetItem budgetItem)
+        public ActionResult Edit([Bind(Include = "Id,CategoryId,BudgetId,Amount")] BudgetItem budgetItem)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(budgetItem).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Budgets", new { id = budgetItem.BudgetId });
             }
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", budgetItem.CategoryId);
+            ViewBag.BudgetId = new SelectList(db.Budgets, "Id", "Name", budgetItem.BudgetId);
             return View(budgetItem);
         }
 
@@ -109,12 +133,23 @@ namespace CFBudgeter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BudgetItem budgetItem = db.BudgetItems.Find(id);
+
+            var budgetItem = db.BudgetItems.Find(id);
             if (budgetItem == null)
             {
                 return HttpNotFound();
             }
-            return View(budgetItem);
+
+            var budgetIds = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name)
+                .Household
+                .Budgets
+                .Select(b => b.Id)
+                .ToList();
+            if(budgetIds.Contains(budgetItem.BudgetId))
+            {
+                return View(budgetItem);
+            }
+            return HttpNotFound();
         }
 
         // POST: BudgetItems/Delete/5
@@ -126,7 +161,7 @@ namespace CFBudgeter.Controllers
             BudgetItem budgetItem = db.BudgetItems.Find(id);
             db.BudgetItems.Remove(budgetItem);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Budgets", new { id = budgetItem.BudgetId});
         }
 
         protected override void Dispose(bool disposing)
