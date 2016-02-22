@@ -112,9 +112,18 @@
         <!--bar chart column-->
         <div class="col-md-8">  
                 <div class="portlet">
-                    @*<div class="portlet-header">
-
-                    </div>*@ <!-- /.portlet-header -->
+                    <div class="portlet-header">
+                        <ul class="portlet-tools pull-right">
+                            @using (Html.BeginForm("SelectBudget", "Home", new { id = }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <li>
+                                    @Html.DropDownListFor(model => model.CurrentBudget.Id, (SelectList)Model.HouseholdBudgets, new { @class = "form-control" })
+                                    <input type="submit" value="Switch Budget" class="btn btn-success" />
+                                </li>
+                            }
+                        </ul>
+                    </div> <!-- /.portlet-header -->
 
                     <div class="portlet-content">
                     <!--bar chart will go here-->
@@ -129,14 +138,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.Household.Categories)
-                                {
-                                    <tr>
-                                        <th>@item.Name</th>
-                                        <td>@item.Transactions.Count</td>
-                                        <td>@item.BudgetItems.Count</td>
-                                    </tr>
-                                }                                
+                                @{
+                                    
+                                    var today = DateTime.Now;
+                                    foreach (var item in Model.CurrentBudget.BudgetItems)
+                                    {
+                                        <tr>
+                                            <th>@item.Category.Name</th>
+                                            <td>@Model.Accounts.SelectMany(a => a.Transactions).Where(t => t.Date.Year == today.Year && t.Date.Month == today.Month && t.CategoryId == item.CategoryId).Sum(t => t.Amount)</td>
+                                            <td>@item.Amount</td>                                      
+                                        </tr>
+                                    }
+                                }                           
                             </tbody>
                         </table>
 

@@ -25,6 +25,16 @@
         @Html.HiddenFor(model => model.Date)
 
         <div class="form-group">
+            <div class="col-md-offset-2 col-md-1">
+                @Html.RadioButton("Type", false) <text class="red"><b>Expense</b></text>
+            </div>
+            <div class="col-md-1">
+                @Html.RadioButton("Type", true) <text class="green"><b>Income</b></text>
+            </div>
+            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.Category.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-6">
                 @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.Categories, new { @class = "form-control" })

@@ -72,8 +72,31 @@ namespace CFBudgeter.Controllers
             transaction.UserId = currentUser.Id;
             if (ModelState.IsValid)
             {
-
                 transaction.Date = new DateTimeOffset(DateTime.Now);
+                var account = db.Accounts.FirstOrDefault(a => a.Id == transaction.AccountId);
+                if (transaction.Type == true)
+                {
+                    if (transaction.Reconciled == true)
+                    {
+                        account.Balance += transaction.Amount;
+                        account.ReconciledBalance += transaction.Amount;
+                    } else
+                    {
+                        account.Balance += transaction.Amount;
+                    }
+                } else
+                {
+                    if (transaction.Reconciled == true)
+                    {
+                        account.Balance -= transaction.Amount;
+                        account.ReconciledBalance -= transaction.Amount;
+                    } else
+                    {
+                        account.Balance -= transaction.Amount;
+                    }
+
+                }
+                
                 db.Transactions.Add(transaction);
                 db.SaveChanges();
                 return RedirectToAction("Details", "HouseholdAccounts", new { id = transaction.AccountId});
@@ -121,6 +144,33 @@ namespace CFBudgeter.Controllers
             transaction.UserId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
             if (ModelState.IsValid)
             {
+                var account = db.Accounts.FirstOrDefault(a => a.Id == transaction.AccountId);
+                if (transaction.Type == true)
+                {
+                    if (transaction.Reconciled == true)
+                    {
+                        account.Balance += transaction.Amount;
+                        account.ReconciledBalance += transaction.Amount;
+                    }
+                    else
+                    {
+                        account.Balance += transaction.Amount;
+                    }
+                }
+                else
+                {
+                    if (transaction.Reconciled == true)
+                    {
+                        account.Balance -= transaction.Amount;
+                        account.ReconciledBalance -= transaction.Amount;
+                    }
+                    else
+                    {
+                        account.Balance -= transaction.Amount;
+                    }
+
+                }
+
                 db.Entry(transaction).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details", "HouseholdAccounts", new { id = transaction.AccountId });
@@ -162,6 +212,34 @@ namespace CFBudgeter.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Transaction transaction = db.Transactions.Find(id);
+            var account = db.Accounts.FirstOrDefault(a => a.Id == transaction.AccountId);
+
+            if (transaction.Type == true)
+            {
+                if (transaction.Reconciled == true)
+                {
+                    account.Balance -= transaction.Amount;
+                    account.ReconciledBalance -= transaction.Amount;
+                }
+                else
+                {
+                    account.Balance -= transaction.Amount;
+                }
+            }
+            else
+            {
+                if (transaction.Reconciled == true)
+                {
+                    account.Balance += transaction.Amount;
+                    account.ReconciledBalance += transaction.Amount;
+                }
+                else
+                {
+                    account.Balance += transaction.Amount;
+                }
+
+            }
+
             db.Transactions.Remove(transaction);
             db.SaveChanges();
             return RedirectToAction("Details", "HouseholdAccounts", new { id = transaction.AccountId });

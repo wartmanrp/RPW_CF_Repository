@@ -62,6 +62,7 @@ namespace CFBudgeter.Controllers
             account.HouseholdId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId;
             if (ModelState.IsValid)
             {
+                account.ReconciledBalance = account.Balance;
                 db.Accounts.Add(account);
                 db.SaveChanges();
                 return RedirectToAction("Index", "HouseholdAccounts");

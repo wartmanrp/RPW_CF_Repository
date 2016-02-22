@@ -82,36 +82,36 @@
                                data-paginate="true">
                             <thead>
                                 <tr>
-                                    <th class="checkbox-column">
-                                        Reconciled
-                                    </th>
-                                    <th data-filterable="true" data-sortable="true" data-direction="desc">Description</th>
+                                    <th>Reconciled</th>
+                                    <th data-filterable="true" data-sortable="true">Type</th>
+                                    <th data-filterable="true" data-sortable="true">Description</th>
                                     <th data-filterable="true" data-sortable="true">Amount</th>
                                     <th data-filterable="true" data-sortable="true">Category</th>
-                                    <th data-filterable="true" data-sortable="true" class="hidden-xs hidden-sm">User</th>
-                                    <th data-filterable="true" data-sortable="true" class="hidden-xs hidden-sm">Date</th>
+                                    <th data-filterable="true" data-sortable="true">User</th>
+                                    <th data-filterable="true" data-sortable="true" data-direction="desc">Date</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var transaction in Model.Transactions)
                                 {
-                                    <tr>
-                                        <td class="checkbox-column">
+                                    <tr class="@(transaction.Type.Equals(true) ? "text-warning":"text-success")">
+                                        <td class="text-center">
                                             @if (transaction.Reconciled.Equals(true))
                                             {
-                                                <input type="checkbox" class="icheck-input" checked="checked">
+                                                <i class="fa fa-check" style="color:green"></i>
                                             }
-                                            else
-                                            {
-                                                <input type="checkbox" class="icheck-input">
-                                            }
+                                        </td>
+                                        <td>@if (transaction.Type.Equals(true))
+                                            { <span>Income</span> } 
+                                            else 
+                                            { <span>Expense</span> }
                                         </td>
                                         <td>@transaction.Descriptions</td>
                                         <td>@transaction.Amount</td>
                                         <td>@transaction.Category.Name</td>
-                                        <td class="hidden-xs hidden-sm">@transaction.User.UserName</td>
-                                        <td class="hidden-xs hidden-sm">@transaction.Date</td>
+                                        <td>@transaction.User.UserName</td>
+                                        <td>@transaction.Date</td>
                                         <td>
                                             @Html.ActionLink("Details", "Details", "Transactions", new { id = transaction.Id}, new { @class = "btn btn-xs btn-success" })
                                             @Html.ActionLink("Edit", "Edit", "Transactions", new { id = transaction.Id }, new { @class = "btn btn-xs btn-info"})
