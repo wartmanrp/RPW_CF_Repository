@@ -37,7 +37,8 @@ namespace CFBudgeter.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var userHouseId = db.Users.FirstOrDefault(u=> u.UserName == User.Identity.Name).HouseholdId;
+                return RedirectToAction("Details", "Households", new { id = userHouseId});
             }
             Household household = db.Households.Find(id);
             if (household == null)

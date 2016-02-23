@@ -12,6 +12,8 @@ namespace CFBudgeter.Models
         public ICollection<Account> Accounts { get; set; }
         public ICollection<Transaction> RecentTransactions { get; set; }
 
+        public int CurrentBudgetId { get; set; }
+
         public Budget CurrentBudget { get; set; }
         public SelectList HouseholdBudgets { get; set; }
         public ICollection<Invitation> Invitations { get; set; }

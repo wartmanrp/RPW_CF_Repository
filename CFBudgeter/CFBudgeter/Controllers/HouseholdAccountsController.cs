@@ -65,6 +65,13 @@ namespace CFBudgeter.Controllers
                 account.ReconciledBalance = account.Balance;
                 db.Accounts.Add(account);
                 db.SaveChanges();
+
+                var userBudgets = db.Budgets.Where(b => b.HouseholdId == account.HouseholdId);
+                if (userBudgets.Count() < 1)
+                {
+                    return RedirectToAction("Create", "Budgets");
+                }
+
                 return RedirectToAction("Index", "HouseholdAccounts");
             }
 

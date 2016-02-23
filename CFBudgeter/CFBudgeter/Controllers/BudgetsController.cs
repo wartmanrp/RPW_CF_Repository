@@ -64,7 +64,18 @@ namespace CFBudgeter.Controllers
             {
                 db.Budgets.Add(budget);
                 db.SaveChanges();
-                return RedirectToAction("Create", "BudgetItems", new { id = budget.Id});
+
+                var userCats = db.Categories.Where(c => c.Households.FirstOrDefault().Id == budget.HouseholdId);
+                if (userCats.Count() < 1)
+                {
+                    return RedirectToAction("Create", "Categories");
+                }
+                var userBudgetItems = db.BudgetItems.Count();
+                if (userBudgetItems < 1)
+                {
+                    return RedirectToAction("Create", "BudgetItems", new { id = budget.Id });
+                }
+                return RedirectToAction("Index", "Budgets");
             }
 
             ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", budget.HouseholdId);

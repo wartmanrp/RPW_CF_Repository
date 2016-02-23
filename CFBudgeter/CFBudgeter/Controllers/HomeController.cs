@@ -13,46 +13,59 @@ namespace CFBudgeter.Controllers
         [Authorize]
         public ActionResult Index(int? id)
         {
-            var db = new ApplicationDbContext();
-            var model = new DashboardViewModel();
-
-            model.Household = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
-
-            if (id == null)
+            if (User.Identity.IsAuthenticated)
             {
-            var activeBudget = db.Budgets.First(b => b.HouseholdId == model.Household.Id);
-            model.HouseholdBudgets = new SelectList(model.Household.Budgets, "Id", "Name", activeBudget.Id);
-            model.CurrentBudget = activeBudget;
+                var db = new ApplicationDbContext();
+                var model = new DashboardViewModel();
+
+                model.Household = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
+                if (model.Household.Budgets.Count() == 0)
+                {
+                    return RedirectToAction("Create", "Budgets");
+                }
+
+                if (id == null)
+                {
+                    var activeBudget = db.Budgets.First(b => b.HouseholdId == model.Household.Id);
+                    model.HouseholdBudgets = new SelectList(model.Household.Budgets, "Id", "Name", activeBudget.Id);
+                    model.CurrentBudgetId = activeBudget.Id;
+                    model.CurrentBudget = activeBudget;
+                }
+                else
+                {
+                    model.HouseholdBudgets = new SelectList(model.Household.Budgets, "Id", "Name", id);
+                    model.CurrentBudgetId = (int)id;
+                    model.CurrentBudget = db.Budgets.First(b => b.Id == id);
+                }
+
+
+
+                //var today = DateTime.Now;
+
+                //model.BudgetPeriodTransactions = db.Accounts.SelectMany(a => a.Transactions).Where(t => t.Date.Year == today.Year && t.Date.Month == today.Month).ToList();
+                //var TransactionsByCategory = model.BudgetPeriodTransactions.Where(b => b.CategoryId = Category).Sum(t => t.Amount);
+
+                model.Accounts = db.Accounts.Where(a => a.HouseholdId == model.Household.Id).Take(5).ToList();
+                var accountIds = model.Accounts.Select(a => a.Id).ToList();
+                model.RecentTransactions = db.Transactions.Where(t => accountIds.Contains(t.AccountId)).OrderByDescending(i => i.Id).Take(5).ToList();
+
+
+                model.Invitations = db.Invitations.Where(e => e.ToEmail == User.Identity.Name).ToList();
+                return View(model);
             }
-
-
-
-
-            //var today = DateTime.Now;
-
-            //model.BudgetPeriodTransactions = db.Accounts.SelectMany(a => a.Transactions).Where(t => t.Date.Year == today.Year && t.Date.Month == today.Month).ToList();
-            //var TransactionsByCategory = model.BudgetPeriodTransactions.Where(b => b.CategoryId = Category).Sum(t => t.Amount);
-
-            model.Accounts = db.Accounts.Where(a => a.HouseholdId == model.Household.Id).ToList();
-            var accountIds = model.Accounts.Select(a => a.Id).ToList();
-            model.RecentTransactions = db.Transactions.Where(t => accountIds.Contains(t.AccountId)).OrderByDescending(i => i.Id).Take(5).ToList();
-
-
-            model.Invitations = db.Invitations.Where(e => e.ToEmail == User.Identity.Name).ToList();
-            return View(model);
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         //POST: Index Submit
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SelectBudget(int Id)
-        {
-            
-            
-            model.CurrentBudget.Id = Id;
-             
-            return View(model);
+        public ActionResult SelectBudget(DashboardViewModel model)
+        {            
+            return RedirectToAction("Index", "Home", new { id = model.CurrentBudgetId});
         }
 
 
