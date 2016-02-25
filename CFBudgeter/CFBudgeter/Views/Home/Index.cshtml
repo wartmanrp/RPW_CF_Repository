@@ -4,9 +4,7 @@
     ViewBag.Title = "Dashboard";
 }
 <div id="content-header">
-
         <h1>Dashboard</h1>
-
 </div>
 
 <div id="content-container">
@@ -14,11 +12,21 @@
         <div class="col-md-4">
             <div class="row">
                 <div class="col-md-12">
+                    <div class="dashboard-stat secondary">
+                        <div class="details">
+                            <span class="content"></span>
+                            <span class="value">@Model.Household.Name</span>
+                        </div> <!-- /.details -->
+                    </div> <!-- /.dashboard-stat -->
+                </div> <!-- /.col-md-3 -->
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <div class="portlet">
                         <div class="portlet-header">
                             <h3>
                                 <i class="fa fa-home"></i>
-                                @Model.Household.Name
+                                Household Accounts
                             </h3>
                             <ul class="portlet-tools pull-right">
                                 <li>
@@ -58,6 +66,16 @@
 
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="dashboard-stat tertiary">
+                        <div class="details">
+                            <span class="content"></span>
+                            <span class="value">@DateTimeOffset.Now.ToString("D")</span>
+                        </div> <!-- /.details -->
+                    </div> <!-- /.dashboard-stat -->
+                </div> <!-- /.col-md-3 -->
             </div>
             <div class="row">
                     <div class="col-md-12">
@@ -111,16 +129,16 @@
 
         <!--bar chart column-->
         <div class="col-md-8">  
-                <div class="portlet">
+            <div class="portlet">
                     <div class="portlet-header">
-                        <ul class="portlet-tools pull-right" style="list-style-type: none; display: inline">
+                        <ul class="portlet-tools pull-right" style="list-style-type: none; display: inline!important">
                             @using (Html.BeginForm("SelectBudget", "Home", FormMethod.Post))
                             {
                                 @Html.AntiForgeryToken()
-                                <li>
+                                <li style="display:inline">
                                     @Html.DropDownListFor(model => model.CurrentBudgetId, Model.HouseholdBudgets, new { @class = "form-control" })
                                 </li>
-                                <li><input type="submit" value="Switch Budget" class="btn btn-success" /></li>
+                            <li style="display:inline"><input type="submit" value="Switch Budget" class="btn btn-success" /></li>
                             }
                         </ul>
                     </div> <!-- /.portlet-header -->
@@ -138,9 +156,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @{
-                                    
+                                @{                                    
                                     var today = DateTime.Now;
+                                    var budgettotal = Model.CurrentBudget.BudgetItems.Sum(t => t.Amount);
                                     foreach (var item in Model.CurrentBudget.BudgetItems)
                                     {
                                         <tr>
@@ -149,24 +167,24 @@
                                             <td>@item.Amount</td>                                      
                                         </tr>
                                     }
-                                }                           
+                                    <tr>
+                                        <th>Budget Outlook</th>
+                                        <td>@Model.Accounts.SelectMany(a => a.Transactions).Where(t => t.Date.Year == today.Year && t.Date.Month == today.Month && t.Type == false).Sum(t => t.Amount)</td>
+                                        <td>@budgettotal</td>
+                                    </tr>
+                                }
+                                             
                             </tbody>
                         </table>
 
 
                     </div> <!-- /.portlet-content -->
                 </div> <!-- /.portlet -->
-             <!-- /.col -->
-        </div>
-    </div>
-
-    @*<div class="row">
-        <div class="col-md-4">
             <div class="portlet">
                 <div class="portlet-header">
                     <h3>
                         <i class="fa fa-home"></i>
-                        @Model.Household.Name
+                        Household Budgets
                     </h3>
                     <ul class="portlet-tools pull-right">
                         <li>
@@ -182,13 +200,13 @@
                             <thead>
                                 <tr>
                                     <th>Budget</th>
-                                    <th>Number of Items</th>                                    
+                                    <th>Number of Items</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                @foreach (var budget in Model.Household.Budgets)
+                                @foreach (var budget in Model.Household.Budgets.Take(3))
                                 {
                                     <tr>
                                         <td>@budget.Name</td>
@@ -202,29 +220,13 @@
                     </div> <!-- /.table-responsive -->
                 </div> <!-- /.portlet-content -->
 
-            </div>
+            </div> <!--portlet-->
+        </div> <!-- /.col -->
+    </div>
+
+    @*<div class="row">
+        <div class="col-md-8">
+
         </div>
     </div>*@
 </div>
-@*<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>*@

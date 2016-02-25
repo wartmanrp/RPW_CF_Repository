@@ -8,69 +8,88 @@
     <h1>@Model.Name Details</h1>
 </div>
 <div id="content-container">
-
     <div class="row">
-        <div class="col-md-6">
-            <div class="portlet">
-                <div class="portlet-header">
-                    <h3>
-                        <i class="fa fa-tag"></i>
-                        Budget Items
-                    </h3>
-                    <ul class="portlet-tools pull-right">
-                        <li>
-                            @Html.ActionLink("New Budget Item", "Create", "BudgetItems", new { id = Model.Id }, new { @class = "btn btn-sm btn-success" })
-                        </li>
-                    </ul>
-                </div> <!-- /.portlet-header -->
-                <div class="portlet-content">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover"
-                               data-provide="datatable"
-                               data-display-rows="12"
-                               data-paginate="true"
-                               data-info="true">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Budget Item Name
-                                    </th>
-                                    <th>
-                                        Amount
-                                    </th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var budgetItem in Model.BudgetItems)
-                                {
+
+        <div class="col-md-3 col-sm-6">
+            <div class="dashboard-stat tertiary">
+                <div class="details">
+                    <span class="content">Budget Name</span>
+                    <span class="value">@Html.DisplayFor(model => model.Name)</span>
+                </div> <!-- /.details -->
+            </div> <!-- /.dashboard-stat -->
+        </div> <!-- /.col-md-3 -->
+
+        <div class="col-md-3 col-sm-6">
+            <div class="dashboard-stat secondary">
+                <div class="details">
+                    <span class="content">Budget Total</span>
+                    <span class="value">@Model.BudgetItems.Sum(b => b.Amount)</span>
+                </div> <!-- /.details -->
+            </div> <!-- /.dashboard-stat -->
+        </div> <!-- /.col-md-3 -->
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="portlet">
+                    <div class="portlet-header">
+                        <h3>
+                            <i class="fa fa-tag"></i>
+                            Budget Items
+                        </h3>
+                        <ul class="portlet-tools pull-right">
+                            <li>
+                                @Html.ActionLink("New Budget Item", "Create", "BudgetItems", new { id = Model.Id }, new { @class = "btn btn-sm btn-success" })
+                            </li>
+                        </ul>
+                    </div> <!-- /.portlet-header -->
+                    <div class="portlet-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover"
+                                   data-provide="datatable"
+                                   data-display-rows="12"
+                                   data-paginate="true"
+                                   data-info="true">
+                                <thead>
                                     <tr>
-                                        <td>
-                                            @budgetItem.Category.Name
-                                        </td>
-                                        <td>
-                                            @budgetItem.Amount
-                                        </td>
-                                        <td>
-                                            @Html.ActionLink("Details", "Details", "BudgetItems", new { id = budgetItem.Id }, new { @class = "btn btn-xs btn-success" })
-                                            @Html.ActionLink("Edit", "Edit", "BudgetItems", new { id = budgetItem.Id }, new { @class = "btn btn-xs btn-info" })
-                                        </td>
+                                        <th>
+                                            Budget Item Name
+                                        </th>
+                                        <th>
+                                            Amount
+                                        </th>
+                                        <th></th>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div> <!-- /.table-responsive -->
-                </div> <!-- /.portlet-content -->
+                                </thead>
+                                <tbody>
+                                    @foreach (var budgetItem in Model.BudgetItems)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @budgetItem.Category.Name
+                                            </td>
+                                            <td>
+                                                @budgetItem.Amount
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Details", "Details", "BudgetItems", new { id = budgetItem.Id }, new { @class = "btn btn-xs btn-success" })
+                                                @Html.ActionLink("Edit", "Edit", "BudgetItems", new { id = budgetItem.Id }, new { @class = "btn btn-xs btn-info" })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div> <!-- /.table-responsive -->
+                    </div> <!-- /.portlet-content -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.ActionLink("Edit Budget", "Edit", new { id = Model.Id }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            @Html.ActionLink("Edit Budget", "Edit", new { id = Model.Id }, new { @class = "btn btn-info"})
-            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default"})
-        </div>
-    </div>
-</div>
 
 
 
