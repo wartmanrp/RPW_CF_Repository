@@ -23,7 +23,7 @@
             <div class="dashboard-stat secondary">
                 <div class="details">
                     <span class="content">Budget Total</span>
-                    <span class="value">@Model.BudgetItems.Sum(b => b.Amount)</span>
+                    <span class="value">$@Model.BudgetItems.Sum(b => b.Amount)</span>
                 </div> <!-- /.details -->
             </div> <!-- /.dashboard-stat -->
         </div> <!-- /.col-md-3 -->
@@ -68,7 +68,7 @@
                                                 @budgetItem.Category.Name
                                             </td>
                                             <td>
-                                                @budgetItem.Amount
+                                                $@budgetItem.Amount
                                             </td>
                                             <td>
                                                 @Html.ActionLink("Details", "Details", "BudgetItems", new { id = budgetItem.Id }, new { @class = "btn btn-xs btn-success" })

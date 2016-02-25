@@ -60,6 +60,7 @@ namespace CFBudgeter.Controllers
         }
 
         //POST: Index Submit
+        //This action allows you to switch between budgets on the dashboard.
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]

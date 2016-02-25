@@ -155,35 +155,41 @@ namespace CFBudgeter.Controllers
         {
             if (ModelState.IsValid)
             {
-                var db = new ApplicationDbContext();
-                db.Households.Add(new Household { Name = model.HouseholdName });
-                await db.SaveChangesAsync();
-               
-                var id = db.Households.ToList().OrderByDescending(h => h.Id).FirstOrDefault(h => h.Name == model.HouseholdName).Id;
-
-                var user = new ApplicationUser { 
-                    UserName = model.Email, 
-                    Email = model.Email, 
-                    FirstName = model.FirstName, 
-                    LastName = model.LastName, 
-                    HouseholdId = id };
-
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                //check is user already exists
+                var user = UserManager.FindByEmail(model.Email);
+                if (user == null)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Create", "HouseholdAccounts");
+                    //user does not exist, create user
+                    user = new ApplicationUser(); 
+                    user.UserName = model.Email; 
+                    user.Email = model.Email;
+                    user.FirstName = model.FirstName; 
+                    user.LastName = model.LastName;
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (!result.Succeeded) 
+                    {
+                        //user couldn't be created for some reason
+                        return View("Register", model);
+                    }                    
                 }
-                AddErrors(result);
-            }
+                //we have a user, either new or existing. so sign them in.
+                await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
+                //check for household ID, only coming from join page
+                if (model.HouseholdId != null)
+                {
+                    var db = new ApplicationDbContext();
+                    //we have a householdso get the recently created /signed in user
+                    user = db.Users.Single(u => u.UserName == model.Email);
+                    //find household matching ID
+                    var h = db.Households.Find(model.HouseholdId);
+                    //add the household to the user's list of households
+                    user.Household = h;
+                    //save changes
+                    db.SaveChanges();
+                }
+                return RedirectToAction("Index", "Home");                                                  
+            }            
             // If we got this far, something failed, redisplay form
             return View(model);
         }

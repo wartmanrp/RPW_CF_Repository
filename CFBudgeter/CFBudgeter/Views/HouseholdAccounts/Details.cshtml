@@ -27,7 +27,7 @@
             <div class="dashboard-stat secondary">
                 <div class="details">
                     <span class="content">@Html.DisplayNameFor(model => model.Balance)</span>
-                    <span class="value">@Html.DisplayFor(model => model.Balance)</span>
+                    <span class="value">$@Html.DisplayFor(model => model.Balance)</span>
                 </div> <!-- /.details -->
             </div> <!-- /.dashboard-stat -->
         </div> <!-- /.col-md-3 -->
@@ -36,7 +36,7 @@
             <div class="dashboard-stat primary">
                 <div class="details">
                     <span class="content">Reconciled Balance</span>
-                    <span class="value">@Html.DisplayFor(model => model.ReconciledBalance)</span>
+                    <span class="value">$@Html.DisplayFor(model => model.ReconciledBalance)</span>
                 </div> <!-- /.details -->
             </div> <!-- /.dashboard-stat -->
         </div> <!-- /.col-md-3 -->
@@ -53,7 +53,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="portlet">
+            <div class="portlet" data-toggle="tooltip" data-placement="left" title="View, sort, search, create, and edit transactions from here.">
                 <div class="portlet-header">
 
                     <h3>
@@ -102,23 +102,24 @@
                                                 <i class="fa fa-check" style="color:green"></i>
                                             }
                                         </td>
-                                        <td>@if (transaction.Type.Equals(true))
-                                            { <span>Income</span> } 
-                                            else 
-                                            { <span>Expense</span> }
-                                        </td>
-                                        <td>@transaction.Descriptions</td>
-                                        <td>@transaction.Amount</td>
-                                        <td>@transaction.Category.Name</td>
-                                        <td>@transaction.User.UserName</td>
-                                        <td>@transaction.Date</td>
                                         <td>
-                                            @Html.ActionLink("Details", "Details", "Transactions", new { id = transaction.Id}, new { @class = "btn btn-xs btn-success" })
-                                            @Html.ActionLink("Edit", "Edit", "Transactions", new { id = transaction.Id }, new { @class = "btn btn-xs btn-info"})
-                                        </td>
-                                    </tr>
+                                            @if (transaction.Type.Equals(true))
+                                            { <span>Income</span> }
+                                            else
+                                            { <span>Expense</span> }
+                                    </td>
+                                    <td>@transaction.Descriptions</td>
+                                    <td>$@transaction.Amount</td>
+                                    <td>@transaction.Category.Name</td>
+                                    <td>@transaction.User.UserName</td>
+                                    <td>@transaction.Date</td>
+                                    <td>
+                                        @Html.ActionLink("Details", "Details", "Transactions", new { id = transaction.Id }, new { @class = "btn btn-xs btn-success" })
+                                        @Html.ActionLink("Edit", "Edit", "Transactions", new { id = transaction.Id }, new { @class = "btn btn-xs btn-info" })
+                                    </td>
+                                </tr>
                                 }
-                                
+
 
                             </tbody>
                         </table>

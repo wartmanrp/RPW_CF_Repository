@@ -40,7 +40,11 @@ namespace CFBudgeter.Controllers
                 var userHouseId = db.Users.FirstOrDefault(u=> u.UserName == User.Identity.Name).HouseholdId;
                 return RedirectToAction("Details", "Households", new { id = userHouseId});
             }
-            Household household = db.Households.Find(id);
+            var currentUser = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+            Household household = currentUser.Household;
+
+            //Household household = db.Households.Find(id);
             if (household == null)
             {
                 return HttpNotFound();
@@ -81,7 +85,9 @@ namespace CFBudgeter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Household household = db.Households.Find(id);
+            var currentUser = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+            Household household = currentUser.Household;
             if (household == null)
             {
                 return HttpNotFound();
@@ -99,40 +105,41 @@ namespace CFBudgeter.Controllers
         {
             if (ModelState.IsValid)
             {
+                var currentUser = db.Users.FirstOrDefault(u=> u.UserName == User.Identity.Name);
                 db.Entry(household).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Households", new { id = currentUser.Household.Id});
             }
             return View(household);
         }
 
-        // GET: Households/Delete/5
-        [Authorize]
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Household household = db.Households.Find(id);
-            if (household == null)
-            {
-                return HttpNotFound();
-            }
-            return View(household);
-        }
+        //// GET: Households/Delete/5
+        //[Authorize]
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Household household = db.Households.Find(id);
+        //    if (household == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(household);
+        //}
 
-        // POST: Households/Delete/5
-        [Authorize]
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Household household = db.Households.Find(id);
-            db.Households.Remove(household);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: Households/Delete/5
+        //[Authorize]
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Household household = db.Households.Find(id);
+        //    db.Households.Remove(household);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

@@ -37,8 +37,8 @@ namespace CFBudgeter.Models
         public int HouseholdId { get; set; }
         public string Name { get; set; }
         public DateTimeOffset CreationDate { get; set; }     
-        public double Balance { get; set; }
-        public double ReconciledBalance { get; set; }
+        public decimal Balance { get; set; }
+        public decimal ReconciledBalance { get; set; }
 
         public virtual Household Household { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; }
@@ -60,9 +60,9 @@ namespace CFBudgeter.Models
         public string Descriptions { get; set; }
         public bool Type { get; set; }
         public DateTimeOffset Date { get; set; }
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
         public bool Reconciled { get; set; }
-        public double ReconciledAmount { get; set; }
+        public decimal ReconciledAmount { get; set; }
 
         public virtual ApplicationUser User { get; set; }
         public virtual Account Account { get; set; }
@@ -109,7 +109,7 @@ namespace CFBudgeter.Models
         public int Id { get; set; }
         public int BudgetId { get; set; }
         public int CategoryId { get; set; }
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
         
         public virtual Budget Budget { get; set; }
         public virtual Category Category { get; set; }
@@ -120,6 +120,19 @@ namespace CFBudgeter.Models
         public int Id { get; set; }
         public string ToEmail { get; set; }
 
+        public string UserId { get; set; }
+        public int HouseholdId { get; set; }
+        public Guid JoinCode { get; set; }
+        public bool Joined { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
         public virtual Household Household { get; set; }
+    }
+
+    public class SendGridCredentials
+    {
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
     }
 }
