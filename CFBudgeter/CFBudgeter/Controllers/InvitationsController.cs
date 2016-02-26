@@ -7,6 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CFBudgeter.Models;
+using System.Net.Mail;
+using System.Net.Mime;
+using System.Text;
 
 namespace CFBudgeter.Controllers
 {
@@ -55,8 +58,49 @@ namespace CFBudgeter.Controllers
         {
             if (ModelState.IsValid)
             {
+                var currentUser = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+                invitation.UserId = currentUser.Id;
+                invitation.HouseholdId = currentUser.HouseholdId;
+                invitation.JoinCode = Guid.NewGuid();
                 db.Invitations.Add(invitation);
                 db.SaveChanges();
+
+                var sendGridCredentials = db.SendGridCredentials.First();
+                try
+                {
+                    MailMessage mailMsg = new MailMessage();
+
+                    // To
+                    mailMsg.To.Add(new MailAddress(invitation.ToEmail, "To"));
+
+                    // From
+                    mailMsg.From = new MailAddress(currentUser.Email, "From");
+
+                    // Subject and multipart/alternative Body
+                    var callBackUrl = Url.Action("JoinHousehold", "Households", new{JoinCode = invitation.JoinCode}, protocol: Request.Url.Scheme);
+                    StringBuilder str = new StringBuilder();
+                    str.Append("<p>I would like to invite you to join my household on the Budget Maseter household budgeting platform.</p><p>Please click the following link to join/register: <a href='");
+                    str.Append(callBackUrl);
+                    str.Append("'>Click here (you will be redirected)</a></p>");
+
+                    mailMsg.Subject = currentUser.FirstName + " " + "has invited you to the" + " " + currentUser.Household.Name + " " + "household on the Budget Master website."; 
+
+                    mailMsg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(str.ToString(), null, MediaTypeNames.Text.Html));
+
+                    // Init SmtpClient and send
+                    SmtpClient smtpClient = new SmtpClient("smtp.sendgrid.net", Convert.ToInt32(587));
+                    System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(sendGridCredentials.UserName, sendGridCredentials.Password);
+                    smtpClient.Credentials = credentials;
+
+                    smtpClient.Send(mailMsg);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+
                 return RedirectToAction("Index");
             }
 

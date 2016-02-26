@@ -165,6 +165,7 @@ namespace CFBudgeter.Controllers
                     user.Email = model.Email;
                     user.FirstName = model.FirstName; 
                     user.LastName = model.LastName;
+                    user.HouseholdId = (int)model.HouseholdId;
                     var result = await UserManager.CreateAsync(user, model.Password);
                     if (!result.Succeeded) 
                     {

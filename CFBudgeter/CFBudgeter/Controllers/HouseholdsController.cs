@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Web.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -7,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CFBudgeter.Models;
+using System.Threading.Tasks;
 
 namespace CFBudgeter.Controllers
 {
@@ -113,6 +115,37 @@ namespace CFBudgeter.Controllers
             return View(household);
         }
 
+        //GET: Households/Join
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<ActionResult> JoinHousehold(string JoinCode)
+        {
+            //set up the confirmation page so the user can confirm he wants to change households
+            //might also need a view model for this page
+            var invitation = await db.Invitations.FirstOrDefaultAsync(i => i.JoinCode.ToString() == JoinCode);
+            if (JoinCode == invitation.JoinCode.ToString())
+            {
+                var model = new RegisterViewModel
+                {
+                    HouseholdId = invitation.Household.Id,
+                    HouseholdName = invitation.Household.Name,
+                    Email = invitation.ToEmail
+                };
+                var user = db.Users.FirstOrDefault(u => u.Email == invitation.ToEmail);
+                if (user != null){
+                    //user exists in the sytsem populate the rest of the user info
+                    model.FirstName = user.FirstName;
+                    model.LastName = user.LastName;
+                }
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account", new { message = "Unauthorized" });
+            }
+        }
+
+       
         //// GET: Households/Delete/5
         //[Authorize]
         //public ActionResult Delete(int? id)
