@@ -165,8 +165,29 @@ namespace CFBudgeter.Controllers
                     user.Email = model.Email;
                     user.FirstName = model.FirstName; 
                     user.LastName = model.LastName;
-                    user.HouseholdId = (int)model.HouseholdId;
+
+                    if (model.HouseholdId.HasValue)
+                    {
+                        user.HouseholdId = model.HouseholdId.Value;
+                    }
+                    else
+                    {
+                        //creates new household on registration
+                        Household household = new Household();
+                        household.Name = model.HouseholdName;
+
+                        db.Households.Add(household);
+                        db.SaveChanges();
+
+                        
+                        var newHousehold = db.Households.OrderByDescending(h => h.Id).First();
+                        user.HouseholdId = newHousehold.Id;
+
+                    }
+
                     var result = await UserManager.CreateAsync(user, model.Password);
+
+
                     if (!result.Succeeded) 
                     {
                         //user couldn't be created for some reason

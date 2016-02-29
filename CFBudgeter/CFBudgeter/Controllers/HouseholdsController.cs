@@ -6,7 +6,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
-using System.Web.Mvc;
 using CFBudgeter.Models;
 using System.Threading.Tasks;
 
@@ -133,7 +132,7 @@ namespace CFBudgeter.Controllers
                 };
                 var user = db.Users.FirstOrDefault(u => u.Email == invitation.ToEmail);
                 if (user != null){
-                    //user exists in the sytsem populate the rest of the user info
+                    //user exists in the system populate the rest of the user info
                     model.FirstName = user.FirstName;
                     model.LastName = user.LastName;
                 }

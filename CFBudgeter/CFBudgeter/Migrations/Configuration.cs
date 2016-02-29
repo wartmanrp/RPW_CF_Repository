@@ -68,8 +68,7 @@ namespace CFBudgeter.Migrations
 
             //creates new user
             if (!context.Users.Any(u => u.Email == "powers.wartman@gmail.com"))
-            {
-               
+            {               
                 userManager.Create(new ApplicationUser
                     {
                         UserName = "powers.wartman@gmail.com",

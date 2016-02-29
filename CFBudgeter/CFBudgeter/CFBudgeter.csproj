@@ -538,6 +538,7 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="App_Code\SocialStyleHelpers.cshtml" />
+    <None Include="Properties\PublishProfiles\rpwartman-budgetmaster.pubxml" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

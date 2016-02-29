@@ -65,7 +65,7 @@ namespace CFBudgeter
                 ClientSecret = "7eRkapQJUEMKa2zbl48GAY2u"
             });
 
-            app.UseLinkedInAuthentication("77yej3fdrghyp6", "LARWR6TNkqNEr6Q7");
+            app.UseLinkedInAuthentication("77y2qhru7pqrum", "UUb1zNyAOmYIKvZX");
         }
     }
 }
