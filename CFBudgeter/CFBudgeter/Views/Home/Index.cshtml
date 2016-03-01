@@ -136,9 +136,8 @@
                             {
                                 @Html.AntiForgeryToken()
                                 <li>
-                                    @Html.DropDownListFor(model => model.CurrentBudgetId, Model.HouseholdBudgets, new { @class = "form-control" })
+                                    @Html.DropDownListFor(model => model.CurrentBudgetId, Model.HouseholdBudgets, new { @class = "form-control", onchange = "this.form.submit();" })
                                 </li>
-                                <li><input type="submit" value="Switch Budget" class="btn btn-success" /></li>
                             }
                         </ul>
                     </div> <!-- /.portlet-header -->

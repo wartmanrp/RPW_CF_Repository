@@ -112,7 +112,7 @@
                                     <td>$@transaction.Amount</td>
                                     <td>@transaction.Category.Name</td>
                                     <td>@transaction.User.UserName</td>
-                                    <td>@transaction.Date</td>
+                                    <td>@transaction.Date.ToString("D")</td>
                                     <td>
                                         @Html.ActionLink("Details", "Details", "Transactions", new { id = transaction.Id }, new { @class = "btn btn-xs btn-success" })
                                         @Html.ActionLink("Edit", "Edit", "Transactions", new { id = transaction.Id }, new { @class = "btn btn-xs btn-info" })

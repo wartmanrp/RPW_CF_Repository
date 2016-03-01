@@ -126,6 +126,7 @@ namespace CFBudgeter.Controllers
                 .Accounts
                 .Select(a => a.Id)
                 .ToList();
+            TempData["originalAmt"] = db.Transactions.FirstOrDefault(t => t.Id == transaction.Id).Amount;
             if (accountsIds.Contains(transaction.AccountId))
             {
                 return View(transaction);
@@ -142,33 +143,57 @@ namespace CFBudgeter.Controllers
         public ActionResult Edit([Bind(Include = "Id,AccountId,UserId,CategoryId,Descriptions,Type,Date,Amount,Reconciled,ReconciledAmount")] Transaction transaction)
         {
             transaction.UserId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
+            var originalAmt = (decimal)TempData["originalAmt"];
+
             if (ModelState.IsValid)
             {
                 var account = db.Accounts.FirstOrDefault(a => a.Id == transaction.AccountId);
+
                 if (transaction.Type == true)
                 {
                     if (transaction.Reconciled == true)
                     {
+                        account.Balance -= originalAmt;
+                        account.ReconciledBalance -= originalAmt;
                         account.Balance += transaction.Amount;
                         account.ReconciledBalance += transaction.Amount;
                     }
                     else
-                    {
-                        account.Balance += transaction.Amount;
+                    {                        
+                        if (transaction.Amount == originalAmt)
+                        {
+                            account.Balance -= originalAmt;
+                            account.Balance += transaction.Amount;
+                            account.ReconciledBalance -= originalAmt;
+                        }
+                        else
+                        {
+                            account.ReconciledBalance -= transaction.Amount;
+                        }
                     }
                 }
                 else
                 {
                     if (transaction.Reconciled == true)
                     {
+                        account.Balance += originalAmt;
+                        account.ReconciledBalance += originalAmt;
                         account.Balance -= transaction.Amount;
                         account.ReconciledBalance -= transaction.Amount;
                     }
                     else
                     {
-                        account.Balance -= transaction.Amount;
+                        if (transaction.Amount == originalAmt)
+                        {
+                            account.Balance += originalAmt;
+                            account.Balance -= transaction.Amount;
+                            account.ReconciledBalance += originalAmt;
+                        }
+                        else
+                        {
+                            account.ReconciledBalance += transaction.Amount;
+                        }                      
                     }
-
                 }
 
                 db.Entry(transaction).State = EntityState.Modified;
