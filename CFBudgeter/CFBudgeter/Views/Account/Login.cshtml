@@ -25,15 +25,15 @@
 
         <h3>Welcome to Budget Master.</h3>
 
-        <h5>Please sign in to get begin.</h5>
+        <h5>Please sign in or register.</h5>
 
-        <br />
+        @*<br />
 
         @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
 
-        <br />
+        <br />*@
 
-        <span class="text-muted">OR, SIGN IN BELOW</span>
+        @*<span class="text-muted">OR, SIGN IN BELOW</span>*@
 
         @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form", role = "form", id = "login-form" }))
         {
