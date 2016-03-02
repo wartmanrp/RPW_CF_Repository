@@ -40,8 +40,7 @@ namespace CFblog.Migrations
             var uStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(uStore);
 
-            
-            //creates new user
+                        //creates new user
             if (userManager.FindByEmail("powers.wartman@gmail.com") == null)
             {
                 userManager.Create(new ApplicationUser
@@ -59,6 +58,7 @@ namespace CFblog.Migrations
             {
                 userManager.AddToRole(userId, "Admin");
             }
+
 
 
             //creates new user
