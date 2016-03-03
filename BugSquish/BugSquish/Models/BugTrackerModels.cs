@@ -13,6 +13,7 @@ namespace BugSquish.Models
             this.Tickets = new HashSet<Ticket>();
         }
         public int Id { get; set; }
+        public string ManagerId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
@@ -32,8 +33,8 @@ namespace BugSquish.Models
         }
 
         public int Id { get; set; }
-        public int AuthorId { get; set; }
-        public int DeveloperId { get; set; }
+        public string AuthorId { get; set; }
+        public string DeveloperId { get; set; }
         public int ProjectId { get; set; }
 
         public int TicketTypeId { get; set; }
@@ -43,7 +44,7 @@ namespace BugSquish.Models
         public string Title { get; set; }
         public string Notes { get; set; }
         public DateTimeOffset Created { get; set; }
-        public DateTimeOffset Update { get; set; }
+        public DateTimeOffset? Updated { get; set; }
 
         public virtual ApplicationUser Author { get; set; }
         public virtual ApplicationUser Developer { get; set; }
@@ -63,7 +64,7 @@ namespace BugSquish.Models
 
         public int Id { get; set; }
         public int TicketId { get; set; }
-        public int EditorId { get; set; }
+        public string EditorId { get; set; }
         public DateTimeOffset EditedTime { get; set; }
 
         public string Property { get; set; }
@@ -77,7 +78,7 @@ namespace BugSquish.Models
     public class TicketComment
     {
         public int Id { get; set; }
-        public int AuthorId { get; set; }
+        public string AuthorId { get; set; }
         public int TicketId { get; set; }
         public DateTimeOffset Created { get; set; }
         public string Body { get; set; }
@@ -90,7 +91,7 @@ namespace BugSquish.Models
     public class TicketAttachment
     {
         public int Id { get; set; }
-        public int AuthorId { get; set; }
+        public string AuthorId { get; set; }
         public int TicketId { get; set; }
         public string AttachmentUrl { get; set; }
         public string Notes { get; set; }

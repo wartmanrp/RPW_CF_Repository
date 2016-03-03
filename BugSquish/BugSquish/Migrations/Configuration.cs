@@ -53,40 +53,40 @@ namespace BugSquish.Migrations
             var userManager = new UserManager<ApplicationUser>(uStore);
 
             //creates new user
-                if (userManager.FindByEmail("powers.wartman@gmail.com") == null)
+            if (userManager.FindByEmail("powers.wartman@gmail.com") == null)
+            {
+                userManager.Create(new ApplicationUser
                 {
-                    userManager.Create(new ApplicationUser
-                    {
-                        UserName = "powers.wartman@gmail.com",
-                        Email = "powers.wartman@gmail.com",
-                        FirstName = "Powers",
-                        LastName = "Wartman"
-                    }, "Password-1");
-                }
+                    UserName = "powers.wartman@gmail.com",
+                    Email = "powers.wartman@gmail.com",
+                    FirstName = "Powers",
+                    LastName = "Wartman"
+                }, "Password-1");
+            }
             //assigns person to given role (admin || moderator), if not already in it.
-                var userId = userManager.FindByEmail("powers.wartman@gmail.com").Id;
-                if (!userManager.IsInRole(userId, "Admin"))
-                {
-                    userManager.AddToRole(userId, "Admin");
-                }
+            var userId = userManager.FindByEmail("powers.wartman@gmail.com").Id;
+            if (!userManager.IsInRole(userId, "Admin"))
+            {
+                userManager.AddToRole(userId, "Admin");
+            }
 
             //creates new user
-                if (userManager.FindByEmail("ajensen@coderfoundry.com") == null)
+            if (userManager.FindByEmail("ajensen@coderfoundry.com") == null)
+            {
+                userManager.Create(new ApplicationUser
                 {
-                    userManager.Create(new ApplicationUser
-                    {
-                        UserName = "ajensen@coderfoundry.com",
-                        Email = "ajensen@coderfoundry.com",
-                        FirstName = "Andrew",
-                        LastName = "Jensen"
-                    }, "Password-1");
-                }
+                    UserName = "ajensen@coderfoundry.com",
+                    Email = "ajensen@coderfoundry.com",
+                    FirstName = "Andrew",
+                    LastName = "Jensen"
+                }, "Password-1");
+            }
             //assigns person to given role (admin || moderator), if not already in it.
-                userId = userManager.FindByEmail("ajensen@coderfoundry.com").Id;
-                if (!userManager.IsInRole(userId, "ProjectManager"))
-                {
-                    userManager.AddToRole(userId, "ProjectManager");
-                }
+            userId = userManager.FindByEmail("ajensen@coderfoundry.com").Id;
+            if (!userManager.IsInRole(userId, "ProjectManager"))
+            {
+                userManager.AddToRole(userId, "ProjectManager");
+            }
 
             //creates demo user 1 and assigns to admin role
             if (userManager.FindByEmail("demo1@coderfoundry.com") == null)
@@ -105,41 +105,41 @@ namespace BugSquish.Migrations
                 userManager.AddToRole(userId, "Admin");
             }
             //end demo user 1
-            
+
             //creates demo user 2 and assigns to project manager role
-                if (userManager.FindByEmail("demo2@coderfoundry.com") == null)
+            if (userManager.FindByEmail("demo2@coderfoundry.com") == null)
+            {
+                userManager.Create(new ApplicationUser
                 {
-                    userManager.Create(new ApplicationUser
-                    {
-                        UserName = "demo2@coderfoundry.com",
-                        Email = "demo2@coderfoundry.com",
-                        FirstName = "Project Manager",
-                        LastName = "User"
-                    }, "Password-1");
-                }
-                userId = userManager.FindByEmail("demo2@coderfoundry.com").Id;
-                if (!userManager.IsInRole(userId, "ProjectManager"))
-                {
-                    userManager.AddToRole(userId, "ProjectManager");
-                }
+                    UserName = "demo2@coderfoundry.com",
+                    Email = "demo2@coderfoundry.com",
+                    FirstName = "Project Manager",
+                    LastName = "User"
+                }, "Password-1");
+            }
+            userId = userManager.FindByEmail("demo2@coderfoundry.com").Id;
+            if (!userManager.IsInRole(userId, "ProjectManager"))
+            {
+                userManager.AddToRole(userId, "ProjectManager");
+            }
             //end demo user 2
 
             //creates demo user 3 and assigns to developer role
-                if (userManager.FindByEmail("demo2@coderfoundry.com") == null)
+            if (userManager.FindByEmail("demo3@coderfoundry.com") == null)
+            {
+                userManager.Create(new ApplicationUser
                 {
-                    userManager.Create(new ApplicationUser
-                    {
-                        UserName = "demo3@coderfoundry.com",
-                        Email = "demo3@coderfoundry.com",
-                        FirstName = "Developer",
-                        LastName = "User"
-                    }, "Password-1");
-                }
-                userId = userManager.FindByEmail("demo3@coderfoundry.com").Id;
-                if (!userManager.IsInRole(userId, "Developer"))
-                {
-                    userManager.AddToRole(userId, "Developer");
-                }
+                    UserName = "demo3@coderfoundry.com",
+                    Email = "demo3@coderfoundry.com",
+                    FirstName = "Developer",
+                    LastName = "User"
+                }, "Password-1");
+            }
+            userId = userManager.FindByEmail("demo3@coderfoundry.com").Id;
+            if (!userManager.IsInRole(userId, "Developer"))
+            {
+                userManager.AddToRole(userId, "Developer");
+            }
             //end demo user 3
 
             //creates demo user 4 and assigns to submitter role
@@ -168,16 +168,16 @@ namespace BugSquish.Migrations
             {
                 context.TicketTypes.Add(new TicketType { Name = "Bug" });
                 context.TicketTypes.Add(new TicketType { Name = "Feature" });
-                context.TicketTypes.Add(new TicketType { Name = "Enhancement" });              
+                context.TicketTypes.Add(new TicketType { Name = "Enhancement" });
             }
 
             // add default priorities if no present
             if (context.Priorities.Count() == 0)
             {
-                context.Priorities.Add(new Priority { Name = "" });
-                context.Priorities.Add(new Priority { Name = "" });
-                context.Priorities.Add(new Priority { Name = "" });
-                context.Priorities.Add(new Priority { Name = "" });
+                context.Priorities.Add(new Priority { Name = "Low" });
+                context.Priorities.Add(new Priority { Name = "Moderate" });
+                context.Priorities.Add(new Priority { Name = "High" });
+                context.Priorities.Add(new Priority { Name = "Critical" });
 
             }
             // add default statuses if no present
@@ -189,12 +189,46 @@ namespace BugSquish.Migrations
                 context.Statuses.Add(new Status { Name = "Needs Review" });
 
             }
-            
-            //check for demo projects, add if not present, go check budgeter....
-            if (!context.Projects.Any(h => h.Name.Equals("Demo Project 1") || h.Name.Equals("Demo Project 2"))
+            context.SaveChanges();
+
+            //check for demo projects, add if not present
+            if (!context.Projects.Any(h => h.Name.Equals("Demo Project 1")))
             {
-                var household = context.Households.Add(new Household { Name = "Demo Household" });
+                var developer = context.Users.Single(u => u.UserName == "demo3@coderfoundry.com");
+                var submitter = context.Users.Single(u => u.UserName == "demo4@coderfoundry.com");
+                var manager = context.Users.Single(u => u.UserName == "demo2@coderfoundry.com");
+                var project = context.Projects.Add(new Project
+                {
+                    Name = "Demo Project 1",
+                    ManagerId = manager.Id,
+                    Manager = manager,
+                    Description = "This is a demo project meant to give an idea to potential users of what this app will look like."
+                });
+
+                //assigns demo dev to demo project
+                project.Developers.Add(developer);
+
+                //adds ticket to demo project with demo dev, submitter
+
+                var tType = context.TicketTypes.Single(t => t.Name == "Bug").Id;
+                var tPriority = context.Priorities.Single(p => p.Name == "Moderate").Id;
+                var tStatus = context.Statuses.Single(s => s.Name == "Pending").Id;
+
+                project.Tickets.Add(new Ticket
+                {
+                    AuthorId = submitter.Id,
+                    Author = submitter,
+                    DeveloperId = developer.Id,
+                    Developer = developer,
+                    Title = "Couldn't log in",
+                    Notes = "I tried to log in, but was unable to! Help!",
+                    Created = DateTime.Now,
+                    TicketTypeId = tType,
+                    PriorityId = tPriority,
+                    StatusId = tStatus
+                });
             }
+            context.SaveChanges();
         }
     }
 }
