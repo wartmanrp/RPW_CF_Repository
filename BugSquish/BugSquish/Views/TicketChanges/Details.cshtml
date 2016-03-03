@@ -1,0 +1,66 @@
+﻿@model BugSquish.Models.TicketChange
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TicketChange</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Editor.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Editor.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ticket.AuthorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ticket.AuthorId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EditedTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EditedTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Property)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Property)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OldValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OldValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NewValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NewValue)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

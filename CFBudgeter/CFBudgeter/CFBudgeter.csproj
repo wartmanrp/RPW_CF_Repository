@@ -233,9 +233,6 @@
   <ItemGroup>
     <Content Include="Assets\css\boostrap-social.css" />
     <Content Include="Assets\img\logos\site logo-sm.png" />
-    <Content Include="Assets\pages\chart-flot.html" />
-    <Content Include="Assets\pages\chart-morris.html" />
-    <Content Include="Assets\pages\chart-sparkline.html" />
     <Content Include="Assets\css\App.css" />
     <Content Include="Assets\css\bootstrap.min.css" />
     <Content Include="Assets\css\custom.css" />
@@ -243,9 +240,6 @@
     <Content Include="Assets\css\Login.css" />
     <Content Include="Assets\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Assets\pages\form-extended.html" />
-    <Content Include="Assets\pages\form-regular.html" />
-    <Content Include="Assets\pages\form-validation.html" />
     <Content Include="Assets\img\avatars\avatar-1.jpg" />
     <Content Include="Assets\img\avatars\avatar-2.jpg" />
     <Content Include="Assets\img\avatars\avatar-large-1.jpg" />
@@ -269,7 +263,6 @@
     <Content Include="Assets\img\pricing\label-editable.png" />
     <Content Include="Assets\img\pricing\label-red.png" />
     <Content Include="Assets\img\pricing\label-yellow.png" />
-    <Content Include="Assets\pages\index.html" />
     <Content Include="Assets\js\App.js" />
     <Content Include="Assets\js\demos\buttons.js" />
     <Content Include="Assets\js\demos\calendar.js" />
@@ -487,28 +480,6 @@
     <Content Include="Assets\js\plugins\textarea-counter\jquery.textarea-counter.js" />
     <Content Include="Assets\js\plugins\timepicker\bootstrap-timepicker.css" />
     <Content Include="Assets\js\plugins\timepicker\bootstrap-timepicker.js" />
-    <Content Include="Assets\pages\page-404.html" />
-    <Content Include="Assets\pages\page-500.html" />
-    <Content Include="Assets\pages\page-blank.html" />
-    <Content Include="Assets\pages\page-calendar.html" />
-    <Content Include="Assets\pages\page-gallery.html" />
-    <Content Include="Assets\pages\page-invoice.html" />
-    <Content Include="Assets\pages\page-login-social.html" />
-    <Content Include="Assets\pages\page-login.html" />
-    <Content Include="Assets\pages\page-pricing.html" />
-    <Content Include="Assets\pages\page-profile.html" />
-    <Content Include="Assets\pages\page-settings.html" />
-    <Content Include="Assets\pages\page-support.html" />
-    <Content Include="Assets\pages\table-advanced.html" />
-    <Content Include="Assets\pages\table-basic.html" />
-    <Content Include="Assets\pages\table-responsive.html" />
-    <Content Include="Assets\pages\ui-buttons.html" />
-    <Content Include="Assets\pages\ui-icons.html" />
-    <Content Include="Assets\pages\ui-popups.html" />
-    <Content Include="Assets\pages\ui-portlets.html" />
-    <Content Include="Assets\pages\ui-sliders.html" />
-    <Content Include="Assets\pages\ui-tabs.html" />
-    <Content Include="Assets\pages\ui-typography.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="favicon.ico" />
