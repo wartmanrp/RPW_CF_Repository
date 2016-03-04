@@ -151,21 +151,29 @@ namespace BugSquish.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                //check if user already exists
+                var user = UserManager.FindByEmail(model.Email);
+                if (user == null)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    //user doesn't exist, create user
+                    user = new ApplicationUser();
+                    user.UserName = model.UserName;
+                    user.Email = model.Email;
+                    user.FirstName = model.FirstName;
+                    user.LastName = model.LastName;
 
-                    return RedirectToAction("Index", "Home");
+                    var result = await UserManager.CreateAsync(user, model.Password);
+
+                    if (!result.Succeeded)
+                    {
+                        //user couldn't be created for some reason
+                        return View("Register", model);
+                    }
                 }
-                AddErrors(result);
+
+                //we have a user, either new or existing so sign them in.
+                await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                return RedirectToAction("Index", "Home");                
             }
 
             // If we got this far, something failed, redisplay form
