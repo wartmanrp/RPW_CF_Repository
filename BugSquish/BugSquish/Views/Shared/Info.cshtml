@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+@{ ViewBag.Title = "Info";
+    }
+
+<div class="lbox-horz"></div>
+<div class="lbox-vert">
+    <a href=@Url.Action("Register", "Account") class="icon-info ttips forgot-password" title="Problem&nbsp;Login?"></a>
+    <a href=@Url.Action("ForgotPassword", "Account") class="icon-info ttips forgot-password" title="Problem&nbsp;Logging&nbsp;in?"></a>
+</div>
+
+    <div class="login-box side-form">
+        <div class="form-group">
+            <div class="form-group">
+               @ViewBag.Title.
+            </div>
+            <div class="form-group">
+                @ViewBag.Message
+            </div>
+        </div>
+    </div>

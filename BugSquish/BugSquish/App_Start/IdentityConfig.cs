@@ -11,18 +11,57 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using BugSquish.Models;
+using SendGrid;
+using System.Configuration;
+using System.Net;
+using System.Diagnostics;
 
 namespace BugSquish
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            await configSendGridasync(message);
+        }
+
+
+        private async Task configSendGridasync(IdentityMessage message)
+        {
+            var myMessage = new SendGridMessage();
+            myMessage.AddTo(message.Destination);
+            myMessage.From = new System.Net.Mail.MailAddress(
+                              "confirmation@bugsquish.azurewebsites.net", "Confirmation Manager");
+            myMessage.Subject = message.Subject;
+            myMessage.Text = message.Body;
+            myMessage.Html = message.Body;
+
+            //create credentials
+            var db = new ApplicationDbContext();
+
+            var account = db.SendGridCredentials.First();
+            
+            var credentials = new NetworkCredential(
+                     account.UserName,
+                     account.Password
+                     );
+
+            // Create a Web transport for sending email.
+            var transportWeb = new Web(credentials);
+
+            // Send the email.
+            if (transportWeb != null)
+            {
+                await transportWeb.DeliverAsync(myMessage);
+            }
+            else
+            {
+                Trace.TraceError("Failed to create Web transport.");
+                await Task.FromResult(0);
+            }
         }
     }
-
+    
     public class SmsService : IIdentityMessageService
     {
         public Task SendAsync(IdentityMessage message)

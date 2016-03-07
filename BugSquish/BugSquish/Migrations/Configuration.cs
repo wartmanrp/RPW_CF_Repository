@@ -60,7 +60,9 @@ namespace BugSquish.Migrations
                     UserName = "powers.wartman@gmail.com",
                     Email = "powers.wartman@gmail.com",
                     FirstName = "Powers",
-                    LastName = "Wartman"
+                    LastName = "Wartman",
+                    EmailConfirmed = true
+
                 }, "Password-1");
             }
             //assigns person to given role (admin || moderator), if not already in it.
@@ -78,7 +80,9 @@ namespace BugSquish.Migrations
                     UserName = "ajensen@coderfoundry.com",
                     Email = "ajensen@coderfoundry.com",
                     FirstName = "Andrew",
-                    LastName = "Jensen"
+                    LastName = "Jensen",
+                    EmailConfirmed = true
+
                 }, "Password-1");
             }
             //assigns person to given role (admin || moderator), if not already in it.
@@ -96,7 +100,9 @@ namespace BugSquish.Migrations
                     UserName = "demo1@coderfoundry.com",
                     Email = "demo1@coderfoundry.com",
                     FirstName = "Admin",
-                    LastName = "User"
+                    LastName = "User",
+                    EmailConfirmed = true
+                   
                 }, "Password-1");
             }
             userId = userManager.FindByEmail("demo1@coderfoundry.com").Id;
@@ -114,7 +120,11 @@ namespace BugSquish.Migrations
                     UserName = "demo2@coderfoundry.com",
                     Email = "demo2@coderfoundry.com",
                     FirstName = "Project Manager",
-                    LastName = "User"
+                    LastName = "User",
+                    EmailConfirmed = true
+
+
+
                 }, "Password-1");
             }
             userId = userManager.FindByEmail("demo2@coderfoundry.com").Id;
@@ -132,7 +142,9 @@ namespace BugSquish.Migrations
                     UserName = "demo3@coderfoundry.com",
                     Email = "demo3@coderfoundry.com",
                     FirstName = "Developer",
-                    LastName = "User"
+                    LastName = "User",
+                    EmailConfirmed = true
+
                 }, "Password-1");
             }
             userId = userManager.FindByEmail("demo3@coderfoundry.com").Id;
@@ -150,7 +162,9 @@ namespace BugSquish.Migrations
                     UserName = "demo4@coderfoundry.com",
                     Email = "demo4@coderfoundry.com",
                     FirstName = "Submitter",
-                    LastName = "User"
+                    LastName = "User",
+                    EmailConfirmed = true
+
                 }, "Password-1");
             }
 
