@@ -15,6 +15,12 @@ namespace BugSquish.Models
         public string ReturnUrl { get; set; }
     }
 
+    public class UserDropDownViewModel
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+    }
+
     public class SendCodeViewModel
     {
         public string SelectedProvider { get; set; }

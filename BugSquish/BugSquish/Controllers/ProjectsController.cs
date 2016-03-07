@@ -17,6 +17,7 @@ namespace BugSquish.Controllers
         // GET: Projects
         public ActionResult Index()
         {
+            var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
             var projects = db.Projects.Include(p => p.Manager);
             return View(projects.ToList());
         }
