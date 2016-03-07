@@ -102,7 +102,7 @@
                     <img src="~/Assets/img/profile-pics/profile-pic.png" alt="" class="profile-pic">
                 </a>
                 <ul class="dropdown-menu pull-right text-right">
-                    <li><a href="">@User.Identity.GetUserName()</a></li>
+                    <li>@Html.ActionLink("View Profile", "Index", "Manage", new { @title= "Profile"} )</li>
                     <li>@Html.ActionLink("Update Profile", "Edit", "Manage", null, new { @title = "Manage" })</li>
                     <li class="divider"></li>
                     <li>
