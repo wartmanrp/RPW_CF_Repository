@@ -1,4 +1,6 @@
-﻿@{
+﻿@model BugSquish.Models.UserRolesDetailViewModel
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -6,49 +8,18 @@
 <div class="portlet">
     <div class="portlet-header">
         <ul class="portlet-tools pull-right" style="list-style-type: none; display: inline" data-toggle="tooltip" data-placement="top" title="This allows you to switch between household budgets.">
-            @using (Html.BeginForm("SelectBudget", "Home", FormMethod.Post))
+            @using (Html.BeginForm("UserRolesDetail", "Manage", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
                 <li>
-                    @Html.DropDownListFor(model => model.CurrentBudgetId, Model.HouseholdBudgets, new { @class = "form-control", onchange = "this.form.submit();" })
+                    @Html.DropDownListFor(model => model.CurrentRoleId, Model.AvailableRoles, new { @class = "form-control", onchange = "this.form.submit();" })
                 </li>
             }
         </ul>
     </div> <!-- /.portlet-header -->
 
-    <div class="portlet-content" data-toggle="tooltip" data-placement="bottom" title="A comparison of amounts spent (transactions) vs. budgeted. Grouped by category.">
-        <!--bar chart will go here-->
-        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
-        <table id="datatable" hidden>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Spent</th>
-                    <th>Budgeted</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    var today = DateTime.Now;
-                    var budgettotal = Model.CurrentBudget.BudgetItems.Sum(t => t.Amount);
-                    foreach (var item in Model.CurrentBudget.BudgetItems)
-                    {
-                        <tr>
-                            <th>@item.Category.Name</th>
-                            <td>@Model.Accounts.SelectMany(a => a.Transactions).Where(t => t.Date.Year == today.Year && t.Date.Month == today.Month && t.CategoryId == item.CategoryId && t.Type == false).Sum(t => t.Amount)</td>
-                            <td>@item.Amount</td>
-                        </tr>
-                    }
-                    <tr>
-                        <th>Budget Outlook</th>
-                        <td>@Model.Accounts.SelectMany(a => a.Transactions).Where(t => t.Date.Year == today.Year && t.Date.Month == today.Month && t.Type == false).Sum(t => t.Amount)</td>
-                        <td>@budgettotal</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
+    <div class="portlet-content">
 
     </div> <!-- /.portlet-content -->
+
 </div> <!-- /.portlet -->

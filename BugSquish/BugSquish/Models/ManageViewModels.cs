@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using System.Web.Mvc;
+
 
 namespace BugSquish.Models
 {
@@ -110,7 +110,7 @@ namespace BugSquish.Models
     public class UserRolesDetailViewModel
     {
         public string UserId { get; set; }
-        public string CurrentRole { get; set; }
-        public SelectList AvailableRoles { get; set; }
+        public string CurrentRoleId { get; set; }
+        public System.Web.Mvc.SelectList AvailableRoles { get; set; }
     }
 }

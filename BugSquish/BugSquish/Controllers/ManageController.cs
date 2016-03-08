@@ -410,18 +410,26 @@ namespace BugSquish.Controllers
 
         //GET: /Manage/UserRolesDetail
         [Authorize(Roles = "Admin")]
-        public ActionResult UserRolesDetail(int userId)
+        public ActionResult UserRolesDetail(string id)
         {
-            if (userId == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
             var db = new ApplicationDbContext();
-            var model = new UserRolesDetailViewModel();
             var helper = new UserRolesHelper(db);
 
-            model.
+            var user = db.Users.Find(id);
+
+            var model = new UserRolesDetailViewModel
+            {
+                CurrentRoleId = helper.GetUserRole(user.Id),
+                AvailableRoles = new SelectList(db.Roles, "Id", "Name")
+            };
+
+
+
+            return View(model);
         }
 
         ////
