@@ -1,5 +1,9 @@
 ﻿@using Microsoft.AspNet.Identity
 
+@{
+    ViewBag.Title = "BugSquish";
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Bug Squisher App" />
     <meta name="keywords" content="app, bug tracker, portfolio, bug squisher, Coder Foundry"/>
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
 
     <link href="~/Assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Assets/css/calendar.min.css" rel="stylesheet" />
@@ -90,7 +94,7 @@
 <body>
     <header id="header" class="clearfix">
         <!-- Logo -->
-        <a href="index.html" class="logo shadowed">
+        <a href=@Url.Action("Index","Home") class="logo shadowed">
             BLACK PEARL 1.0
         </a>
 
@@ -102,7 +106,7 @@
                     <img src="~/Assets/img/profile-pics/profile-pic.png" alt="" class="profile-pic">
                 </a>
                 <ul class="dropdown-menu pull-right text-right">
-                    <li>@Html.ActionLink("View Profile", "Index", "Manage", new { @title= "Profile"} )</li>
+                    <li>@Html.ActionLink("View Profile", "Index", "Manage", null, new { @title= "Profile"} )</li>
                     <li>@Html.ActionLink("Update Profile", "Edit", "Manage", null, new { @title = "Manage" })</li>
                     <li class="divider"></li>
                     <li>
@@ -289,79 +293,33 @@
                 <!-- Main Menu -->
                 <ul class="side-menu shadowed">
                     <li>
-                        <a class="active" href="index.html"><i class="icon-home"></i>Dashboard</a>
+                        <a class="active" href=@Url.Action("Index","Home")><i class="icon-home"></i>Dashboard</a>
+                    </li>
+                    @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
+                    {
+                    <li>
+                        <a href=@Url.Action("Index","Projects")><i class="icon-hammer"></i>Projects</a>
+                    </li>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                    <li>
+                        <a href=@Url.Action("UserRolesIndex","Manage")><i class="icon-profile"></i>Roles Management</a>
+                    </li>
+                    }
+                    <li>
+                        <a href=@Url.Action("Index","Tickets")><i class="icon-tag"></i>Tickets</a>
                     </li>
                     <li>
-                        <a href="typography.html"><i class="icon-quill"></i>Typography</a>
+                        <a href=@Url.Action("About","Home")><i class="icon-question"></i>Help</a>
                     </li>
-                    <li>
-                        <a href="wall.html"><i class="icon-bubbles-4"></i>Social Wall</a>
-                    </li>
-                    <li class="submenu">
-                        <a href=""><i class="icon-cog"></i>Widgets</a>
-                        <ul>
-                            <li><a href="sidebar-widgets.html">Sidebar</a></li>
-                            <li><a href="content-widgets.html">Content</a></li>
-                            <li><a href="shortcut-widgets.html">Shortcuts</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
+                    @*<li class="submenu">
                         <a href=""><i class="icon-table-2"></i>Tables</a>
                         <ul>
                             <li><a href="tables.html">Normal Tables</a></li>
                             <li><a href="data-table.html">Data Table</a></li>
                         </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href=""><i class="icon-copy-2"></i>Forms</a>
-                        <ul>
-                            <li><a href="form-elements.html">Basic Form Elements</a></li>
-                            <li><a href="form-components.html">Form Components</a></li>
-                            <li><a href="form-examples.html">Form Examples</a></li>
-                            <li><a href="form-validation.html">Form Validation</a></li>
-                            <li><a href="form-wizard.html">Form Wizard</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href=""><i class="icon-glass"></i>User Interface</a>
-                        <ul>
-                            <li><a href="buttons.html">Buttons</a></li>
-                            <li><a href="labels.html">Labels</a></li>
-                            <li><a href="images-icons.html">Images & Icons</a></li>
-                            <li><a href="alerts.html">Alerts</a></li>
-                            <li><a href="media.html">Media</a></li>
-                            <li><a href="pagination-breadcrumbs.html">Pagination & Breadcrumbs</a></li>
-                            <li><a href="components.html">Components</a></li>
-                            <li><a href="other-components.html">Others</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="charts.html"><i class="icon-bars"></i>Charts</a>
-                    </li>
-                    <li>
-                        <a href="file-manager.html"><i class="icon-folder"></i>File Manager</a>
-                    </li>
-                    <li>
-                        <a href="calendar.html"><i class="icon-calendar"></i>Calendar</a>
-                    </li>
-                    <li class="submenu">
-                        <a href=""><i class="icon-camera"></i>Photo Gallery</a>
-                        <ul>
-                            <li><a href="photo-gallery-default.html">Default Gallery</a></li>
-                            <li><a href="photo-gallery-sortable.html">Sortable Gallery</a></li>
-
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href=""><i class="icon-stack"></i>Sample Pages</a>
-                        <ul>
-                            <li><a href="list-view.html">List View</a></li>
-                            <li><a href="profile-page.html">Profile Page</a></li>
-                            <li><a href="messages.html">Messages</a></li>
-                            <li><a href="login.html">Login</a></li>
-                            <li><a href="404.html">404 Error</a></li>
-                        </ul>
-                    </li>
+                    </li>*@                                                                                                 
                 </ul>
             </div>
             <span id="leftbar-toggle" class="visible-xs sidebar-toggle">
@@ -389,66 +347,6 @@
                     <div id="sidebar-calendar"></div>
                 </div>
 
-                <!-- Progress bar -->
-                <div class="shadowed side-progress">
-                    <h3 class="title">Progress Bar</h3>
-                    <div class="side-border">
-                        Joomla Website Development
-                        <div class="progress">
-                            <a href="#" data-toggle="tooltip" title="60%" class="yellow progress-bar ttips" style="width: 60%;">
-                                <span class="sr-only">60% Complete</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="side-border">
-                        Opencart E-Commerce Website
-                        <div class="progress">
-                            <a href="#" data-toggle="tooltip" title="43%" class="green ttips progress-bar" style="width: 43%;">
-                                <span class="sr-only">43% Complete</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="side-border">
-                        Social Media API
-                        <div class="progress">
-                            <a href="#" data-toggle="tooltip" title="81%" class="blue ttips progress-bar" style="width: 81%;">
-                                <span class="sr-only">81% Complete</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="side-border">
-                        VB.Net Software Package
-                        <div class="progress">
-                            <a href="#" data-toggle="tooltip" title="10%" class="yellow ttips progress-bar" style="width: 10%;">
-                                <span class="sr-only">10% Complete</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="side-border">
-                        Chrome Extension
-                        <div class="progress">
-                            <a href="#" data-toggle="tooltip" title="95%" class="ttips progress-bar red" style="width: 95%;">
-                                <span class="sr-only">95% Complete</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Counts -->
-                <ul class="counts shadowed">
-                    <li>
-                        <span class="big-text">23500+</span>
-                        <span class="sub-text">Facebook Likes</span>
-                    </li>
-                    <li>
-                        <span class="big-text">125600+</span>
-                        <span class="sub-text">Twitter Followers</span>
-                    </li>
-                    <li>
-                        <span class="big-text">362</span>
-                        <span class="sub-text">Support Tickets</span>
-                    </li>
-                </ul>
                 <!-- Notification -->
                 <div class="notification shadowed">
                     <ul class="tab">
@@ -560,6 +458,23 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Counts -->
+                <ul class="counts shadowed">
+                    <li>
+                        <span class="big-text">23500+</span>
+                        <span class="sub-text">Facebook Likes</span>
+                    </li>
+                    <li>
+                        <span class="big-text">125600+</span>
+                        <span class="sub-text">Twitter Followers</span>
+                    </li>
+                    <li>
+                        <span class="big-text">362</span>
+                        <span class="sub-text">Support Tickets</span>
+                    </li>
+                </ul>
+
             </div>
 
             <span id="rightbar-toggle" class="hidden-lg sidebar-toggle">
@@ -651,8 +566,8 @@
     <!--scripts for template-->
     <script src="~/Assets/js/jquery-1.10.2.min.js"></script>
     <script src="~/Assets/js/jquery-ui-1.10.3.min.js"></script>
-    <script src="~/Assets/js/chart/highcharts.js"></script>
-    <script src="~/Assets/js/chart/modules/exporting.js"></script>
+    @*<script src="~/Assets/js/chart/highcharts.js"></script>
+    <script src="~/Assets/js/chart/modules/exporting.js"></script>*@
     <script src="~/Assets/js/bootstrap.min.js"></script>
     <script src="~/Assets/js/feeds.js"></script>
     <script src="~/Assets/js/chosen.js"></script>
@@ -661,7 +576,6 @@
     <script src="~/Assets/js/masonry.min.js"></script>
     <script src="~/Assets/js/enscroll.min.js"></script>
     <script src="~/Assets/js/calendar.min.js"></script>
-    <script src="~/Assets/js/datatables.min.js"></script>
     <script src="~/Assets/js/autosize.min.js"></script>
     <script src="~/Assets/js/select.min.js"></script>
     <script src="~/Assets/js/toggler.min.js"></script>
@@ -671,6 +585,7 @@
     <script src="~/Assets/js/media-player.js"></script>
     <script src="~/Assets/js/validation/validate.min.js"></script>
     <script src="~/Assets/js/validation/validationEngine.min.js"></script>
+    <script src="~/Assets/js/datatables.min.js"></script>
     <script src="~/Assets/js/functions.js"></script>
 
     <!--other scripts-->
@@ -695,93 +610,94 @@
                 container.height(0);
             }
         });
-    });
+    });   
+    
+   
+    //// Area Chart
+    //$(function () {
+    //    $('#areaChart').highcharts({
+    //        chart: {
+    //            type: 'area',
+    //            backgroundColor: 'rgba(255, 255, 255, 0.01)',
+    //            height: 300
+    //        },
+    //        title: {
+    //            text: '',
+    //        },
+    //        subtitle: {
+    //            text: ''
+    //        },
+    //        xAxis: {
+    //            labels: {
 
-    // Area Chart
-    $(function () {
-        $('#areaChart').highcharts({
-            chart: {
-                type: 'area',
-                backgroundColor: 'rgba(255, 255, 255, 0.01)',
-                height: 300
-            },
-            title: {
-                text: '',
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                labels: {
-
-                }
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                },
-                labels: {
-                    formatter: function () {
-                        return this.value / 1000 + 'k';
-                    }
-                },
-                gridLineWidth: 1,
-                gridLineColor: '#eaeaea'
-            },
-            tooltip: {
-                pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
-            },
-            plotOptions: {
-                area: {
-                    pointStart: 1,
-                    marker: {
-                        enabled: false,
-                        symbol: 'circle',
-                        radius: 2,
-                        states: {
-                            hover: {
-                                enabled: true
-                            }
-                        }
-                    }
-                }
-            },
-            series: [{
-                name: 'Bing',
-                data: [0, 1060, 1605, 2471, 3322,
-                     4238, 5221, 6129, 7089, 8339, 9399, 10538, 11643, 13092, 14478,
-                     15915, 17385, 19055, 21205, 23044, 25393, 27935, 30062, 32049,
-                     33952, 35804, 37431, 39197, 45000, 43000, 41000, 39000, 37000,
-                     35000, 33000, 31000, 29000, 27000, 25000, 24000, 23000, 22000,
-                     21000, 20000, 19000, 18000, 18000, 17000, 16000, 15000, 14000,
-                     13000, 12000, 11000, 10000, 9000, 7000, 6000, 4000, 2000, 1000, 0]
-            }, {
-                name: 'Bing',
-                data: [null, null, null, null, null,
-                     5, 25, 50, 120, 150, 200, 426, 660, 869, 1060, 1605, 2471, 3322,
-                     4238, 5221, 6129, 7089, 8339, 9399, 10538, 11643, 13092, 14478,
-                     15915, 17385, 19055, 21205, 23044, 25393, 27935, 30062, 32049,
-                     33952, 35804, 37431, 39197, 45000, 43000, 41000, 39000, 37000,
-                     35000, 33000, 31000, 29000, 27000, 25000, 24000, 23000, 22000,
-                     21000, 20000, 19000, 18000, 18000, 17000, 16000]
-            }],
-            exporting: {
-                enabled: false
-            },
-            credits: {
-                enabled: false
-            },
-            colors: [
-                 '#FFA206',
-                 '#09AD30',
-            ],
-            legend: {
-                borderRadius: 0,
-                borderColor: '#e3e3e3',
-                enabled: false
-            }
-        });
-    });
+    //            }
+    //        },
+    //        yAxis: {
+    //            title: {
+    //                text: ''
+    //            },
+    //            labels: {
+    //                formatter: function () {
+    //                    return this.value / 1000 + 'k';
+    //                }
+    //            },
+    //            gridLineWidth: 1,
+    //            gridLineColor: '#eaeaea'
+    //        },
+    //        tooltip: {
+    //            pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+    //        },
+    //        plotOptions: {
+    //            area: {
+    //                pointStart: 1,
+    //                marker: {
+    //                    enabled: false,
+    //                    symbol: 'circle',
+    //                    radius: 2,
+    //                    states: {
+    //                        hover: {
+    //                            enabled: true
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //        },
+    //        series: [{
+    //            name: 'Bing',
+    //            data: [0, 1060, 1605, 2471, 3322,
+    //                 4238, 5221, 6129, 7089, 8339, 9399, 10538, 11643, 13092, 14478,
+    //                 15915, 17385, 19055, 21205, 23044, 25393, 27935, 30062, 32049,
+    //                 33952, 35804, 37431, 39197, 45000, 43000, 41000, 39000, 37000,
+    //                 35000, 33000, 31000, 29000, 27000, 25000, 24000, 23000, 22000,
+    //                 21000, 20000, 19000, 18000, 18000, 17000, 16000, 15000, 14000,
+    //                 13000, 12000, 11000, 10000, 9000, 7000, 6000, 4000, 2000, 1000, 0]
+    //        }, {
+    //            name: 'Bing',
+    //            data: [null, null, null, null, null,
+    //                 5, 25, 50, 120, 150, 200, 426, 660, 869, 1060, 1605, 2471, 3322,
+    //                 4238, 5221, 6129, 7089, 8339, 9399, 10538, 11643, 13092, 14478,
+    //                 15915, 17385, 19055, 21205, 23044, 25393, 27935, 30062, 32049,
+    //                 33952, 35804, 37431, 39197, 45000, 43000, 41000, 39000, 37000,
+    //                 35000, 33000, 31000, 29000, 27000, 25000, 24000, 23000, 22000,
+    //                 21000, 20000, 19000, 18000, 18000, 17000, 16000]
+    //        }],
+    //        exporting: {
+    //            enabled: false
+    //        },
+    //        credits: {
+    //            enabled: false
+    //        },
+    //        colors: [
+    //             '#FFA206',
+    //             '#09AD30',
+    //        ],
+    //        legend: {
+    //            borderRadius: 0,
+    //            borderColor: '#e3e3e3',
+    //            enabled: false
+    //        }
+    //    });
+    //});
 
     //Masonry for widgets
     $(window).load(function () {

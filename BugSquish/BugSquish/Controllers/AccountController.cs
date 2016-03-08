@@ -58,6 +58,7 @@ namespace BugSquish.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            
             return View();
         }
 
@@ -72,7 +73,7 @@ namespace BugSquish.Controllers
             {
                 return View(model);
             }
-
+            model.RememberMe = true;
             //Requires the user to have a confirmed email before they can log on.
             var user = await UserManager.FindByNameAsync(model.UserName);
             if (user != null)
@@ -185,6 +186,7 @@ namespace BugSquish.Controllers
 
                     if (result.Succeeded)
                     {
+                        UserManager.AddToRole(user.Id, "Submitter");
                         //comment of next line prevents log in until user is confirmed.
                         //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

@@ -15,28 +15,52 @@ namespace BugSquish.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Projects
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,ProjectManager,Developer")]
         public ActionResult Index()
         {
-            var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            if (User.IsInRole("Admin"))
+            {
+                var projects = db.Projects.ToList();
+                return View(projects);
+            }
 
-            var projects = db.Projects.Include(p => p.Manager);
-            return View(projects.ToList());
+            if (User.IsInRole("ProjectManager"))
+            {
+                var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+                var projects = db.Projects.Where(p => p.Manager.Id == user.Id).ToList();
+                return View(projects);
+            }
+
+            if (User.IsInRole("Developer"))
+            {
+                var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+                
+                var projects = user.Projects.ToList();
+                return View(projects);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Projects/Details/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,ProjectManager,Developer")]
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            //var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+
+
             Project project = db.Projects.Find(id);
             if (project == null)
             {
                 return HttpNotFound();
             }
+
             return View(project);
         }
 
@@ -44,6 +68,10 @@ namespace BugSquish.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.ManagerId = new SelectList(db.Users, "Id", "FirstName");
             return View();
         }
@@ -71,6 +99,10 @@ namespace BugSquish.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

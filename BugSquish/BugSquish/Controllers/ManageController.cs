@@ -8,6 +8,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BugSquish.Models;
 using System.Data.Entity;
+using System.Collections.Generic;
+using System.Net;
 
 namespace BugSquish.Controllers
 {
@@ -380,6 +382,57 @@ namespace BugSquish.Controllers
             }
             return View(model);
         }
+
+        //
+        //GET: /Manage/UserRolesIndex
+        [Authorize(Roles = "Admin")]
+        public ActionResult UserRolesIndex(ApplicationUser user)
+        {
+            var db = new ApplicationDbContext();
+            var model = new List<ManageRolesViewModel>();
+            var users = db.Users.ToList();
+            var helper = new UserRolesHelper(db);
+
+            foreach (var appUser in users)
+            {
+                model.Add(new ManageRolesViewModel 
+                {
+                    Id = appUser.Id,
+                    FirstName = appUser.FirstName,
+                    LastName = appUser.LastName,
+                    UserName = appUser.UserName,
+                    Role = helper.GetUserRole(appUser.Id)
+                });
+            }   
+            return View(model);
+        }
+
+
+        //GET: /Manage/UserRolesDetail
+        [Authorize(Roles = "Admin")]
+        public ActionResult UserRolesDetail(int userId)
+        {
+            if (userId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            var db = new ApplicationDbContext();
+            var model = new UserRolesDetailViewModel();
+            var helper = new UserRolesHelper(db);
+
+            model.
+        }
+
+        ////
+        ////POST: /Manage/UserRolesDetail
+        //[Authorize(Roles = "Admin")]
+        //[HttpPost]
+        //public ActionResult RolesEdit([Bind(Include = "Id,ManagerId,Name,Description")] ApplicationUser User)
+        //{
+
+        //}
+
 
 #region Helpers
         // Used for XSRF protection when adding external logins

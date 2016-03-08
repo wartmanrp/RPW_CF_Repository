@@ -472,6 +472,21 @@
     <Content Include="Assets\js\modules\exporting.src.js" />
     <Content Include="Assets\js\modules\funnel.js" />
     <Content Include="Assets\js\modules\funnel.src.js" />
+    <Content Include="Assets\js\plugins\datatables\DT_bootstrap.js" />
+    <Content Include="Assets\js\plugins\datatables\img\back_disabled.png" />
+    <Content Include="Assets\js\plugins\datatables\img\back_enabled.png" />
+    <Content Include="Assets\js\plugins\datatables\img\back_enabled_hover.png" />
+    <Content Include="Assets\js\plugins\datatables\img\datatable-row-openclose.png" />
+    <Content Include="Assets\js\plugins\datatables\img\favicon.ico" />
+    <Content Include="Assets\js\plugins\datatables\img\forward_disabled.png" />
+    <Content Include="Assets\js\plugins\datatables\img\forward_enabled.png" />
+    <Content Include="Assets\js\plugins\datatables\img\forward_enabled_hover.png" />
+    <Content Include="Assets\js\plugins\datatables\img\sort_asc.png" />
+    <Content Include="Assets\js\plugins\datatables\img\sort_asc_disabled.png" />
+    <Content Include="Assets\js\plugins\datatables\img\sort_both.png" />
+    <Content Include="Assets\js\plugins\datatables\img\sort_desc.png" />
+    <Content Include="Assets\js\plugins\datatables\img\sort_desc_disabled.png" />
+    <Content Include="Assets\js\plugins\datatables\jquery.dataTables.min.js" />
     <Content Include="Assets\js\select.min.js" />
     <Content Include="Assets\js\shadowbox.js" />
     <Content Include="Assets\js\slider.min.js" />
@@ -534,6 +549,7 @@
     <Content Include="Assets\php\elFinderVolumeLocalFileSystem.class.php" />
     <Content Include="Assets\php\elFinderVolumeMySQL.class.php" />
     <Content Include="Assets\php\mime.types" />
+    <Content Include="Assets\js\plugins\datatables\img\Sorting icons.psd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -610,10 +626,13 @@
     <Content Include="Views\Manage\Edit.cshtml" />
     <Content Include="Views\Manage\Profile.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\Manage\UserRolesIndex.cshtml" />
+    <Content Include="Views\Manage\UserRolesDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assets\files\" />
+    <Folder Include="Views\Roles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

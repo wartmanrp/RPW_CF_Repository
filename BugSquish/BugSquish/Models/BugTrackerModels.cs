@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace BugSquish.Models
 {
@@ -15,6 +16,7 @@ namespace BugSquish.Models
         public int Id { get; set; }
         public string ManagerId { get; set; }
         public string Name { get; set; }
+        [AllowHtml]
         public string Description { get; set; }
 
         public virtual ApplicationUser Manager { get; set; }
@@ -38,10 +40,12 @@ namespace BugSquish.Models
         public int ProjectId { get; set; }
 
         public int TicketTypeId { get; set; }
-        public int PriorityId { get; set; }
-        public int StatusId { get; set; }
+        public int? PriorityId { get; set; }
+        public int? StatusId { get; set; }
 
         public string Title { get; set; }
+
+        [AllowHtml]
         public string Notes { get; set; }
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset? Updated { get; set; }
@@ -81,6 +85,8 @@ namespace BugSquish.Models
         public string AuthorId { get; set; }
         public int TicketId { get; set; }
         public DateTimeOffset Created { get; set; }
+
+        [AllowHtml]
         public string Body { get; set; }
 
         public virtual ApplicationUser Author { get; set; }
@@ -94,6 +100,8 @@ namespace BugSquish.Models
         public string AuthorId { get; set; }
         public int TicketId { get; set; }
         public string AttachmentUrl { get; set; }
+
+        [AllowHtml]
         public string Notes { get; set; }
         public DateTimeOffset Created { get; set; }
 
