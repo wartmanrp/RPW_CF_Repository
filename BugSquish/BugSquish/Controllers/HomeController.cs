@@ -10,13 +10,13 @@ namespace BugSquish.Controllers
     {
         public ActionResult Index()
         {
-            if (!User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Login", "Account");
+                return View();
             }
             else
             {
-                return View();
+                return RedirectToAction("Login", "Account");
             }
         }
 

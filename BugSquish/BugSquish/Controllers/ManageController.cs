@@ -423,6 +423,7 @@ namespace BugSquish.Controllers
 
             var model = new UserRolesDetailViewModel
             {
+                UserId = id,
                 CurrentRoleId = helper.GetUserRole(user.Id),
                 AvailableRoles = new SelectList(db.Roles, "Id", "Name")
             };
@@ -438,15 +439,15 @@ namespace BugSquish.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UserRolesChange([Bind(Include = "UserId,CurrentRoleId")]UserRolesDetailViewModel model)
+        public ActionResult UserRolesChange(UserRolesDetailViewModel model)
         {
             var db = new ApplicationDbContext();
             //var model = new UserRolesDetailViewModel();
             var helper = new UserRolesHelper(db);
-
-            helper.AddUserToRole(model.UserId, model.AvailableRoles.SelectedValue.ToString());
+            var roleName = db.Roles.Find(model.CurrentRoleId).Name;
+            helper.AddUserToRole(model.UserId, roleName);
             db.SaveChanges();
-            return RedirectToAction("UserRolesDetail", "Index");
+            return RedirectToAction("UserRolesIndex", "Manage");
         }
 
 

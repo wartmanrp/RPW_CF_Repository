@@ -127,6 +127,7 @@
     <Content Include="assets\css\SyntaxHighlighter\shThemeMidnight.css" />
     <Content Include="assets\css\SyntaxHighlighter\shThemeRDark.css" />
     <Content Include="assets\img\ASU.svg" />
+    <Content Include="assets\img\bg\14.jpg" />
     <Content Include="assets\img\coderfoundry.png" />
     <Content Include="assets\img\cp3.jpg" />
     <Content Include="assets\img\earc.jpg" />

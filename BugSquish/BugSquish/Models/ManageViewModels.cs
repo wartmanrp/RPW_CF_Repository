@@ -112,5 +112,6 @@ namespace BugSquish.Models
         public string UserId { get; set; }
         public string CurrentRoleId { get; set; }
         public System.Web.Mvc.SelectList AvailableRoles { get; set; }
+
     }
 }

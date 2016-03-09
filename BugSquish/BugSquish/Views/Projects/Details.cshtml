@@ -4,39 +4,99 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Project Details</h2>
 
-<div>
-    <h4>Project</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Manager.FirstName)
-        </dt>
+<div class="row">
+    <div class="col-md-6">
+        <div class="list-group">
 
-        <dd>
-            @Html.DisplayFor(model => model.Manager.FirstName)
-        </dd>
+            <div class="list-group-item">
+                <h4 class="list-group-item-heading">@Html.DisplayFor(model => model.Name)</h4>
+                <p class="list-group-item-text">Project Name</p>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+            <div class="list-group-item">
+                <h4 class="list-group-item-heading">@Html.DisplayFor(model => model.Manager.FirstName)</h4>
+                <p class="list-group-item-text">Project Manager</p>
+            </div>
+            
+            <div class="list-group-item">
+                <h4 class="list-group-item-heading">@Html.DisplayFor(model => model.Description)</h4>
+                <p class="list-group-item-text">Project Details</p>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            @*<div class="list-group-item">
+                <h4 class="list-group-item-heading">@Html.DisplayFor(model => model.Manager.FirstName)</h4>
+                <p class="list-group-item-text">Project Manager</p>
+            </div>*@
+        </div> <!-- /.list-group -->
+        @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")*@
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+    <!--display recent tickets-->
+    <div class="col-md-6">
+        <div class="c-block" id="responsiveTable">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Created</th>
+                            <th>Author</th>
+                            <th>Priority</th>
+                            <th>Type</th>
+                            <th>Developer</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ticket in Model.Tickets.OrderByDescending(i => i.Id).Take(5).ToList())
+                        {
+                            <tr>
+                                <td>@ticket.Created</td>
+                                <td>@ticket.Author.UserName</td>
+                                <td>@ticket.Priority.Name</td>
+                                <td>@ticket.TicketType.Name</td>
+                                <td>@ticket.Developer.FirstName</td>
+                                <td>@Html.ActionLink("Details", "Details", "Tickets", new { id = ticket.Id }, new { @class="btn btn-xs btn-info"})</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-    </dl>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+ 
+<!--list developers for project-->
+<div class="row">
+
+        <div class="c-block" id="responsiveTable">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Current Tickets</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var dev in Model.Developers.OrderByDescending(i => i.FirstName).Take(5).ToList())
+                        {
+                            <tr>
+                                <td>@dev.FirstName</td>
+                                <td>@dev.Tickets.Count()</td>
+
+                                @*<td>@Html.ActionLink("", "", "", new { }, new { @class = "btn btn-xs btn-info" })</td>*@
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+</div>
+
+
