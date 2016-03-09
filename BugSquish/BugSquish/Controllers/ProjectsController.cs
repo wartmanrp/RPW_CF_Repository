@@ -51,10 +51,6 @@ namespace BugSquish.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            //var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
-
-
-
             Project project = db.Projects.Find(id);
             if (project == null)
             {
@@ -72,7 +68,11 @@ namespace BugSquish.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            ViewBag.ManagerId = new SelectList(db.Users, "Id", "FirstName");
+            var helper = new UserRolesHelper(db);
+            var managers = helper.UsersInRole("ProjectManager").ToList();
+
+
+            ViewBag.ManagerId = new SelectList(managers, "Id", "Name");
             return View();
         }
 
@@ -112,7 +112,11 @@ namespace BugSquish.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ManagerId = new SelectList(db.Users, "Id", "FirstName", project.ManagerId);
+            var helper = new UserRolesHelper(db);
+            var managers = helper.UsersInRole("ProjectManager").ToList();
+
+
+            ViewBag.ManagerId = new SelectList(managers, "Id", "Name", project.ManagerId);
             return View(project);
         }
 
