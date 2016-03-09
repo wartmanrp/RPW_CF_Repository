@@ -432,17 +432,25 @@ namespace BugSquish.Controllers
             return View(model);
         }
 
-        ////
-        ////POST: /Manage/UserRolesDetail
-        //[Authorize(Roles = "Admin")]
-        //[HttpPost]
-        //public ActionResult RolesEdit([Bind(Include = "Id,ManagerId,Name,Description")] ApplicationUser User)
-        //{
+        //
+        //POST: /Manage/UserRolesDetail (change role)
 
-        //}
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserRolesChange([Bind(Include = "UserId,CurrentRoleId")]UserRolesDetailViewModel model)
+        {
+            var db = new ApplicationDbContext();
+            //var model = new UserRolesDetailViewModel();
+            var helper = new UserRolesHelper(db);
+
+            helper.AddUserToRole(model.UserId, model.AvailableRoles.SelectedValue.ToString());
+            db.SaveChanges();
+            return RedirectToAction("UserRolesDetail", "Index");
+        }
 
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 

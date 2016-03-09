@@ -7,12 +7,14 @@
 
 <div class="portlet">
     <div class="portlet-header">
-        <ul class="portlet-tools pull-right" style="list-style-type: none; display: inline" data-toggle="tooltip" data-placement="top" title="This allows you to switch between household budgets.">
-            @using (Html.BeginForm("UserRolesDetail", "Manage", FormMethod.Post))
+        <ul class="portlet-tools pull-left" style="list-style-type: none; display: inline" data-toggle="tooltip" data-placement="top" title="This allows you to switch between household budgets.">
+            @using (Html.BeginForm("UserRolesChange", "Manage", FormMethod.Post))
             {
+                @Html.HiddenFor(m => m.UserId)
                 @Html.AntiForgeryToken()
                 <li>
-                    @Html.DropDownListFor(model => model.CurrentRoleId, Model.AvailableRoles, new { @class = "form-control", onchange = "this.form.submit();" })
+                    @Html.DropDownListFor(model => model.CurrentRoleId, Model.AvailableRoles, new { @class = "form-control" })
+                    <input type="submit" value="Change Role" class="btn btn-success" />
                 </li>
             }
         </ul>
