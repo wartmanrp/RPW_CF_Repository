@@ -1,7 +1,35 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "Help";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+<div id="content-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+
+<div id="content-container">
+    <h4>Households</h4>
+    <p>All users must be in a household. Unless you have been invited to join a household 
+    you will be prompted to create one upon registration.</p>
+    <hr />
+    <h4>Budgets</h4>
+    <p>Budgets consist of a collection of budget items, which each have a category, and an assigned monetary value, the budget goal.
+    Upon registration and sign-in, a new user will be prompted to create a new budget if one doesn't exist. Budgets also have a
+    value representing the budget total, which is simply a sum of the values of its budget items. </p>
+    <hr />
+    <h4>Accounts</h4>
+    <p>
+        Accounts are similar to budgets in that they are a collection of a transactions (each having a category). Accounts have two 
+        balance totals, one, the account balance, and the other, the reconciled balance. This is to represent a user's bank reconciling
+        transactions at the end of a period. This must be set by the user at this time.
+    </p>
+    <hr />
+    <h4>Categories</h4>
+    <p>Categories are shared between transactions and budget items. Budget items will appear on the user Dashboard bar graph with their corresponding
+    transactions to give the user an idea of how their budget goals are progressing.</p>
+    <hr />
+</div>
+
+
+
+
+
