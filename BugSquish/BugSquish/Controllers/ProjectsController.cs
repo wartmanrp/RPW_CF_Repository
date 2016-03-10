@@ -138,6 +138,36 @@ namespace BugSquish.Controllers
             return View(project);
         }
 
+        // GET: Projects/ProjectUsers
+        [Authorize(Roles = "Admin,ProjectManager")]
+        public ActionResult ProjectUsers(int? id)
+        {
+            if (!User.IsInRole("Admin") || !User.IsInRole("ProjectManager"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return RedirectToAction("Index","Projects");
+            }
+            var helper = new UserRolesHelper(db);
+            var managers = helper.UsersInRole("Developer").ToList();
+
+
+            var project = new ProjectUsersHelper.ProjectUsersViewModel();
+        }
+
+        //POST: Projects/ProjectUsers
+        [Authorize(Roles = "Admin,ProjectManager")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ProjectUsers(ProjectUserViewModel project)
+        {
+
+        }
+
+
+
         // GET: Projects/Delete/5
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)

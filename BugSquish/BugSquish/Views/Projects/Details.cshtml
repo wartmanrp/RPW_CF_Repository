@@ -27,7 +27,7 @@
                 </div>
                 <div class="list-group-item">
                     <p class="list-group-item-text">
-                        @Html.ActionLink("Edit Project", "Edit", "Edit", new { id = Model.Id }, new { @class="btn btn-info"})
+                        @Html.ActionLink("Edit Project", "Edit", new { id = Model.Id }, new { @class="btn btn-info"})
                         @Html.ActionLink("Back to Projects Index", "Index", null, new { @class = "btn btn-default"})
                     </p>
                 </div>
@@ -52,10 +52,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var ticket in Model.Tickets.OrderByDescending(i => i.Id).Take(5).ToList())
+                        @foreach (var ticket in Model.Tickets.OrderByDescending(i => i.Created).Take(5).ToList())
                         {
                             <tr>
-                                <td>@ticket.Created</td>
+                                <td>@ticket.Created.ToString("d")</td>
                                 <td>@ticket.Author.UserName</td>
                                 <td>@ticket.Priority.Name</td>
                                 <td>@ticket.TicketType.Name</td>
