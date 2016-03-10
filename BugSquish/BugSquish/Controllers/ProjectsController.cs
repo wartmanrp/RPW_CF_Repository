@@ -140,31 +140,36 @@ namespace BugSquish.Controllers
 
         // GET: Projects/ProjectUsers
         [Authorize(Roles = "Admin,ProjectManager")]
-        public ActionResult ProjectUsers(int? id)
+        public ActionResult ProjectUsers(int id)
         {
-            if (!User.IsInRole("Admin") || !User.IsInRole("ProjectManager"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            if (id == null)
-            {
-                return RedirectToAction("Index","Projects");
-            }
             var helper = new UserRolesHelper(db);
-            var managers = helper.UsersInRole("Developer").ToList();
+            var managers = helper.UsersInRole("ProjectManager").ToList();
+            var developers = helper.UsersInRole("Developer").ToList();
+            var currentproject = db.Projects.Single(p => p.Id == id);
 
+            var project = new ProjectUsersHelper.ProjectUsersViewModel
+            {
+                ProjectId = currentproject.Id,
+                Name = currentproject.Name,
+                Description = currentproject.Description,
+                CurrentDevelopers = currentproject.Developers.ToList(),
+                CurrentManager = currentproject.Manager,
+                AvailableDevelopers = new SelectList(developers, "Id", "Name"),
+                AvailableManagers = new SelectList(managers, "Id", "Name") 
+            };
 
-            var project = new ProjectUsersHelper.ProjectUsersViewModel();
+            return View(project);
+
         }
 
         //POST: Projects/ProjectUsers
-        [Authorize(Roles = "Admin,ProjectManager")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult ProjectUsers(ProjectUserViewModel project)
-        {
+        //[Authorize(Roles = "Admin,ProjectManager")]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult ProjectUsers(ProjectUserViewModel project)
+        //{
 
-        }
+        //}
 
 
 

@@ -1,5 +1,50 @@
-﻿@{
+﻿@model BugSquish.Models.ProjectUsersHelper.ProjectUsersViewModel
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="row">
+    <div class="col-md-6">
+                    <!--list developers for project-->
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Current Manager: @Model.CurrentManager.UserName
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Current Tickets</th>
+                            <th># of Projects</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var dev in Model.CurrentDevelopers.OrderByDescending(i => i.FirstName))
+                        {
+                            <tr>
+                                <td>@dev.FirstName</td>
+                                <td>@dev.Tickets.Count()</td>
+                                <td>@dev.Projects.Count()</td>
+                                <td>@Html.ActionLink("Profile", "UserProfile", new { id = dev.Id }, new { @class = "btn btn-xs btn-info"})</td>
+                            </tr>
+                        }
+                        <tr>
+                            @using (Html.BeginForm("UserRolesChange", "Manage", FormMethod.Post)) { 
+                            <td>
+                                @Html.DropDownListFor(model => model.CurrentDevelopers, Model.AvailableDevelopers, new { @class = "form-control" })                            
+                            </td>
+                            <td>
+                                <input type="submit" value="Add Developer" class="btn btn-xs btn-success" />
+                            </td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+    </div>
+
+</div>
 
 

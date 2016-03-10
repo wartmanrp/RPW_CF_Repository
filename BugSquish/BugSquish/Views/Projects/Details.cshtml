@@ -27,6 +27,7 @@
                 </div>
                 <div class="list-group-item">
                     <p class="list-group-item-text">
+                        @Html.ActionLink("Manage Project Users", "ProjectUsers", new { id = Model.Id }, new { @class = "btn btn-success"})
                         @Html.ActionLink("Edit Project", "Edit", new { id = Model.Id }, new { @class="btn btn-info"})
                         @Html.ActionLink("Back to Projects Index", "Index", null, new { @class = "btn btn-default"})
                     </p>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace BugSquish.Models
 {
@@ -31,16 +32,16 @@ namespace BugSquish.Models
         //    return userManager.GetRoles(userId).First();
         //}
 
-        public bool AddUserToProject(string userId, int projectId)
-        {
-            var projects = userManager.GetRoles(userId);
-            foreach (var role in roles)
-            {
-                RemoveUserFromRole(userId, role);
-            }
-            var result = userManager.AddToRole(userId, roleName);
-            return result.Succeeded;
-        }
+        //public bool AddUserToProject(string userId, int projectId)
+        //{
+        //    var projects = userManager.GetRoles(userId);
+        //    foreach (var role in roles)
+        //    {
+        //        RemoveUserFromRole(userId, role);
+        //    }
+        //    var result = userManager.AddToRole(userId, roleName);
+        //    return result.Succeeded;
+        //}
 
         //public bool RemoveUserFromRole(string userId, string roleName)
         //{
@@ -64,11 +65,15 @@ namespace BugSquish.Models
 
         public class ProjectUsersViewModel
         {
-            public string Id { get; set; }
-            public List<ApplicationUser> Developers { get; set; }
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
-            public string Role { get; set; }
+            public int ProjectId { get; set; }
+            public string Name { get; set; }
+            public string Description { get; set; }
+
+            public List<ApplicationUser> CurrentDevelopers { get; set; }
+            public ApplicationUser CurrentManager { get; set; }
+
+            public SelectList AvailableDevelopers { get; set; }
+            public SelectList AvailableManagers { get; set; }
         }
     }
 }
