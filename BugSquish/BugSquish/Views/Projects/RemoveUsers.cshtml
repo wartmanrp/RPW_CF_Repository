@@ -1,0 +1,64 @@
+﻿@model BugSquish.Models.ProjectUsersViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("RemoveUsers", "Projects", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(p => p.ProjectId)
+    @*@Html.HiddenFor(p => p.CurrentManager)*@
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <!--list developers for project-->
+            <div class="panel panel-primary">
+
+                <div class="panel-heading row">
+                    <div class="col-md-4 text-center">
+                        <h4>Current Manager: @Model.ProjectManager.FirstName @Model.ProjectManager.LastName</h4>
+                    </div>
+                    <div class="col-md-8">
+                        <h6>Change Manager:</h6>
+                    </div>
+                </div>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Current Tickets</th>
+                            <th># of Projects</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var dev in Model.ProjectDevelopers.OrderByDescending(i => i.FirstName))
+                        {
+                            <tr>
+                                <td>@dev.FirstName</td>
+                                <td>@dev.Tickets.Count()</td>
+                                <td>@dev.Projects.Count()</td>
+                                <td>@Html.ActionLink("Profile", "UserProfile", new { id = dev.Id }, new { @class = "btn btn-xs btn-info" })</td>
+                            </tr>
+                        }
+                        <tr>
+
+                            <td>
+                                @Html.ListBoxFor(model => model.CurrentDevelopers, Model.AvailableDevelopers, new { @class = "form-control" })
+                            </td>
+
+                            <td class="text-center">
+                                <input type="submit" value="Remove Users" class="btn btn-xs btn-danger" />
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}

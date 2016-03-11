@@ -1,50 +1,68 @@
-﻿@model BugSquish.Models.ProjectUsersHelper.ProjectUsersViewModel
+﻿@model BugSquish.Models.ProjectUsersViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@using (Html.BeginForm("ProjectUsers", "Projects", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(p => p.ProjectId)
+    @*@Html.HiddenFor(p => p.CurrentManager)*@
+
+    
 <div class="row">
     <div class="col-md-6">
-                    <!--list developers for project-->
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    Current Manager: @Model.CurrentManager.UserName
+        <!--list developers for project-->                                                    
+        <div class="panel panel-primary">
+
+            <div class="panel-heading row">
+                <div class="col-md-4 text-center">
+                    <h4>Current Manager: @Model.ProjectManager.FirstName @Model.ProjectManager.LastName</h4>
                 </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Current Tickets</th>
-                            <th># of Projects</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var dev in Model.CurrentDevelopers.OrderByDescending(i => i.FirstName))
-                        {
-                            <tr>
-                                <td>@dev.FirstName</td>
-                                <td>@dev.Tickets.Count()</td>
-                                <td>@dev.Projects.Count()</td>
-                                <td>@Html.ActionLink("Profile", "UserProfile", new { id = dev.Id }, new { @class = "btn btn-xs btn-info"})</td>
-                            </tr>
-                        }
-                        <tr>
-                            @using (Html.BeginForm("UserRolesChange", "Manage", FormMethod.Post)) { 
-                            <td>
-                                @Html.DropDownListFor(model => model.CurrentDevelopers, Model.AvailableDevelopers, new { @class = "form-control" })                            
-                            </td>
-                            <td>
-                                <input type="submit" value="Add Developer" class="btn btn-xs btn-success" />
-                            </td>
-                            }
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="col-md-8">
+                        <h6>Change Manager:</h6>
+                        @Html.DropDownListFor(model => model.CurrentManager, Model.AvailableManagers, new { @class = "form-control pull-right" })                        
+                </div>
             </div>
 
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Current Tickets</th>
+                        <th># of Projects</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var dev in Model.ProjectDevelopers.OrderByDescending(i => i.FirstName))
+                    {
+                        <tr>
+                            <td>@dev.FirstName</td>
+                            <td>@dev.Tickets.Count()</td>
+                            <td>@dev.Projects.Count()</td>
+                            <td>@Html.ActionLink("Profile", "UserProfile", new { id = dev.Id }, new { @class = "btn btn-xs btn-info"})</td>
+                        </tr>
+                    }
+                    <tr>
+                            
+                        <td>
+                            @Html.ListBoxFor(model => model.CurrentDevelopers, Model.AvailableDevelopers, new { @class = "form-control" })                            
+                        </td>
+                        
+                        <td class="text-center">
+                            <input type="submit" value="Update Project Users" class="btn btn-xs btn-success" />
+                        </td>
+                        <td>
+                            @Html.ActionLink("Remove Users","RemoveUsers", "Projects", new { id = Model.ProjectId }, new { @class= "btn btn-xs btn-warning"})
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-
 </div>
-
+}
 

@@ -27,7 +27,6 @@
                 </div>
                 <div class="list-group-item">
                     <p class="list-group-item-text">
-                        @Html.ActionLink("Manage Project Users", "ProjectUsers", new { id = Model.Id }, new { @class = "btn btn-success"})
                         @Html.ActionLink("Edit Project", "Edit", new { id = Model.Id }, new { @class="btn btn-info"})
                         @Html.ActionLink("Back to Projects Index", "Index", null, new { @class = "btn btn-default"})
                     </p>
@@ -37,9 +36,47 @@
 
         <!--display recent tickets-->
         <div class="col-md-6">
+            <!--list developers for project-->
             <div class="panel panel-primary">
-                <div class="panel-heading">
-                    Recent Tickets
+                <div class="panel-heading row">
+                    <h4 class="col-md-4">
+                        Project Developers
+                    </h4>
+                    <div class="col-md-8 text-center">
+                        @Html.ActionLink("Manage Project Users", "ProjectUsers", new { id = Model.Id }, new { @class = "btn btn-success" })
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Current Tickets</th>
+                            <th># of Projects</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var dev in Model.Developers.OrderByDescending(i => i.FirstName).Take(5).ToList())
+                        {
+                            <tr>
+                                <td>@dev.FirstName</td>
+                                <td>@dev.Tickets.Count()</td>
+                                <td>@dev.Projects.Count()</td>
+                                <td>@Html.ActionLink("Profile", "UserProfile", new { id = dev.Id }, new { @class = "btn btn-xs btn-info" })</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!--recent tickets for project-->
+            <div class="panel panel-primary">
+                <div class="panel-heading row">
+                    <h4 class="col-md-4">
+                       Recent Tickets
+                    </h4>
+                    <div class="col-md-8 text-center">
+                        @Html.ActionLink("Manage Tickets", "Index", "Tickets", new { @class = "btn btn-success" })
+                    </div>
                 </div>
                 <table class="table">
                     <thead>
@@ -67,39 +104,9 @@
                     </tbody>
                 </table>
             </div>
-            <!--list developers for project-->
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    Project Developers
-                </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Current Tickets</th>
-                            <th># of Projects</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var dev in Model.Developers.OrderByDescending(i => i.FirstName).Take(5).ToList())
-                        {
-                            <tr>
-                                <td>@dev.FirstName</td>
-                                <td>@dev.Tickets.Count()</td>
-                                <td>@dev.Projects.Count()</td>
-                                <td>@Html.ActionLink("Profile", "UserProfile", new { id = dev.Id }, new { @class = "btn btn-xs btn-info"})</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
         </div>
+        
     </div>
-
-
-
-
 </div>
  
 

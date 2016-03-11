@@ -147,13 +147,15 @@ namespace BugSquish.Controllers
             var developers = helper.UsersInRole("Developer").ToList();
             var currentproject = db.Projects.Single(p => p.Id == id);
 
-            var project = new ProjectUsersHelper.ProjectUsersViewModel
+            var project = new ProjectUsersViewModel
             {
                 ProjectId = currentproject.Id,
                 Name = currentproject.Name,
                 Description = currentproject.Description,
-                CurrentDevelopers = currentproject.Developers.ToList(),
-                CurrentManager = currentproject.Manager,
+                ProjectDevelopers = currentproject.Developers.ToList(),
+                ProjectManager = currentproject.Manager,
+                CurrentDevelopers = currentproject.Developers.Select(d => d.Id).ToArray(),
+                CurrentManager = currentproject.Manager.Id,
                 AvailableDevelopers = new SelectList(developers, "Id", "Name"),
                 AvailableManagers = new SelectList(managers, "Id", "Name") 
             };
@@ -163,14 +165,57 @@ namespace BugSquish.Controllers
         }
 
         //POST: Projects/ProjectUsers
-        //[Authorize(Roles = "Admin,ProjectManager")]
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult ProjectUsers(ProjectUserViewModel project)
-        //{
+        [Authorize(Roles = "Admin,ProjectManager")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ProjectUsers(ProjectUsersViewModel project)
+        {
+            var helper = new ProjectUsersHelper();
+            foreach (var id in project.CurrentDevelopers)
+            {
+                helper.AddUserToProject(id, project.ProjectId);
+            }                
+            helper.AddUserToProject(project.CurrentManager, project.ProjectId);
+            return RedirectToAction("Details", "Projects", new { id = project.ProjectId });
+        }
 
-        //}
 
+        //GET: Projects/RemoveUsers
+        [Authorize(Roles = "Admin,ProjectManager")]
+        public ActionResult RemoveUsers(int id)
+        {
+            var helper = new UserRolesHelper(db);
+            var managers = helper.UsersInRole("ProjectManager").ToList();
+            var developers = helper.UsersInRole("Developer").ToList();
+            var currentproject = db.Projects.Single(p => p.Id == id);
+
+            var project = new ProjectUsersViewModel
+            {
+                ProjectId = currentproject.Id,
+                Name = currentproject.Name,
+                Description = currentproject.Description,
+                ProjectDevelopers = currentproject.Developers.ToList(),
+                ProjectManager = currentproject.Manager,
+                CurrentDevelopers = currentproject.Developers.Select(d => d.Id).ToArray(),
+                AvailableDevelopers = new SelectList(developers, "Id", "Name"),
+            };
+
+            return View(project);
+        }
+
+        //POST: Projects/RemoveUsers
+        [Authorize(Roles = "Admin,ProjectManager")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RemoveUsers(ProjectUsersViewModel project)
+        {
+            var helper = new ProjectUsersHelper();
+            foreach (var id in project.CurrentDevelopers)
+            {
+                helper.RemoveUserFromProject(id, project.ProjectId);
+            }
+            return RedirectToAction("Details", "Projects", new { id = project.ProjectId});
+        }
 
 
         // GET: Projects/Delete/5

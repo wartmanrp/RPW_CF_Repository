@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,6 +9,7 @@ namespace BugSquish.Models
 {
     public class ProjectUsersHelper
     {
+        
 
         //private ApplicationDbContext db;
 
@@ -32,22 +34,37 @@ namespace BugSquish.Models
         //    return userManager.GetRoles(userId).First();
         //}
 
-        //public bool AddUserToProject(string userId, int projectId)
-        //{
-        //    var projects = userManager.GetRoles(userId);
-        //    foreach (var role in roles)
-        //    {
-        //        RemoveUserFromRole(userId, role);
-        //    }
-        //    var result = userManager.AddToRole(userId, roleName);
-        //    return result.Succeeded;
-        //}
+        public void AddUserToProject(string userId, int projectId)
+        {
+            var db = new ApplicationDbContext();
+            var project = db.Projects.Single(p => p.Id == projectId);
+            var user = db.Users.Single(u => u.Id == userId);
+            var helper = new UserRolesHelper(db);
 
-        //public bool RemoveUserFromRole(string userId, string roleName)
-        //{
-        //    var result = userManager.RemoveFromRole(userId, roleName);
-        //    return result.Succeeded;
-        //}
+            if (helper.IsUserInRole(userId, "ProjectManager") == true){
+                project.ManagerId = userId;
+                db.Entry(project).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            if (helper.IsUserInRole(userId, "Developer") == true)
+            {
+                project.Developers.Add(user);
+                db.SaveChanges();
+            }
+        }
+
+        public void RemoveUserFromProject(string userId, int projectId)
+        {
+            var db = new ApplicationDbContext();
+            var project = db.Projects.Single(p => p.Id == projectId);
+            var user = db.Users.Single(u => u.Id == userId);
+            var helper = new UserRolesHelper(db);
+        
+            project.Developers.Remove(user);
+            db.SaveChanges();
+
+        }
 
         //public ICollection<UserDropDownViewModel> UsersInRole(string roleName)
         //{
@@ -63,17 +80,5 @@ namespace BugSquish.Models
         //        new UserDropDownViewModel { Id = u.Id, Name = u.UserName }).ToList();
         //}
 
-        public class ProjectUsersViewModel
-        {
-            public int ProjectId { get; set; }
-            public string Name { get; set; }
-            public string Description { get; set; }
-
-            public List<ApplicationUser> CurrentDevelopers { get; set; }
-            public ApplicationUser CurrentManager { get; set; }
-
-            public SelectList AvailableDevelopers { get; set; }
-            public SelectList AvailableManagers { get; set; }
-        }
     }
 }

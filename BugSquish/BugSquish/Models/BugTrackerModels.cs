@@ -134,4 +134,5 @@ namespace BugSquish.Models
         public string Password { get; set; }
     }
 
+
 }
