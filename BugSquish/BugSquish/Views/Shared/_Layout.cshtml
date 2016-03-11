@@ -587,9 +587,20 @@
     <script src="~/Assets/js/validation/validationEngine.min.js"></script>
     <script src="~/Assets/js/datatables.min.js"></script>
     <script src="~/Assets/js/functions.js"></script>
+    <script src="~/Assets/js/jquery.dotdotdot.js"></script>
 
     <!--other scripts-->
     <script type="text/javascript">
+        $(document).ready(function () {
+            $("[id^=abstract]").dotdotdot({
+                height: 25,
+                ellipsis: '... ',
+                wrap: 'word',
+                fallbackToLetter: true,
+                watch: "window"
+            });
+        });
+
     $(document).ready(function () {
         $('.template-customize ul li').click(function () {
             var getElem = $(this).closest('ul').attr('data-elem');

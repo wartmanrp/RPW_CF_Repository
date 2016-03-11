@@ -13,7 +13,7 @@
                         Project Index
                     </h4>
                     <div class="col-md-7 text-center">
-                        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+                        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success pull-right" })
                     </div>
                 </div>
                 <table class="table">
@@ -41,7 +41,7 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Name)
                                 </td>
-                                <td>
+                                <td id=@("abstract" + item.Id)>
                                     @Html.DisplayFor(modelItem => item.Description)
                                 </td>
                                 <td>
@@ -57,3 +57,7 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+
+</script>
+

@@ -440,6 +440,7 @@
     <Content Include="Assets\js\functions.js" />
     <Content Include="Assets\js\jquery-1.10.2.min.js" />
     <Content Include="Assets\js\jquery-ui-1.10.3.min.js" />
+    <Content Include="Assets\js\jquery.dotdotdot.js" />
     <Content Include="Assets\js\JS-Full versions\autosize.js" />
     <Content Include="Assets\js\JS-Full versions\bootstrap-colorpicker.js" />
     <Content Include="Assets\js\JS-Full versions\bootstrap.js" />

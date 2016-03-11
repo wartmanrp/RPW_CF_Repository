@@ -20,12 +20,17 @@
             <tbody>
                 @foreach (var user in Model)
                 {
+
                     <tr>                        
                         <td>@user.FirstName </td>
                         <td>@user.LastName</td>
                         <td>@user.Role</td>                        
                         <td>@user.UserName</td>
-                        <td>@Html.ActionLink("Edit Role", "UserRolesDetail", "Manage", new { id = user.Id }, new { @class = "btn btn-xs btn-info"})</td>                        
+                        @if(user.Role != "Admin")
+                        {
+                            <td>@Html.ActionLink("Edit Role", "UserRolesDetail", "Manage", new { id = user.Id }, new { @class = "btn btn-xs btn-info" })</td>
+
+                        }
                     </tr>
                 }                
             </tbody>
