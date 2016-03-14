@@ -232,6 +232,8 @@ namespace BugSquish.Migrations
                 {
                     AuthorId = submitter.Id,
                     Author = submitter,
+                    ProjectManagerId = manager.Id,
+                    ProjectManager = manager,
                     DeveloperId = developer.Id,
                     Developer = developer,
                     Title = "Couldn't log in",

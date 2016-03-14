@@ -4,84 +4,99 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<header class="p-header">
+    <h2 class="p-title">Tickets</h2>
+</header>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class= "btn btn-lg btn-success"})
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Author.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Developer.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Priority.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Project.ManagerId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TicketType.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Notes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Created)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Updated)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Developer.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Priority.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Project.ManagerId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TicketType.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Notes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Created)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Updated)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" id="example">
+        <thead>
+            <tr>
+                <th>
+                    Submitter
+                </th>
+                <th>
+                    Developer
+                </th>
+                <th>
+                    Priority
+                </th>
+                <th>
+                    @*Project Manager*@
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Type
+                </th>
+                <th>
+                    Title
+                </th>
 
-</table>
+                <th>
+                    Attachments
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Created)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Updated)
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Author.UserName
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Developer.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Priority.Name)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Project.Manager.UserName)*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketType.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Attachments.Count)
+                </td>
+                <td>
+                    @item.Created.ToString("D")
+                </td>
+                <td>
+                    @if (item.Updated.HasValue)
+                    {
+                        @item.Updated.Value.ToString("D")
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-primary" })
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-xs btn-info"})
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

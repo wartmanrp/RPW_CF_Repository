@@ -37,6 +37,7 @@ namespace BugSquish.Models
         public int Id { get; set; }
         public string AuthorId { get; set; }
         public string DeveloperId { get; set; }
+        public string ProjectManagerId { get; set; }
         public int ProjectId { get; set; }
 
         public int TicketTypeId { get; set; }
@@ -51,6 +52,7 @@ namespace BugSquish.Models
         public DateTimeOffset? Updated { get; set; }
 
         public virtual ApplicationUser Author { get; set; }
+        public virtual ApplicationUser ProjectManager { get; set; }
         public virtual ApplicationUser Developer { get; set; }
         public virtual Project Project { get; set; }
 

@@ -51,6 +51,9 @@ namespace BugSquish.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+
+
+
             Project project = db.Projects.Find(id);
             if (project == null)
             {

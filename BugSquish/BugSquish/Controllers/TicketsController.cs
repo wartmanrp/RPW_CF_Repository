@@ -15,13 +15,46 @@ namespace BugSquish.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Tickets
+        [Authorize]
         public ActionResult Index()
         {
-            var tickets = db.Tickets.Include(t => t.Author).Include(t => t.Developer).Include(t => t.Priority).Include(t => t.Project).Include(t => t.Status).Include(t => t.TicketType);
-            return View(tickets.ToList());
+            var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+            if (User.IsInRole("Admin"))
+            {
+                var tickets = db.Tickets.ToList();
+                return View(tickets);
+            }
+            
+            if (User.IsInRole("ProjectManager"))
+            {
+                var projects = db.Projects.Where(p => p.ManagerId == user.Id);
+
+
+                var tickets = db.Tickets.Include(t => t.Author).Include(t => t.Developer).Include(t => t.Priority).Include(t => t.Project).Include(t => t.Status).Include(t => t.TicketType).Where(p => p.ProjectManagerId == user.Id).OrderByDescending(i => i.Created).ToList();
+                return View(tickets);
+            }
+            
+            if (User.IsInRole("Developer"))
+            {
+                var tickets = db.Tickets.Include(t => t.Author).Include(t => t.Developer).Include(t => t.Priority).Include(t => t.Project).Include(t => t.Status).Include(t => t.TicketType).Where(p => p.DeveloperId == user.Id).OrderByDescending(i => i.Created).ToList();
+                return View(tickets);
+            }
+
+            if (User.IsInRole("Submitter"))
+            {
+                var tickets = db.Tickets.Where(t => t.AuthorId == user.Id).OrderByDescending(i => i.Created).ToList();
+                return View(tickets);
+            }
+
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         // GET: Tickets/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -39,13 +72,28 @@ namespace BugSquish.Controllers
         // GET: Tickets/Create
         public ActionResult Create()
         {
-            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.PriorityId = new SelectList(db.Priorities, "Id", "Name");
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "ManagerId");
-            ViewBag.StatusId = new SelectList(db.Statuses, "Id", "Name");
+            var helper = new UserRolesHelper(db);
+            var managers = helper.UsersInRole("ProjectManager").ToList();
+            var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
+            
+
+
+            //ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName");
+            //ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FirstName");
+            //ViewBag.PriorityId = new SelectList(db.Priorities, "Id", "Name");
+            //ViewBag.ProjectId = new SelectList(db.Projects, "Id", "ManagerId");
+            //ViewBag.StatusId = new SelectList(db.Statuses, "Id", "Name");
             ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name");
-            return View();
+            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name");
+
+            var model = new Ticket
+            {
+                AuthorId = user
+            };
+                //ProjectManagerId = project.ManagerId,
+                //ProjectManager = project.Manager};
+
+            return View(model);
         }
 
         // POST: Tickets/Create
@@ -53,10 +101,21 @@ namespace BugSquish.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,AuthorId,DeveloperId,ProjectId,TicketTypeId,PriorityId,StatusId,Title,Notes,Created,Updated")] Ticket ticket)
+        public ActionResult Create([Bind(Include = "Id,AuthorId,ProjectId,TicketTypeId,Title,Notes,Created,")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
+                //finds the project in the database
+                var manager = db.Projects.Single(p => p.Id == ticket.ProjectId);
+                var status = db.Statuses.Single(s => s.Name == "Needs Review");
+                //assigns manager to ticket
+                ticket.ProjectManager = manager.Manager;
+                ticket.ProjectManagerId = manager.ManagerId;
+                //sets date
+                ticket.Created = new DateTimeOffset(DateTime.Now);
+                ticket.StatusId = status.Id;
+                ticket.Status = status;
+                
                 db.Tickets.Add(ticket);
                 db.SaveChanges();
                 return RedirectToAction("Index");
