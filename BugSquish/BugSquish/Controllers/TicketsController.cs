@@ -209,14 +209,27 @@ namespace BugSquish.Controllers
             return View(ticket);
         }
 
-        ////POST: Tickets/Manage/5
-        //[Authorize(Roles = "Admin,ProjectManager")]
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Manage(Ticket ticket)
-        //{
-
-        //}
+        //POST: Tickets/Manage/5
+        [Authorize(Roles = "Admin,ProjectManager")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Manage(Ticket ticket)
+        {
+            if (ModelState.IsValid)
+            {
+                ticket.Updated = new DateTimeOffset(DateTime.Now);
+                db.Entry(ticket).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", ticket.AuthorId);
+            ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FirstName", ticket.DeveloperId);
+            ViewBag.PriorityId = new SelectList(db.Priorities, "Id", "Name", ticket.PriorityId);
+            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "ManagerId", ticket.ProjectId);
+            ViewBag.StatusId = new SelectList(db.Statuses, "Id", "Name", ticket.StatusId);
+            ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId);
+            return View(ticket);
+        }
 
         // GET: Tickets/Delete/5
         [Authorize(Roles = "Admin,ProjectManager")]

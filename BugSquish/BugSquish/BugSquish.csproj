@@ -633,6 +633,7 @@
     <Content Include="Views\Manage\UserRolesDetail.cshtml" />
     <Content Include="Views\Projects\ProjectUsers.cshtml" />
     <Content Include="Views\Projects\RemoveUsers.cshtml" />
+    <Content Include="Views\Tickets\Manage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

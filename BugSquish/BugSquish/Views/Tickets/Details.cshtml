@@ -5,94 +5,86 @@
 }
 
 <h2>Details</h2>
+<div class="row">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <div class="list-group">
+            <hr />
+                <div class="list-group-item">
+                    <h5 class="list-group-item-heading">@Html.DisplayNameFor(model => model.Title)</h5>
+                    <p class="list-group-item-text">@Html.DisplayFor(model => model.Title)</p>
+                </div>
 
-<div>
-    <h4>Ticket</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Author.FirstName)
-        </dt>
+                <div class="list-group-item">
+                    <h5 class="list-group-item-heading">@Html.DisplayNameFor(model => model.Author.FirstName)</h5>
+                    <p class="list-group-item-text">@Html.DisplayFor(model => model.Author.FirstName) @Html.DisplayFor(model => model.Author.LastName)</p>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Author.FirstName)
-        </dd>
+                <div class="list-group-item">
+                    <h5 class="list-group-item-heading">@Html.DisplayNameFor(model => model.Notes)</h5>
+                    <p class="list-group-item-text">@Html.DisplayFor(model => model.Notes)</p>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Developer.FirstName)
-        </dt>
+                <div class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="list-group-item-heading">@Html.DisplayNameFor(model => model.Created)</h5>
+                            <p class="list-group-item-text">@Model.Created.ToString("d"))</p>
+                        </div>
+                        @if (Model.Updated.HasValue)
+                        {
+                        <div class="col-md-6">
+                            <h5 class="list-group-item-heading">@Html.DisplayNameFor(model => model.Updated)</h5>
+                            <p class="list-group-item-text">@Model.Updated.Value.ToString("d"))</p>
+                        </div>
+                        }
+                    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Developer.FirstName)
-        </dd>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Priority.Name)
-        </dt>
+                <div class="list-group-item">
+                    <p class="list-group-item-text">
+                        @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
+                        {
+                            @Html.ActionLink("Edit Ticket", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+                        }
+                        @Html.ActionLink("Back to Tickets Index", "Index", null, new { @class = "btn btn-info" })
+                    </p>
+                </div>
+                <hr />
+            </div> <!-- /.list-group -->
+        </div>
+        <div class="col-md-5">
+            <div class="list-group">
+            <hr />
+                <div class="list-group-item">
+                    <h5 class="list-group-item-heading">@Html.DisplayNameFor(model => model.TicketType)</h5>
+                    <p class="list-group-item-text">@Html.DisplayFor(model => model.TicketType.Name)</p>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Priority.Name)
-        </dd>
+                <div class="list-group-item">
+                    <h5 class="list-group-item-heading">@Html.DisplayNameFor(model => model.Priority)</h5>
+                    <p class="list-group-item-text">@Html.DisplayFor(model => model.Priority.Name)</p>
+                </div>    
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Project.ManagerId)
-        </dt>
+                <div class="list-group-item">
+                    <h5 class="list-group-item-heading">@Html.DisplayNameFor(model => model.Developer)</h5>
+                    <p class="list-group-item-text">@Html.DisplayFor(model => model.Developer.FirstName) @Html.DisplayFor(model => model.Developer.LastName)</p>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Project.ManagerId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketType.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TicketType.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Notes)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Notes)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Updated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Updated)
-        </dd>
-
-    </dl>
+                <div class="list-group-item">
+                    <h5 class="list-group-item-heading">@Html.DisplayNameFor(model => model.Status)</h5>
+                    <p class="list-group-item-text">@Html.DisplayFor(model => model.Status.Name)</p>
+                </div>
+                        
+                <div class="list-group-item">
+                    <h5 class="list-group-item-heading">@Html.DisplayNameFor(model => model.Project.Manager)</h5>
+                    <p class="list-group-item-text">@Html.DisplayFor(model => model.Project.Manager.FirstName) @Html.DisplayFor(model => model.Project.Manager.LastName)</p>
+                </div>
+            <hr />
+            </div> <!-- /.list-group -->
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+

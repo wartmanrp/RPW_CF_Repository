@@ -61,61 +61,100 @@
         <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @item.Author.UserName
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Developer.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Priority.Name)
-                </td>
-                <td>
-                    @*@Html.DisplayFor(modelItem => item.Project.Manager.UserName)*@
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TicketType.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
+            if (item.Status.Name != "Closed")
+            {
+                <tr>
+                    <td>
+                        @item.Author.UserName
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Developer.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Priority.Name)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.Project.Manager.UserName)*@
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TicketType.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Attachments.Count)
-                </td>
-                <td>
-                    @item.Created.ToString("D")
-                </td>
-                <td>
-                    @if (item.Updated.HasValue)
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Attachments.Count)
+                    </td>
+                    <td>
+                        @item.Created.ToString("D")
+                    </td>
+                    <td>
+                        @if (item.Updated.HasValue)
+                        {
+                            @item.Updated.Value.ToString("D")
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-xs btn-info" })
+                    </td>
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
                     {
-                        @item.Updated.Value.ToString("D")
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-primary" })
+                        </td>
                     }
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-xs btn-info" })
-                </td>
 
-                @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
-                {
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-primary" })
-                    </td>
-                }
+                    @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                    {
+                        <td>
+                            @Html.ActionLink("Manage", "Manage", new { id = item.Id }, new { @class = "btn btn-xs btn-success" })
+                        </td>
+                    }
 
-                @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
-                {
-                    <td>
-                        @Html.ActionLink("Manage", "Manage", new { id = item.Id }, new { @class = "btn btn-xs btn-success"})
-                    </td>
-                }
+                </tr>
+            }
 
-            </tr>
         }
         </tbody>
     </table>
 </div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading" role="tab">
+        <h2 class="panel-title">
+            <!--Keep working on this-->
+            <a data-toggle="collapse">Closed Tickets</a> 
+        </h2>
+    </div>
+    <div class="panel-collapse collapse in" role="tabpanel">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Current Tickets</th>
+                    <th># of Projects</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@foreach (var dev in Model.Developers.OrderByDescending(i => i.FirstName).Take(5).ToList())
+                {
+                    <tr>
+                        <td>@dev.FirstName</td>
+                        <td>@dev.Tickets.Count()</td>
+                        <td>@dev.Projects.Count()</td>
+                        <td>@Html.ActionLink("Profile", "UserProfile", new { id = dev.Id }, new { @class = "btn btn-xs btn-info" })</td>
+                    </tr>
+                }*@
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
