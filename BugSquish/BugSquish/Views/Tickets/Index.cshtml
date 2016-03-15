@@ -48,7 +48,14 @@
                     @Html.DisplayNameFor(model => model.Updated)
                 </th>
                 <th></th>
-                <th></th>
+                @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
+                {
+                    <th></th>
+                }
+                @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                {
+                    <th></th>
+                }
             </tr>
         </thead>
         <tbody>
@@ -90,11 +97,23 @@
                     }
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-primary" })
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-xs btn-info" })
                 </td>
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-xs btn-info"})
-                </td>
+
+                @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-primary" })
+                    </td>
+                }
+
+                @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                {
+                    <td>
+                        @Html.ActionLink("Manage", "Manage", new { id = item.Id }, new { @class = "btn btn-xs btn-success"})
+                    </td>
+                }
+
             </tr>
         }
         </tbody>

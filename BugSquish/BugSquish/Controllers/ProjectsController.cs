@@ -15,7 +15,7 @@ namespace BugSquish.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Projects
-        [Authorize(Roles = "Admin,ProjectManager,Developer")]
+        [Authorize]
         public ActionResult Index()
         {
             if (User.IsInRole("Admin"))
@@ -27,6 +27,7 @@ namespace BugSquish.Controllers
             if (User.IsInRole("ProjectManager"))
             {
                 var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
                 var projects = db.Projects.Where(p => p.Manager.Id == user.Id).ToList();
                 return View(projects);
             }
@@ -50,9 +51,6 @@ namespace BugSquish.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-
-
 
             Project project = db.Projects.Find(id);
             if (project == null)

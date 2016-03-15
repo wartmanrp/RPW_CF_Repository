@@ -100,20 +100,29 @@ namespace BugSquish.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,AuthorId,ProjectId,TicketTypeId,Title,Notes,Created,")] Ticket ticket)
+        public ActionResult Create([Bind(Include = "Id,AuthorId,ProjectId,TicketTypeId,ProjectManagerId,PriorityId,StatusId,Title,Notes,Created")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
-                //finds the project in the database
-                var manager = db.Projects.Single(p => p.Id == ticket.ProjectId);
+                //sets default user
+                var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+                //finds the project in the database, used to then get project manager for ticket
+                var manager = db.Projects.Single(p => p.Id == ticket.ProjectId).ManagerId;
+
+                //assigns default status and priority to the ticket
                 var status = db.Statuses.Single(s => s.Name == "Needs Review");
+
+
                 //assigns manager to ticket
-                ticket.ProjectManager = manager.Manager;
-                ticket.ProjectManagerId = manager.ManagerId;
-                //sets date
+                ticket.ProjectManagerId = manager;
+                //sets properties
                 ticket.Created = new DateTimeOffset(DateTime.Now);
                 ticket.StatusId = status.Id;
-                ticket.Status = status;
+
+
+ 
+                ticket.AuthorId = user.Id;
+                
                 
                 db.Tickets.Add(ticket);
                 db.SaveChanges();
@@ -130,7 +139,7 @@ namespace BugSquish.Controllers
         }
 
         // GET: Tickets/Edit/5
-        [Authorize]
+        [Authorize(Roles="Admin,ProjectManager,Developer")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -142,23 +151,26 @@ namespace BugSquish.Controllers
             {
                 return HttpNotFound();
             }
+
+
             ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FirstName", ticket.DeveloperId);
             ViewBag.PriorityId = new SelectList(db.Priorities, "Id", "Name", ticket.PriorityId);
             ViewBag.StatusId = new SelectList(db.Statuses, "Id", "Name", ticket.StatusId);
             ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId);
             return View(ticket);
         }
-
+        
         // POST: Tickets/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
+        [Authorize(Roles = "Admin,ProjectManager,Developer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,AuthorId,DeveloperId,ProjectId,TicketTypeId,PriorityId,StatusId,Title,Notes,Created,Updated")] Ticket ticket)
+        public ActionResult Edit(Ticket ticket)
         {
             if (ModelState.IsValid)
             {
+                ticket.Updated = new DateTimeOffset(DateTime.Now);
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -172,12 +184,30 @@ namespace BugSquish.Controllers
             return View(ticket);
         }
 
-        ////GET: Tickets/Manage/5
-        //[Authorize(Roles = "Admin,ProjectManager")]
-        //public ActionResult Manage(int? id)
-        //{
+        //GET: Tickets/Manage/5
+        [Authorize(Roles = "Admin,ProjectManager")]
+        public ActionResult Manage(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ticket ticket = db.Tickets.Find(id);
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }
+            var project = ticket.Project;
+            var helper = new UserRolesHelper(db);
 
-        //}
+            var developers = project.Developers.ToList();
+
+            ViewBag.DeveloperId = new SelectList(developers, "Id", "FirstName", ticket.DeveloperId);
+            ViewBag.PriorityId = new SelectList(db.Priorities, "Id", "Name", ticket.PriorityId);
+            ViewBag.StatusId = new SelectList(db.Statuses, "Id", "Name", ticket.StatusId);
+            ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId);
+            return View(ticket);
+        }
 
         ////POST: Tickets/Manage/5
         //[Authorize(Roles = "Admin,ProjectManager")]

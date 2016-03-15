@@ -21,4 +21,15 @@ namespace BugSquish.Models
         public MultiSelectList AvailableDevelopers { get; set; }
         public SelectList AvailableManagers { get; set; }
     }
+
+    //public class ManageTicketViewModel
+    //{
+    //    public int TicketId { get; set; }
+    //    public string Name { get; set; }
+    //    public string Notes { get; set; }
+
+    //    public string CurrentDeveloper { get; set; }
+
+    //    public SelectList AvailableDevelopers { get; set; }
+    //}
 }

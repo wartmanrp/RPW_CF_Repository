@@ -75,7 +75,7 @@
                        Recent Tickets
                     </h4>
                     <div class="col-md-8 text-center">
-                        @Html.ActionLink("Manage Tickets", "Index", "Tickets", new { @class = "btn btn-success" })
+                        @Html.ActionLink("Manage Tickets", "Index", "Tickets", null, new { @class = "btn btn-success" })
                     </div>
                 </div>
                 <table class="table">
@@ -95,9 +95,17 @@
                             <tr>
                                 <td>@ticket.Created.ToString("d")</td>
                                 <td>@ticket.Author.UserName</td>
-                                <td>@ticket.Priority.Name</td>
+                                @if (ticket.Priority != null)
+                                {
+                                    <td>@ticket.Priority.Name</td>
+                                }
+                                else { <td>None</td>}
                                 <td>@ticket.TicketType.Name</td>
-                                <td>@ticket.Developer.FirstName</td>
+                                @if (ticket.Developer != null)
+                                {
+                                    <td>@ticket.Developer.FirstName</td>
+                                }
+                                else { <td>None</td>}
                                 <td>@Html.ActionLink("Details", "Details", "Tickets", new { id = ticket.Id }, new { @class = "btn btn-xs btn-info" })</td>
                             </tr>
                         }
