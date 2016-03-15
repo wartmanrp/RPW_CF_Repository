@@ -73,7 +73,6 @@ namespace BugSquish.Controllers
         public ActionResult Create()
         {
             var helper = new UserRolesHelper(db);
-            var managers = helper.UsersInRole("ProjectManager").ToList();
             var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
             
 
@@ -131,6 +130,7 @@ namespace BugSquish.Controllers
         }
 
         // GET: Tickets/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -142,10 +142,8 @@ namespace BugSquish.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", ticket.AuthorId);
             ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FirstName", ticket.DeveloperId);
             ViewBag.PriorityId = new SelectList(db.Priorities, "Id", "Name", ticket.PriorityId);
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "ManagerId", ticket.ProjectId);
             ViewBag.StatusId = new SelectList(db.Statuses, "Id", "Name", ticket.StatusId);
             ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId);
             return View(ticket);
@@ -154,6 +152,7 @@ namespace BugSquish.Controllers
         // POST: Tickets/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,AuthorId,DeveloperId,ProjectId,TicketTypeId,PriorityId,StatusId,Title,Notes,Created,Updated")] Ticket ticket)
@@ -173,7 +172,24 @@ namespace BugSquish.Controllers
             return View(ticket);
         }
 
+        ////GET: Tickets/Manage/5
+        //[Authorize(Roles = "Admin,ProjectManager")]
+        //public ActionResult Manage(int? id)
+        //{
+
+        //}
+
+        ////POST: Tickets/Manage/5
+        //[Authorize(Roles = "Admin,ProjectManager")]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Manage(Ticket ticket)
+        //{
+
+        //}
+
         // GET: Tickets/Delete/5
+        [Authorize(Roles = "Admin,ProjectManager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -189,6 +205,7 @@ namespace BugSquish.Controllers
         }
 
         // POST: Tickets/Delete/5
+        [Authorize(Roles = "Admin,ProjectManager")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
