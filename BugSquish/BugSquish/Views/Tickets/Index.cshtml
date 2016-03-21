@@ -118,39 +118,47 @@
 
                 </tr>
             }
-
         }
         </tbody>
     </table>
 </div>
 
 <div class="panel panel-primary">
-    <div class="panel-heading" role="tab">
+    <div class="panel-heading"  role="tab">
         <h2 class="panel-title">
-            <!--Keep working on this-->
-            <a data-toggle="collapse">Closed Tickets</a> 
+            Closed Tickets <button class="btn btn-sm btn-info" data-toggle="collapse" data-target="#closed">View</button>
         </h2>
     </div>
-    <div class="panel-collapse collapse in" role="tabpanel">
+    <div class="panel-collapse collapse in" role="tabpanel" id="closed">
         <table class="table">
-            <thead>
+            <th>
                 <tr>
-                    <th>Name</th>
-                    <th>Current Tickets</th>
-                    <th># of Projects</th>
+                    <th>Developer</th>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Notes</th>
+                    <th>Updated</th>
                     <th></th>
-                </tr>
-            </thead>
             <tbody>
-                @*@foreach (var dev in Model.Developers.OrderByDescending(i => i.FirstName).Take(5).ToList())
+                @foreach (var ticket in Model.Where(t => t.Status.Name == "Closed").Take(5).OrderByDescending(i => i.Updated))
                 {
                     <tr>
-                        <td>@dev.FirstName</td>
-                        <td>@dev.Tickets.Count()</td>
-                        <td>@dev.Projects.Count()</td>
-                        <td>@Html.ActionLink("Profile", "UserProfile", new { id = dev.Id }, new { @class = "btn btn-xs btn-info" })</td>
+                        <td>@ticket.Developer.FirstName @ticket.Developer.LastName</td>
+                        <td>@ticket.Title</td>
+                        <td>@ticket.TicketType.Name</td>
+                        <td id =@("abstract" + ticket.Id)>@ticket.Notes</td>
+                        @if (ticket.Updated.HasValue == true)
+                        {
+                            <td>@ticket.Updated.Value.ToString("D")</td>
+
+                        }
+                        else
+                        {
+                            <td>XXXXX</td>
+                        }
+                        <td>@Html.ActionLink("Details", "Details","Tickets", new { id = ticket.Id }, new { @class = "btn btn-xs btn-info" })</td>
                     </tr>
-                }*@
+                }
             </tbody>
         </table>
 

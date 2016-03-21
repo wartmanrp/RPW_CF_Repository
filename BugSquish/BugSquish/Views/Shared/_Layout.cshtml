@@ -293,7 +293,7 @@
                 <!-- Main Menu -->
                 <ul class="side-menu shadowed">
                     <li>
-                        <a class="active" href=@Url.Action("Index","Home")><i class="icon-home"></i>Dashboard</a>
+                        <a href=@Url.Action("Index","Home")><i class="icon-home"></i>Dashboard</a>
                     </li>
                     @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
                     {
