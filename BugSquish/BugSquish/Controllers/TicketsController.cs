@@ -13,7 +13,7 @@ namespace BugSquish.Controllers
     public class TicketsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        
         // GET: Tickets
         [Authorize]
         public ActionResult Index()
@@ -30,14 +30,14 @@ namespace BugSquish.Controllers
             {
                 var projects = db.Projects.Where(p => p.ManagerId == user.Id);
 
-
+                
                 var tickets = db.Tickets.Include(t => t.Author).Include(t => t.Developer).Include(t => t.Priority).Include(t => t.Project).Include(t => t.Status).Include(t => t.TicketType).Where(p => p.ProjectManagerId == user.Id).OrderByDescending(i => i.Created).ToList();
                 return View(tickets);
             }
             
             if (User.IsInRole("Developer"))
             {
-                var tickets = db.Tickets.Include(t => t.Author).Include(t => t.Developer).Include(t => t.Priority).Include(t => t.Project).Include(t => t.Status).Include(t => t.TicketType).Where(p => p.DeveloperId == user.Id).OrderByDescending(i => i.Created).ToList();
+                var tickets = db.Tickets.Where(t => t.DeveloperId == user.Id).ToList();
                 return View(tickets);
             }
 
@@ -66,6 +66,7 @@ namespace BugSquish.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(ticket);
         }
 
@@ -166,12 +167,14 @@ namespace BugSquish.Controllers
         [Authorize(Roles = "Admin,ProjectManager,Developer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Ticket ticket)
+        public ActionResult Edit([Bind(Include = "Id,AuthorId,ProjectId,DeveloperID,TicketTypeId,ProjectManagerId,PriorityId,StatusId,Title,Notes,Created,Updated")]Ticket ticket)
         {
             if (ModelState.IsValid)
             {
+
                 ticket.Updated = new DateTimeOffset(DateTime.Now);
                 db.Entry(ticket).State = EntityState.Modified;
+                //DbExtensions.Update(db,["Title","Notes"]);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -213,7 +216,7 @@ namespace BugSquish.Controllers
         [Authorize(Roles = "Admin,ProjectManager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Manage(Ticket ticket)
+        public ActionResult Manage([Bind(Include = "Id,AuthorId,ProjectId,TicketTypeId,DeveloperId,ProjectManagerId,PriorityId,StatusId,Title,Notes,Created,Updated")]Ticket ticket)
         {
             if (ModelState.IsValid)
             {

@@ -3,29 +3,33 @@
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Bug Squish 1.0</h1>
+    <p class="lead">Welcome to Bug Squish 1.0, an ASP.NET MVC 5 application designed to facilitate bug tracking, or any ticket based support service.</p>
+    @if (User.IsInRole("Submitter") || User.IsInRole("Developer"))
+    {
+        <p><a href="@Url.Action("Create", "Tickets")" class="btn btn-primary btn-lg">Get Started by writing your first ticket! &raquo;</a></p>
+    }
+    
+    @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+    {
+        <p><a href="@Url.Action("Create", "Projects")" class="btn btn-primary btn-lg">Get Started by creating your very first project! &raquo;</a></p>
+
+    }
 </div>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <h2>Getting started</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            To get started, you are restricted by role in what you are able to do. Submitters (the lowest tier) may submit tickets, and view project information. 
+            Developers may comment on tickets, view projects, and submit tickets to the next role up, the Project Manager. Managers have the capability to create projects,
+            assign developers to both projects and tickets, as well as delete and edit properties of these. Admins (of which there are few) can do all of this, and more.
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="col-md-6">
+        <h2>More about tickets</h2>
+        <p>Tickets also feature the ability to take attachments (such as documents, images, screenshots, etc.), as well as comments in order to facilitate faster ticket resolution.
+        Users in higher tier roles are able to view lists of closed tickets in order to track history better. Furthermore, when a ticket is created, it is automatically flagged for review
+        so as to ensure it is quickly noticed by a Project Manager for assignment. </p>
     </div>
 </div>

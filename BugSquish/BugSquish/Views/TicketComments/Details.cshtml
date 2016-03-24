@@ -5,46 +5,43 @@
 }
 
 <h2>Details</h2>
+<div class="row">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-6">
+            <div>
+                <h4>TicketComment</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Author.FirstName)
+                    </dt>
 
-<div>
-    <h4>TicketComment</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Author.FirstName)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Author.FirstName)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Author.FirstName)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Created)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Ticket.AuthorId)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Created)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Ticket.AuthorId)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Body)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
+                    <dd>
+                        @Html.Raw(Model.Body)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Body)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Body)
-        </dd>
-
-    </dl>
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Back to List", "Details", "Tickets", new { id = Model.TicketId}, new { @class = "btn btn-primary" })
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

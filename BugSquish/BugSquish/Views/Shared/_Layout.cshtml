@@ -21,64 +21,6 @@
     <link href="~/Assets/css/media-player.min.css" rel="stylesheet" />
     <link href="~/Assets/css/style.min.css" rel="stylesheet" /> 
 
-    <!-- The following CSS codes are used to display the template customization in this page. You can remove these codes anytime -->
-    <style type="text/css">
-        .template-customize {
-            position: fixed;
-            bottom: 0;
-            right: 35px;
-            background: #000;
-            background: rgba(0,0,0,0.9);
-            width: 154px;
-            z-index: 10000;
-            border: 2px solid #B6B6B6;
-            border-bottom: 0;
-            border-radius: 1px;
-            box-shadow: 0 0 10px #000;
-            height: 0;
-        }
-
-            .template-customize i {
-                font-size: 30px;
-                position: absolute;
-                color: #000;
-                top: -46px;
-                left: 49px;
-                padding: 10px 10px 4px 10px;
-                border-radius: 100% 100% 0 0;
-                background: #fff;
-                background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #FFFFFF),color-stop(1, #B6B6B6));
-                background-image: -o-linear-gradient(bottom, #FFFFFF 0%, #B6B6B6 100%);
-                background-image: -moz-linear-gradient(bottom, #FFFFFF 0%, #B6B6B6 100%);
-                background-image: -webkit-linear-gradient(bottom, #FFFFFF 0%, #B6B6B6 100%);
-                background-image: -ms-linear-gradient(bottom, #FFFFFF 0%, #B6B6B6 100%);
-                background-image: linear-gradient(to bottom, #FFFFFF 0%, #B6B6B6 100%);
-            }
-
-                .template-customize i:hover {
-                    cursor: pointer;
-                    color: #3748d4;
-                }
-
-            .template-customize ul {
-                list-style: none;
-                float: left;
-                margin: 10px 0 10px 20px;
-                padding: 0;
-            }
-
-                .template-customize ul li {
-                    width: 45px;
-                    height: 30px;
-                    overflow: hidden;
-                    margin-bottom: 2px;
-                }
-
-                    .template-customize ul li:hover {
-                        cursor: pointer;
-                        opacity: 0.8;
-                    }
-    </style>
 
     <script type="text/javascript">
         var appInsights=window.appInsights||function(config){
@@ -95,7 +37,7 @@
     <header id="header" class="clearfix">
         <!-- Logo -->
         <a href=@Url.Action("Index","Home") class="logo shadowed">
-            BLACK PEARL 1.0
+            BUG SQUISH 1.0
         </a>
 
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
@@ -103,7 +45,8 @@
             @Html.AntiForgeryToken()
             <div class="dropdown profile-menu shadowed">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <img src="~/Assets/img/profile-pics/profile-pic.png" alt="" class="profile-pic">
+                    @*<img src="~/Assets/img/profile-pics/profile-pic.png" alt="" class="profile-pic">*@
+                    Welcome @User.Identity.GetUserName()
                 </a>
                 <ul class="dropdown-menu pull-right text-right">
                     <li>@Html.ActionLink("View Profile", "Index", "Manage", null, new { @title= "Profile"} )</li>
@@ -115,165 +58,6 @@
                 </ul>
             </div>
         }
-
-        <ul class="nav nav-pills pull-right shadowed" id="top-menu">
-            <li><a href="#">Home</a></li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="">Action</a></li>
-                    <li><a href="">Another action</a></li>
-                    <li><a href="">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="">Separated link</a></li>
-                </ul>
-            </li>
-            <li><a href="#">Users</a></li>
-        </ul>
-
-        <form class="form-inline top-search shadowed">
-            <input type="text" class="form-control" placeholder="Search for anything...">
-            <button type="submit"><i class="icon-search"></i></button>
-        </form>
-
-        <div class="updates shadowed pull-right">
-            <ul class="list-unstyled list-inline">
-                <li class="dropdown">
-                    <a href="" data-toggle="dropdown" class="messages ttips" title="Messages" data-placement="bottom">
-                        <img src="~/Assets/img/message.png" alt="">
-                    </a>
-                    <div class="dropdown-menu">
-                        <div class="updates-header">
-                            <span class="pull-left">Inbox <a href="#">(45)</a></span>
-                            <span class="pull-right"><a href="">Send new</a></span>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="listview overflow">
-                            <a class="media" href="">
-                                <img class="media-object pull-left" src="~/Assets/img/profile-pics/1.jpg" alt="">
-                                <div class="media-body">
-                                    David Villa <span class="date">2 Hrs ago</span><br>
-                                    <span class="shortline">Lorem ipsum dolor sit amet, per cu sole...</span>
-                                </div>
-                            </a>
-                            <a class="media" href="">
-                                <img class="media-object pull-left" src="~/Assets/img/profile-pics/1.jpg" alt="">
-                                <div class="media-body">
-                                    Jason Statom <span class="date">5 Hrs ago</span><br>
-                                    <span class="shortline" class="shortline">Vandy come to ipsum seen tuooth ya so...</span>
-                                </div>
-                            </a>
-                            <a class="media" href="">
-                                <img class="media-object pull-left" src="~/Assets/img/profile-pics/1.jpg" alt="">
-                                <div class="media-body">
-                                    Lilly Jackson <span class="date">9 Hrs ago</span><br>
-                                    <span class="shortline" class="shortline">Far schools wen smoothness prope soom...</span>
-                                </div>
-                            </a>
-                            <a class="media" href="">
-                                <img class="media-object pull-left" src="~/Assets/img/profile-pics/1.jpg" alt="">
-                                <div class="media-body">
-                                    Vin Diesal <span class="date">06 Nov</span><br>
-                                    <span class="shortline" class="shortline">Dolor boom with your cool sindims to the...</span>
-                                </div>
-                            </a>
-                            <a class="media" href="">
-                                <img class="media-object pull-left" src="~/Assets/img/profile-pics/1.jpg" alt="">
-                                <div class="media-body">
-                                    Jason Statom <span class="date">5 Hrs ago</span><br>
-                                    <span class="shortline" class="shortline">Vandy come to ipsum seen tuooth ya so...</span>
-                                </div>
-                            </a>
-                            <a class="media" href="">
-                                <img class="media-object pull-left" src="~/Assets/img/profile-pics/1.jpg" alt="">
-                                <div class="media-body">
-                                    Lilly Jackson <span class="date">9 Hrs ago</span><br>
-                                    <span class="shortline" class="shortline">Far schools wen smoothness prope soom...</span>
-                                </div>
-                            </a>
-                            <a class="media" href="">
-                                <img class="media-object pull-left" src="~/Assets/img/profile-pics/1.jpg" alt="">
-                                <div class="media-body">
-                                    Vin Diesal <span class="date">06 Nov</span><br>
-                                    <span class="shortline" class="shortline">Dolor boom with your cool sindims to the...</span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="updates-footer">
-                            <a href="">See All</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="dropdown">
-                    <a href="" class="notifications ttips" data-toggle="dropdown" title="Notifications" data-placement="bottom">
-                        <img src="~/Assets/img/updates.png" alt="">
-                    </a>
-                    <div class="dropdown-menu">
-                        <div class="updates-header">
-                            <span class="pull-left">Notifications</span>
-                            <span class="pull-right"><a href="">Settings</a></span>
-                            <div class="clearfix"></div>
-                        </div>
-
-                        <div class="listview overflow">
-                            <a class="media" href="">
-                                <img class="media-object pull-left" src="~/Assets/img/profile-pics/1.jpg" alt="">
-                                <div class="media-body">
-                                    David Villa <span class="date">2 Hrs ago</span><br>
-                                    <span class="shortline">Lorem ipsum dolor sit amet, per cu sole...</span>
-                                </div>
-                            </a>
-                            <a class="media" href="">
-                                <img class="media-object pull-left" src="~/Assets/img/profile-pics/1.jpg" alt="">
-                                <div class="media-body">
-                                    Jason Statom <span class="date">5 Hrs ago</span><br>
-                                    <span class="shortline" class="shortline">Vandy come to ipsum seen tuooth ya so...</span>
-                                </div>
-                            </a>
-                            <a class="media" href="">
-                                <img class="media-object pull-left" src="~/Assets/img/profile-pics/1.jpg" alt="">
-                                <div class="media-body">
-                                    Lilly Jackson <span class="date">9 Hrs ago</span><br>
-                                    <span class="shortline" class="shortline">Far schools wen smoothness prope soom...</span>
-                                </div>
-                            </a>
-                            <a class="media" href="">
-                                <img class="media-object pull-left" src="~/Assets/img/profile-pics/1.jpg" alt="">
-                                <div class="media-body">
-                                    Vin Diesal <span class="date">06 Nov</span><br>
-                                    <span class="shortline" class="shortline">Dolor boom with your cool sindims to the...</span>
-                                </div>
-                            </a>
-                            <a class="media" href="">
-                                <img class="media-object pull-left" src="~/Assets/img/profile-pics/1.jpg" alt="">
-                                <div class="media-body">
-                                    Jason Statom <span class="date">5 Hrs ago</span><br>
-                                    <span class="shortline" class="shortline">Vandy come to ipsum seen tuooth ya so...</span>
-                                </div>
-                            </a>
-                            <a class="media" href="">
-                                <img class="media-object pull-left" src="~/Assets/img/profile-pics/1.jpg" alt="">
-                                <div class="media-body">
-                                    Lilly Jackson <span class="date">9 Hrs ago</span><br>
-                                    <span class="shortline" class="shortline">Far schools wen smoothness prope soom...</span>
-                                </div>
-                            </a>
-                            <a class="media" href="">
-                                <img class="media-object pull-left" src="~/Assets/img/profile-pics/1.jpg" alt="">
-                                <div class="media-body">
-                                    Vin Diesal <span class="date">06 Nov</span><br>
-                                    <span class="shortline" class="shortline">Dolor boom with your cool sindims to the...</span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="updates-footer">
-                            <a href="">See All</a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-
     </header>
 
 
@@ -345,136 +129,7 @@
                 <!-- Calendar -->
                 <div class="shadowed side-calendar">
                     <div id="sidebar-calendar"></div>
-                </div>
-
-                <!-- Notification -->
-                <div class="notification shadowed">
-                    <ul class="tab">
-                        <li class="active">
-                            <a href="#inbox"><i class="icon-spinner-5"></i> Inbox</a>
-                        </li>
-                        <li>
-                            <a href="#notification"><i class="icon-earth"></i> Notifications</a>
-                        </li>
-                    </ul>
-
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="inbox">
-                            <div class="media">
-                                <a class="pull-left" href="#">
-                                    <img src="~/Assets/img/profile-pics/5.jpg" alt="">
-                                </a>
-                                <div class="media-body">
-                                    <a href="#">Hay I just talk to Wendy...</a>
-                                    <small>4 hours ago</small>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <a class="pull-left" href="#">
-                                    <img src="~/Assets/img/profile-pics/2.jpg" alt="">
-                                </a>
-                                <div class="media-body">
-                                    <a href="#">We have something to do...</a>
-                                    <small>4 hours ago</small>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <a class="pull-left" href="#">
-                                    <img src="~/Assets/img/profile-pics/4.jpg" alt="">
-                                </a>
-                                <div class="media-body">
-                                    <a href="#">How do you do...</a>
-                                    <small>4 hours ago</small>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <a class="pull-left" href="#">
-                                    <img src="~/Assets/img/profile-pics/1.jpg" alt="">
-                                </a>
-                                <div class="media-body">
-                                    <a href="#">What's up buddy? I won't...</a>
-                                    <small>4 hours ago</small>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <a class="pull-left" href="#">
-                                    <img src="~/Assets/img/profile-pics/3.jpg" alt="">
-                                </a>
-                                <div class="media-body">
-                                    <a href="#">Just check this up for...</a>
-                                    <small>4 hours ago</small>
-                                </div>
-                            </div>
-
-                            <a class="show-more" href="#">See All</a>
-                        </div>
-                        <div class="tab-pane" id="notification">
-                            <div class="media">
-                                <a class="pull-left" href="#">
-                                    <img src="~/Assets/img/profile-pics/1.jpg" alt="">
-                                </a>
-                                <div class="media-body">
-                                    <a href="#">David responded to you...</a>
-                                    <small>4 hours ago</small>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <a class="pull-left" href="#">
-                                    <img src="~/Assets/img/profile-pics/2.jpg" alt="">
-                                </a>
-                                <div class="media-body">
-                                    <a href="#">Wrndy like you post...</a>
-                                    <small>4 hours ago</small>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <a class="pull-left" href="#">
-                                    <img src="~/Assets/img/profile-pics/3.jpg" alt="">
-                                </a>
-                                <div class="media-body">
-                                    <a href="#">Jonathan completed the task...</a>
-                                    <small>4 hours ago</small>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <a class="pull-left" href="#">
-                                    <img src="~/Assets/img/profile-pics/5.jpg" alt="">
-                                </a>
-                                <div class="media-body">
-                                    <a href="#">Malinda responded to you...</a>
-                                    <small>4 hours ago</small>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <a class="pull-left" href="#">
-                                    <img src="~/Assets/img/profile-pics/1.jpg" alt="">
-                                </a>
-                                <div class="media-body">
-                                    <a href="#">Henry poke you back...</a>
-                                    <small>4 hours ago</small>
-                                </div>
-                            </div>
-                            <a class="show-more" href="#">See All</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Counts -->
-                <ul class="counts shadowed">
-                    <li>
-                        <span class="big-text">23500+</span>
-                        <span class="sub-text">Facebook Likes</span>
-                    </li>
-                    <li>
-                        <span class="big-text">125600+</span>
-                        <span class="sub-text">Twitter Followers</span>
-                    </li>
-                    <li>
-                        <span class="big-text">362</span>
-                        <span class="sub-text">Support Tickets</span>
-                    </li>
-                </ul>
-
+                </div>                
             </div>
 
             <span id="rightbar-toggle" class="hidden-lg sidebar-toggle">
@@ -490,52 +145,13 @@
 
 
     <footer id="footer">
-        <p>Copyright (c) 2012-2013, Lebaze Admin Templates. All rights reserved.</p>
+        @*<p>Copyright (c) 2012-2013, Lebaze Admin Templates. All rights reserved.</p>*@
     </footer>
 
-    <!-- Older IE Message -->
-    <!--[if lt IE 9]>
-         <div class="ie-block">
-             <h1 class="Ops">Ooops!</h1>
-             <p>You are using an outdated version of Internet Explorer, upgrade to any of the following web browser in order to access the maximum functionality of this website. </p>
-             <ul class="browsers">
-                 <li>
-                     <a href="https://www.google.com/intl/en/chrome/browser/">
-                         <img src="~/Assets/img/browsers/chrome.png" alt="">
-                         <div>Google Chrome</div>
-                     </a>
-                 </li>
-                 <li>
-                     <a href="http://www.mozilla.org/en-US/firefox/new/">
-                         <img src="~/Assets/img/browsers/firefox.png" alt="">
-                         <div>Mozilla Firefox</div>
-                     </a>
-                 </li>
-                 <li>
-                     <a href="http://www.opera.com/computer/windows">
-                         <img src="~/Assets/img/browsers/opera.png" alt="">
-                         <div>Opera</div>
-                     </a>
-                 </li>
-                 <li>
-                     <a href="http://safari.en.softonic.com/">
-                         <img src="~/Assets/img/browsers/safari.png" alt="">
-                         <div>Safari</div>
-                     </a>
-                 </li>
-                 <li>
-                     <a href="http://windows.microsoft.com/en-us/internet-explorer/downloads/ie-10/worldwide-languages">
-                         <img src="~/Assets/img/browsers/ie.png" alt="">
-                         <div>Internet Explorer(New)</div>
-                     </a>
-                 </li>
-             </ul>
-             <p>Upgrade your browser for a Safer and Faster web experience. <br/>Thank you for your patience...</p>
-         </div>
-    <![endif]-->
+
 
     <!-- Template skin customize(you can remove this anytime) -->
-    <div class="template-customize hidden-xs">
+    @*<div class="template-customize hidden-xs">
         <i class="icon-cogs" id="tc-toggle"></i>
         <ul data-elem="body">
             <li class="header">Body</li>
@@ -561,7 +177,7 @@
             <li><img src="~/Assets/img/content-bg/light.png" alt=""></li>
             <li><img src="~/Assets/img/content-bg/subtle.png" alt=""></li>
         </ul>
-    </div>
+    </div>*@
 
     <!--scripts for template-->
     <script src="~/Assets/js/jquery-1.10.2.min.js"></script>
@@ -605,25 +221,25 @@
 
         //template customization
         $(document).ready(function () {
-        $('.template-customize ul li').click(function () {
-            var getElem = $(this).closest('ul').attr('data-elem');
-            var target = (getElem == "body") ? "body, #leftbar, #rightbar" : "#content";
+        //$('.template-customize ul li').click(function () {
+        //    var getElem = $(this).closest('ul').attr('data-elem');
+        //    var target = (getElem == "body") ? "body, #leftbar, #rightbar" : "#content";
 
-            var src = $(this).find('img').attr('src');
-            var bg = 'url(' + src + ')';
-            $(target).css('background', bg)
-        });
+        //    var src = $(this).find('img').attr('src');
+        //    var bg = 'url(' + src + ')';
+        //    $(target).css('background', bg)
+        //});
 
-        $('#tc-toggle').click(function () {
-            $('.template-customize').css('height', 'auto');
-        });
+        //$('#tc-toggle').click(function () {
+        //    $('.template-customize').css('height', 'auto');
+        //});
 
-        $(document).mouseup(function (e) {
-            var container = $(".template-customize");
-            if (container.has(e.target).length === 0) {
-                container.height(0);
-            }
-        });
+        //$(document).mouseup(function (e) {
+        //    var container = $(".template-customize");
+        //    if (container.has(e.target).length === 0) {
+        //        container.height(0);
+        //    }
+        //});
 
             //script for datatable
         $('#example').dataTable({

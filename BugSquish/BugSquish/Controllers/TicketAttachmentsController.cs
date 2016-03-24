@@ -37,11 +37,17 @@ namespace BugSquish.Controllers
         }
 
         // GET: TicketAttachments/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "AuthorId");
-            return View();
+            var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
+
+            var attachment = new TicketAttachment
+            {
+                AuthorId = user,
+                TicketId = id
+
+            };
+            return RedirectToAction("Details", "Tickets", id);
         }
 
         // POST: TicketAttachments/Create
@@ -53,50 +59,48 @@ namespace BugSquish.Controllers
         {
             if (ModelState.IsValid)
             {
+                ticketAttachment.Created = new DateTimeOffset(DateTime.Now);
                 db.TicketAttachments.Add(ticketAttachment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", ticketAttachment.AuthorId);
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "AuthorId", ticketAttachment.TicketId);
             return View(ticketAttachment);
         }
 
-        // GET: TicketAttachments/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TicketAttachment ticketAttachment = db.TicketAttachments.Find(id);
-            if (ticketAttachment == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", ticketAttachment.AuthorId);
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "AuthorId", ticketAttachment.TicketId);
-            return View(ticketAttachment);
-        }
+        //// GET: TicketAttachments/Edit/5
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    TicketAttachment ticketAttachment = db.TicketAttachments.Find(id);
+        //    if (ticketAttachment == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", ticketAttachment.AuthorId);
+        //    ViewBag.TicketId = new SelectList(db.Tickets, "Id", "AuthorId", ticketAttachment.TicketId);
+        //    return View(ticketAttachment);
+        //}
 
-        // POST: TicketAttachments/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,AuthorId,TicketId,AttachmentUrl,Notes,Created")] TicketAttachment ticketAttachment)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(ticketAttachment).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", ticketAttachment.AuthorId);
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "AuthorId", ticketAttachment.TicketId);
-            return View(ticketAttachment);
-        }
+        //// POST: TicketAttachments/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "Id,AuthorId,TicketId,AttachmentUrl,Notes,Created")] TicketAttachment ticketAttachment)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(ticketAttachment).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", ticketAttachment.AuthorId);
+        //    ViewBag.TicketId = new SelectList(db.Tickets, "Id", "AuthorId", ticketAttachment.TicketId);
+        //    return View(ticketAttachment);
+        //}
 
         // GET: TicketAttachments/Delete/5
         public ActionResult Delete(int? id)

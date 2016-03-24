@@ -8,6 +8,53 @@
 <div class="row">
     <div class="row">
         <div class="col-md-offset-1 col-md-5">
+            <!--attachments display panel-->
+            <div class="panel panel-primary">
+                <div class="panel-heading row">
+                    <h4 class="col-md-4">
+                        Attachments
+                    </h4>
+                    <div class="col-md-7 text-center">
+                        @Html.ActionLink("Create New", "Create", "TicketAttachments", new { id = Model.Id }, new { @class = "btn btn-success pull-right" })
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Author
+                            </th>
+                            <th>
+                                Notes
+                            </th>
+                            <th>
+                                Created
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Attachments)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Author.FirstName) @Html.DisplayFor(modelItem => item.Author.LastName)
+                                </td>
+                                <td id=@("abstract" + item.Id)>
+                                    @Html.DisplayFor(modelItem => item.Notes)
+                                </td>
+                                <td>
+                                    @item.Created.ToString("D"))
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Details", "Details", "TicketAttachments", new { id = item.Id }, new { @class = "btn btn-xs btn-default" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
             <div class="list-group">
             <hr />
                 <div class="list-group-item">
@@ -53,8 +100,59 @@
                 </div>
                 <hr />
             </div> <!-- /.list-group -->
+
+
+
         </div>
         <div class="col-md-5">
+            <!--comments display panel-->
+            <div class="panel panel-primary">
+                <div class="panel-heading row">
+                    <h4 class="col-md-4">
+                        Comments
+                    </h4>
+                    <div class="col-md-7 text-center">
+                        @Html.ActionLink("Create New", "Create", "TicketComments", new { id = Model.Id }, new { @class = "btn btn-success pull-right" })
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Author
+                            </th>
+                            <th>
+                                Body
+                            </th>
+                            <th>
+                                Created
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Comments)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Author.FirstName) @Html.DisplayFor(modelItem => item.Author.LastName)
+                                </td>
+                                <td id=@("abstract" + item.Id)>
+                                    @Html.DisplayFor(modelItem => item.Body)
+                                </td>
+                                <td>
+                                    @item.Created.ToString("D"))
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Details", "Details", "TicketComments", new { id = item.Id }, new { @class = "btn btn-xs btn-default" })
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-xs btn-danger" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
             <div class="list-group">
             <hr />
                 <div class="list-group-item">
@@ -83,6 +181,10 @@
                 </div>
             <hr />
             </div> <!-- /.list-group -->
+
+
+
+
         </div>
     </div>
 </div>
