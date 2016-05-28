@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>RV Home Code Project</title>
+    <style type="text/css">
+              .card {
+                  margin-left: auto;
+                  margin-right: auto;
+                  background-color: #18A0FF;
+                  color: white;
+                  height: 470px;
+                  width: 670px;
+                  position: relative;
+                  -webkit-box-shadow: 0 50px 50px -10px;
+                  box-shadow: 0 50px 25px -10px #666;
+                  font-family: Impact, Charcoal, sans-serif;
+              }
+
+              p {
+                  display: block;
+                  font-size: 300%;
+                  text-transform: uppercase;
+                  top: -400px;
+              }
+
+              .attribution {
+                  text-transform: none !important;
+                  display: block !important;
+                  font-size: 1em !important;
+              }
+
+              .quote-body {
+                  display: inline-block;
+                  position: absolute;
+                  transform: translateY(-50%);
+                  top: 50%;
+                  width: 75%;
+                  padding: 25px;
+                  margin-left: 175px;
+                  word-wrap: normal;
+              }
+
+              #quote-float {
+                  display: inline-block;
+                  position: absolute;
+                  margin-left: 30px;
+                  margin-top: 15px;
+                  width: 25%;
+                  height: 25%;
+                  max-height: 25%;
+                  max-width: 25%;
+              }
+
+              img {
+                  width: 45%;
+                  height: 45%;
+                  max-height: 45%;
+                  max-width: 45%;
+              }
+
+              .nav {
+                  bottom: .5em;
+                  color: white;
+                  display: block;
+                  font-weight: 800;
+                  left: .25em;
+                  position: absolute;
+                  z-index: 1 !important;
+                  margin-left: 28px;
+                  margin-right: auto;
+              }
+
+              button {
+                  -webkit-appearance: none;
+                  border: none;
+                  background-color: transparent;
+              }
+
+              .button {
+                  font-size: 2em;
+                  margin: 0 .5em;
+              }
+
+              .gandalf {
+                  display: inline-block;
+                  width: 25%;
+                  opacity: 0.6;
+                  object-fit: cover;
+                  height: 100%;
+                  position: absolute;
+                  background-image: url("https://s-media-cache-ak0.pinimg.com/736x/65/39/8e/65398e8cdce4632c0a908d82a62f907c.jpg");
+                  overflow: hidden;
+              }
+
+              .saruman {
+                  display: inline-block;
+                  width: 25%;
+                  opacity: 0.6;
+                  height: 100%;
+                  object-fit: cover;
+                  position: absolute;
+                  background-image: url("http://vignette2.wikia.nocookie.net/lotr/images/b/bd/BOTFA_-_Saruman.jpg/revision/latest?cb=20141106182903 ");
+                  background-size: 675%;
+                  /*-ms-background-position-x: center;
+        -ms-background-position-y: center;*/
+                  background-position: 27% 50%;
+                  background-repeat: no-repeat;
+                  overflow: hidden;
+              }
+
+              html {
+                  background: #AEAEAE;
+              }
+
+              #likes {
+                  text-align: right;
+                  margin-top: 15px;
+                  margin-right: 30px;
+                  float: right;
+                  justify-content: space-between;
+                  opacity: .7;
+              }
+
+              #counter {
+                  -webkit-appearance: none;
+                  border: none;
+                  background-color: transparent;
+                  width: 40px;
+                  font-family: Impact, Charcoal, sans-serif;
+                  color: whitesmoke;
+              }
+
+              .large {
+                  cursor: pointer;
+                  font-size: 200%;
+              }
+
+              .white {
+                  color: whitesmoke;
+              }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+    <div class="card" id="main">
+        <div id="quote-float"><img src="http://www.wordzworth.com/images/icons/big-quote-marks-opening.png" /></div>
+        <div id="likes"><i class="material-icons" onclick="upVote()" onmouseover="alive()" onmouseout="dead()">&#xE815;</i><input type="number" disabled id="counter" value="0" /></div>
+        <div id="person" class=""><!--bg img is set here--></div>
+        <div class="quote-body">
+            <p id="quote"><!--actual quote text goes here--></p>
+            <div id="author" class="attribution"><!--attribution goes here--></div>
+        </div>
+
+        <div class="nav">
+            <!--these are the nav buttons-->
+            <button type="button" onclick='nextSlide()' onmouseover="white()" onmouseout="black()" class="button" id="nav1">&#9001;</button>
+            <button type="button" onclick='nextSlide()' onmouseover="white()" onmouseout="black()" class="button" id="nav2">&#9002;</button>
+        </div>
+    </div>
+
+    <!--load jQuery-->
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+    <script>
+        //sets initial card on DOM ready
+        $(document).ready(function () {
+            $('#person').addClass('saruman');
+            $('#quote').html("Time? What time <br/>do you think we have?");
+            $('#author').html("- Saruman the Wise");
+        })
+
+        //changes card on click. If more cards were needed, would probably used id numbers or elseif
+        function nextSlide() {
+            if ($('#person').hasClass('saruman'))
+            {
+                $('#person').removeClass('saruman');
+                $('#person').addClass('gandalf');
+                $('#author').html("– Gandalf the Grey");
+                $('#quote').html("All we have to decide <br/>is what to do with <br/>the time that is given<br/> to us.");
+            } else {
+                $('#person').removeClass('gandalf');
+                $('#person').addClass('saruman');
+                $('#author').html("– Saruman the White");
+                $('#quote').html("Time? What time <br/> do you think we have?");
+            }
+        }
+
+        //increments like counter
+        function upVote(){
+            var num = parseInt($("#counter").val(), 10);
+            $("#counter").val(num + 1);
+        }
+
+        //wakes up the like and nav buttons
+        function alive() {
+            $("#likes").addClass('large');
+        }
+
+        function dead() {
+            $("#likes").removeClass('large');
+        }
+        //nav buttons
+        function white() {
+            $("#nav1").addClass('white');
+            $("#nav2").addClass('white');
+        }
+
+        function black() {
+            $("#nav1").removeClass('white');
+            $("#nav2").removeClass('white');
+        }
+    </script>
+
+</body>
+</html>

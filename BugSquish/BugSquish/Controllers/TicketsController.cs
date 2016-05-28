@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BugSquish.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BugSquish.Controllers
 {
@@ -171,10 +172,46 @@ namespace BugSquish.Controllers
         {
             if (ModelState.IsValid)
             {
+                var properties = new List<string>() {"Updated", "Description", "TicketTypeId", "TicketStatusId"};
 
+                //gets ticket id and holds it for comparison
+                var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
+
+                var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
+
+
+                if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                {
+                    //Check Ticket Priority
+                    if (oldTicket.PriorityId != ticket.PriorityId)
+                    {
+                        var newUser = db.Users.Find(ticket.DeveloperId);
+                        properties.Add("TicketPriorityId");
+                        var ChangedPriority = new TicketChange{
+                            TicketId = ticket.Id,
+                            EditorId = user,
+                            Property = "Ticket Priority",
+                            OldValue = db.Priorities.FirstOrDefault(p => p.Id == oldTicket.PriorityId).Name,
+                            NewValue = db.Priorities.FirstOrDefault(p => p.Id == ticket.PriorityId).Name,
+                            EditedTime = System.DateTimeOffset.Now
+                        };
+
+                        db.TicketChanges.Add(ChangedPriority);
+
+                        if(newUser != null{
+                            var mailer = new EmailService();
+                            var Notification = newUser != null ? new IdentityMessage(){
+                                Subject= "You have a new Notification",
+                                Destination = newUser.Email,
+                                Body = "The priority for your ticket: " + ticket.Title + " has been changed.\n" + Environment.NewLine + " The new priority is: " + db.Priorities.FirstOrDefault(p => p.Id == ticket.PriorityId).Name } : null;
+                                mailer.Send(Notification);
+                        }
+                    }
+                }
                 ticket.Updated = new DateTimeOffset(DateTime.Now);
                 db.Entry(ticket).State = EntityState.Modified;
                 //DbExtensions.Update(db,["Title","Notes"]);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -135,6 +135,7 @@
     <Content Include="assets\img\fizzbuzz.jpg" />
     <Content Include="assets\img\fizzbuzz.png" />
     <Content Include="assets\img\gou-fishing.png" />
+    <Content Include="assets\img\greybox.jpg" />
     <Content Include="assets\img\hank halloween.jpg" />
     <Content Include="assets\img\job\car.jpg" />
     <Content Include="assets\img\main\project1.jpg" />
@@ -145,6 +146,7 @@
     <Content Include="assets\img\palindrome.png" />
     <Content Include="assets\img\palindromebig.jpg" />
     <Content Include="assets\img\pedicab.jpg" />
+    <Content Include="assets\img\redventures.jpg" />
     <Content Include="assets\img\shark.jpg" />
     <Content Include="assets\img\site logo-lg.png" />
     <Content Include="assets\img\site logo-sm-green.png" />
@@ -1422,6 +1424,7 @@
     <Content Include="index.html" />
     <Content Include="about.html" />
     <Content Include="portfolio.html" />
+    <Content Include="RVProject.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
